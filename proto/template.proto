@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "basicTypes.proto";
+import "slide.proto";
+
+message Template {
+
+  message Slide {
+    rv.data.Slide base_slide = 1;
+    string name = 2;
+
+  }
+  message Document {
+    rv.data.ApplicationInfo application_info = 1;
+    repeated rv.data.Template.Slide slides = 3;
+
+  }
+  message Identification {
+    rv.data.UUID uuid = 1;
+    string name = 2;
+    rv.data.UUID slide_uuid = 3;
+    string slide_name = 4;
+    uint32 slide_index = 5;
+
+  }
+}

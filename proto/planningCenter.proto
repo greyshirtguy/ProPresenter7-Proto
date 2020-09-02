@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "basicTypes.proto";
+import "timestamp.proto";
+import "presentation.proto";
+
+message PlanningCenterPlan {
+  uint32 plan_id = 1;
+  uint32 parent_id = 2;
+  string series_title = 3;
+  string plan_title = 4;
+  string date_list = 5;
+  rv.data.Timestamp created_date = 6;
+  rv.data.Timestamp update_date = 7;
+  rv.data.Timestamp last_update_check_date = 8;
+
+  message PlanItem {
+    enum PlanItemType {
+      PLAN_ITEM_TYPE_ITEM = 0;
+      PLAN_ITEM_TYPE_SONG = 1;
+      PLAN_ITEM_TYPE_MEDIA = 2;
+      PLAN_ITEM_TYPE_HEADER = 3;
+    }
+    PlanItemType item_type = 1;
+    uint32 pco_id = 2;
+    uint32 service_id = 3;
+    uint32 parent_id = 4;
+    string name = 5;
+    repeated rv.data.PlanningCenterPlan.PlanItem.Attachment attachments = 6;
+    rv.data.Timestamp update_date = 7;
+    rv.data.PlanningCenterPlan.PlanItem.SongItem linked_song = 8;
+
+    message Attachment {
+      string name = 1;
+      rv.data.URL url = 2;
+      rv.data.Timestamp created_date = 3;
+      rv.data.URL linked_path = 4;
+      uint32 pco_id = 5;
+      bool needs_update = 6;
+      rv.data.Timestamp update_date = 7;
+
+    }
+    message SongItem {
+      uint32 pco_id = 1;
+      uint32 arrangement_id = 2;
+      rv.data.Presentation.CCLI ccli = 3;
+      rv.data.PlanningCenterPlan.PlanItem.SongItem.Sequence sequence = 4;
+
+      message Sequence {
+        uint32 pco_id = 1;
+        string name = 2;
+        repeated string group_names = 3;
+
+      }
+    }
+  }
+}
