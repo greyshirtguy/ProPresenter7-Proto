@@ -32,3 +32,13 @@ In addition to the "usual disclaimers" that should obviously apply, please note 
   
 ### Well that should cover it.  
 Hopefully you understand what you are doing with these file, and have __multiple, good backups__ of your entire Pro7 configuration and documents and are ready to take full responsibility for your actions/experiments as you now have the power to auto-generate code that can read, write and modify ProPresenter 7 data files!
+
+
+#### Example of using with protoc to decode ProPresenter data files.
+In addition to using protoc to auto-generate code for handling ProPresenter data files you can _also_ use protoc to decode data files and output a (JSON-like) text representation of the files:
+
+1. Download protoc command for your system.
+2. Download these .proto files to a folder
+3. Open terminal/console and change to the folder containing the .proto files
+4. To decode a ProPresenter presentation document run `protoc --decode --decode rv.data.Presentation ./propresenter.proto < /Path/To/ProPresenter/PresentationFile`
+5. To decode a playlist file, run `protoc --decode --decode rv.data.PlaylistDocument ./propresenter.proto < /Path/To/ProPresenter/PlaylistFile`
