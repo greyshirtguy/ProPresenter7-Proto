@@ -40,5 +40,7 @@ In addition to using protoc to auto-generate code for handling ProPresenter data
 1. Download protoc command for your system.
 2. Download these .proto files to a folder
 3. Open terminal/console and change to the folder containing the .proto files
-4. To decode a ProPresenter presentation document run `protoc --decode rv.data.Presentation ./propresenter.proto < /Path/To/ProPresenter/PresentationFile`
-5. To decode a playlist file, run `protoc --decode rv.data.PlaylistDocument ./propresenter.proto < /Path/To/ProPresenter/PlaylistFile`
+4. To decode a ProPresenter presentation document run:  
+`protoc --decode rv.data.Presentation ./propresenter.proto < /Path/To/ProPresenter/PresentationFile`
+5. To decode a playlist file, run:  
+`protoc --decode rv.data.PlaylistDocument ./propresenter.proto < /Path/To/ProPresenter/PlaylistFile`
