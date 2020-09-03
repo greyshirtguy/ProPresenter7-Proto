@@ -25,7 +25,8 @@ In addition to the "usual disclaimers" that should obviously apply, please note 
 * __Do NOT contact Renewed Vision for support!__
 * _It's possible you might even be responsible for the destruction of millions of other computers around the world if your network is connected to the Internet._  
 * __Do NOT contact Renewed Vision for support!__
-
+  
+  
 ### Well that should cover it.  
 If you understand what you are doing, and have __multiple, good backups__ of your entire Pro7 configuration and documents......  
-Then go ahead and knock yourself out!
+You now have the power to auto-generate code that can read, write and modify ProPresenter 7 data files - go ahead and knock yourself out!
