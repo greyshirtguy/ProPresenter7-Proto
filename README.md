@@ -22,7 +22,7 @@ That's what you will find in this repository - a set of unofficial .proto files,
 __They are NOT created, endorsed or supported by the makers of ProPresenter: Renewed Vision.__ 
 
 In addition to the "usual disclaimers" that should obviously apply, please note the following:
-* If you don't understand what you are doing with these files or you don't have a proven backup and recovery process, you may end up destroying your ProPresenter documents and configuration with no way to recover what you have lost.
+* _If you don't understand what you are doing with these files or you don't have a proven backup and recovery process, you may end up destroying your ProPresenter documents and configuration with no way to recover what you have lost._
 * __Do NOT contact Renewed Vision for support!__
 * _You might also destroy the computer itself, and all other computers on the your network (including the Pastor's Macbook)._
 * __Do NOT contact Renewed Vision for support!__
