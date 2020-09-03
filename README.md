@@ -11,11 +11,11 @@ Instead, ProPresenter 7 uses Google "Protocol Buffers" to encode data stored in 
 
 Even though the new files encoded with protocol buffers are not human readable, one of the nice things about using protocol buffers is how easy it is to auto-generate code that to work with the files once you have the data structure (messages) defined in human-readable .proto files.  If you have the .proto files, you have everything you need to create, read and update the data files.
 
-That's what you will find in this repository. A set of unofficial .proto files that I have reverse-engineered to which you can use to simply auto-generate code for your applications and/or scripts that will enable you to read, create and modify ProPresenter 7 data files including:  
+That's what you will find in this repository - a set of unofficial .proto files, *that I have reverse-engineered*, which you can use to *auto-generate code* that will enable you to read, create and modify ProPresenter 7 data files including:  
 
-  * Documents
-  * PlayLists
-  * (TODO: all other protobuf definitions like workspace, stage, CCLI etc etc)
+  * ProPresenter7 Documents
+  * ProPresenter7 PlayLists
+  * (TODO: Other protobuf definitions like workspace, stage, CCLI etc etc)
   
   
 ## WARNING: These are unofficial, reverse-engineered .proto files created by myself as a user of ProPresenter.  
@@ -31,4 +31,4 @@ In addition to the "usual disclaimers" that should obviously apply, please note 
   
   
 ### Well that should cover it.  
-Hopefully you understand what you are doing with these file, and have __multiple, good backups__ of your entire Pro7 configuration and documents and are ready to full responsibility for your actions/experiments. You now have the power to auto-generate code that can read, write and modify ProPresenter 7 data files!
+Hopefully you understand what you are doing with these file, and have __multiple, good backups__ of your entire Pro7 configuration and documents and are ready to take full responsibility for your actions/experiments as you now have the power to auto-generate code that can read, write and modify ProPresenter 7 data files!
