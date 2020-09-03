@@ -1,6 +1,6 @@
 # ProPresenter7-Proto
 
-One of the things I really loved about ProPresenter 5 and 6 was how easy it was to read and understand the documents (and configuration) files. I loved being able to make scripts and programs that could help improve and automate our workflow while working with Pro6 documents.
+One of the things I really loved about ProPresenter 5 and 6 was how easy it was to read and understand the documents (and configuration) files. I loved being able to make scripts and programs that could help improve and automate our workflow by working directly with Pro6 documents.
 
 When Pro7 came out I was a bit surprised to find that the files were no longer easy-to-understand, human readable files.  
 It turns out that ProPresenter 7 uses Google Protocol Buffers to store document and various configuration files.  
