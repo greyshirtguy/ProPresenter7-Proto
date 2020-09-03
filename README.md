@@ -1,10 +1,15 @@
 # ProPresenter7-Proto
 
-ProPresenter 7 uses Google Protocol Buffers to store document and various configuration files.  
+One of the things I really loved about ProPresenter 5 and 6 was how easy it was to read and understand the documents (and configuration) files.  
+I loved being able to make scripts and programs that could help improve and automate our workflow while working with Pro6 documents.
+
+When Pro7 came out I was a bit surprised to find that the files were no longer easy-to-understand, human readable files.  
+It turns out that ProPresenter 7 uses Google Protocol Buffers to store document and various configuration files.  
 See https://developers.google.com/protocol-buffers
 
-This is a set of ***unsupported, reverse-engineered*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are stored as Google Protocol Buffers.
+Even though they are not human readable, one of the nice things about protocol-buffers is how easy it is to auto-generate code that can read/write/modify the files once you have the data structure (messages) defined in human-readable .proto files.  If you have the .proto files, you have everything you need to fully work with the files.
 
+This is a set of ***unsupported, reverse-engineered*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are stored as Google Protocol Buffers.
 
 Using these .proto files it is very simple to auto-generate code which you can add to your applications and/or scripts that will enable you to read, create and modify ProPresenter 7 data files including:
   * Documents
