@@ -16,7 +16,9 @@ Using these .proto files it is very simple to auto-generate code which you can a
   * PlayLists
   * (TODO: all other protobuf definitions like workspace, stage, CCLI etc etc)
   
-## WARNING: These are unsupported, reverse-engineered files created by a fan user - NOT RenewedVision.  
+## WARNING: These are unsupported, reverse-engineered files created by a fan user.  
+__They are NOT created, endorsed or supported by the makers of ProPresenter: RenewedVision.__ 
+
 In addition to the "usual disclaimers" that should obviously apply, please note the following:
 * __Do NOT contact Renewed Vision for support!__
 * _If you don't understand what you are doing and/or you don't have a brilliant backup and disaster-recovery processes, you may end up destroying your ProPresenter documents and configuration. Do not even try to use these proto files - if you don't know what you are doing_
