@@ -51,3 +51,6 @@ In addition to using protoc to auto-generate code for handling ProPresenter data
 `protoc --decode rv.data.Presentation ./propresenter.proto < /Path/To/ProPresenter/PresentationFile`
 5. To decode a playlist file, run:  
 `protoc --decode rv.data.PlaylistDocument ./propresenter.proto < /Path/To/ProPresenter/PlaylistFile`
+
+You can find more info/example at my blog:
+https://greyshirtguy.com/blog/propresenter-7-file-format-part-2/
