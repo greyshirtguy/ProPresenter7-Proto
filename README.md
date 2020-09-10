@@ -13,9 +13,16 @@ Even though the new files encoded with protocol buffers are not human readable, 
 
 That's what you will find in this repository - a set of unofficial .proto files, *that I have reverse-engineered*, which you can use to *auto-generate code* that will enable you to read, create and modify ProPresenter 7 data files including:  
 
-  * ProPresenter7 Documents
-  * ProPresenter7 PlayLists
-  * (TODO: Other protobuf definitions like workspace, stage, CCLI etc etc)
+  * Documents
+  * PlayLists
+  * Workspace
+  * Screens
+  * Calendar
+  * Masks
+  * Props
+  * Live Video
+  * Looks
+  * Recordings
   
   
 ## WARNING: These are unofficial, reverse-engineered .proto files created by myself as a user of ProPresenter.  
