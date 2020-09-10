@@ -1,0 +1,237 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "effects.proto";
+import "action.proto";
+import "graphicsData.proto";
+import "input.proto";
+
+message MediaMetadataRequestInfo {
+  string file_path = 1;
+  float time = 2;
+  uint32 width = 3;
+  uint32 height = 4;
+  repeated rv.data.Effect effects = 5;
+  rv.data.Graphics.EdgeInsets crop_insets = 6;
+  enum NativeRotationType {
+    NATIVE_ROTATION_TYPE_ROTATE_STANDARD = 0;
+    NATIVE_ROTATION_TYPE_ROTATE_90 = 90;
+    NATIVE_ROTATION_TYPE_ROTATE_180 = 180;
+    NATIVE_ROTATION_TYPE_ROTATE_270 = 270;
+  }
+  NativeRotationType native_rotation = 7;
+  bool flipped_horizontally = 8;
+  bool flipped_vertically = 9;
+
+}
+message MediaMetadataRequestResponse {
+  rv.data.MediaMetadataRequestResponse.Metadata metadata = 1;
+  rv.data.MediaMetadataRequestResponse.BitmapInfo generated_bitmap_info = 2;
+
+  message Metadata {
+    uint32 width = 1;
+    uint32 height = 2;
+    float fps = 3;
+    float duration = 4;
+    uint32 number_audio_channels = 5;
+    string codec = 6;
+    string artist = 7;
+    string title = 8;
+    float rotation = 9;
+    enum ContentType {
+      CONTENT_TYPE_UNKNOWN = 0;
+      CONTENT_TYPE_AUDIO = 1;
+      CONTENT_TYPE_IMAGE = 2;
+      CONTENT_TYPE_VIDEO = 3;
+    }
+    ContentType content_type = 10;
+
+  }
+  message BitmapInfo {
+    uint32 width = 1;
+    uint32 height = 2;
+
+  }
+}
+message TriggerOptions {
+  enum ContentDestination {
+    CONTENT_DESTINATION_GLOBAL = 0;
+    CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
+  }
+  ContentDestination content_destination = 1;
+  bool suppressAutoStartVideo = 2;
+  bool suppressMediaBackground = 3;
+  bool forceRetrigger = 4;
+  bool resetChordChart = 5;
+
+}
+message ControlTransport {
+  oneof ControlType {
+    rv.data.ControlTransport.PlayControlType play = 1;
+    rv.data.ControlTransport.PauseControlType pause = 2;
+    rv.data.ControlTransport.RewindControlType rewind = 3;
+    rv.data.ControlTransport.FastForwardControlType fastforward = 4;
+    rv.data.ControlTransport.SkipBackControlType skip_back = 5;
+    rv.data.ControlTransport.SkipForwardControlType skip_forward = 6;
+    rv.data.ControlTransport.StepBackControlType step_back = 7;
+    rv.data.ControlTransport.StepForwardControlType step_forward = 8;
+    rv.data.ControlTransport.GoToStartControlType go_to_start = 9;
+    rv.data.ControlTransport.GoToEndControlType go_to_end = 10;
+    rv.data.ControlTransport.JumpToTimeControlType jump_to_time = 11;
+    rv.data.ControlTransport.JumpToPercentControlType jump_to_percent = 12;
+    rv.data.ControlTransport.MarkInPointControlType mark_in = 13;
+    rv.data.ControlTransport.MarkOutPointControlType mark_out = 14;
+    rv.data.ControlTransport.SetScaleModeControlType set_scale_mode = 15;
+    rv.data.ControlTransport.SetFlippedModeControlType set_flipped_mode = 16;
+    rv.data.ControlTransport.SetPlayRateControlType set_play_rate = 17;
+    rv.data.ControlTransport.SetNativeRotationControlType set_rotation = 18;
+    rv.data.ControlTransport.TogglePlaybackControlType toggle_playback = 19;
+    rv.data.ControlTransport.SetEffectsControlType set_effects = 20;
+    rv.data.ControlTransport.UpdateEffectControlType update_effect = 21;
+    rv.data.ControlTransport.BeginScrubControlType begin_scrub = 22;
+    rv.data.ControlTransport.EndScrubControlType end_scrub = 23;
+    rv.data.ControlTransport.ScrubToTimeControlType scrub_to_time = 24;
+    rv.data.ControlTransport.ScrubToPercentControlType scrub_to_percent = 25;
+    rv.data.ControlTransport.SetAudioFadeType set_audio_fade = 26;
+    rv.data.ControlTransport.SetAudioPropertiesType set_audio_properties = 27;
+  }
+
+
+  message PlayControlType {
+
+  }
+  message PauseControlType {
+
+  }
+  message RewindControlType {
+
+  }
+  message FastForwardControlType {
+
+  }
+  message SkipBackControlType {
+    double offset = 1;
+
+  }
+  message SkipForwardControlType {
+    double offset = 1;
+
+  }
+  message StepBackControlType {
+
+  }
+  message StepForwardControlType {
+
+  }
+  message GoToStartControlType {
+    double offset = 1;
+
+  }
+  message GoToEndControlType {
+    double offset = 1;
+
+  }
+  message JumpToTimeControlType {
+    double time = 1;
+
+  }
+  message JumpToPercentControlType {
+    double percent = 1;
+
+  }
+  message MarkInPointControlType {
+    double time = 1;
+
+  }
+  message MarkOutPointControlType {
+    double time = 1;
+
+  }
+  message SetScaleModeControlType {
+    enum ScaleBehavior {
+      SCALE_BEHAVIOR_FIT = 0;
+      SCALE_BEHAVIOR_FILL = 1;
+      SCALE_BEHAVIOR_STRETCH = 2;
+      SCALE_BEHAVIOR_CUSTOM = 3;
+    }
+    ScaleBehavior mode = 1;
+    enum ScaleAlignment {
+      SCALE_ALIGNMENT_MIDDLE_CENTER = 0;
+      SCALE_ALIGNMENT_TOP_LEFT = 1;
+      SCALE_ALIGNMENT_TOP_CENTER = 2;
+      SCALE_ALIGNMENT_TOP_RIGHT = 3;
+      SCALE_ALIGNMENT_MIDDLE_RIGHT = 4;
+      SCALE_ALIGNMENT_BOTTOM_RIGHT = 5;
+      SCALE_ALIGNMENT_BOTTOM_CENTER = 6;
+      SCALE_ALIGNMENT_BOTTOM_LEFT = 7;
+      SCALE_ALIGNMENT_MIDDLE_LEFT = 8;
+    }
+    ScaleAlignment alignment = 2;
+
+  }
+  message SetFlippedModeControlType {
+    bool horizontal = 1;
+    bool vertical = 2;
+
+  }
+  message SetPlayRateControlType {
+    double play_rate = 1;
+
+  }
+  message SetNativeRotationControlType {
+    enum NativeRotationType {
+      NATIVE_ROTATION_TYPE_ROTATE_STANDARD = 0;
+      NATIVE_ROTATION_TYPE_ROTATE_90 = 90;
+      NATIVE_ROTATION_TYPE_ROTATE_180 = 180;
+      NATIVE_ROTATION_TYPE_ROTATE_270 = 270;
+    }
+    NativeRotationType rotation = 1;
+
+  }
+  message TogglePlaybackControlType {
+
+  }
+  message SetEffectsControlType {
+    repeated rv.data.Effect effects = 1;
+
+  }
+  message UpdateEffectControlType {
+    rv.data.Effect effect = 1;
+
+  }
+  message BeginScrubControlType {
+
+  }
+  message EndScrubControlType {
+
+  }
+  message ScrubToTimeControlType {
+    double time = 1;
+
+  }
+  message ScrubToPercentControlType {
+    double percent = 1;
+
+  }
+  message SetAudioFadeType {
+    double fade_in_duration = 1;
+    double fade_out_duration = 2;
+    bool should_fade_in = 3;
+    bool should_fade_out = 4;
+
+  }
+  message SetAudioPropertiesType {
+    rv.data.Media.AudioProperties audio_properties = 1;
+    repeated bool solo = 2;
+
+  }
+}
+message AudioInputSettings {
+  repeated rv.data.AudioInput inputs = 1;
+
+}
+message VideoInputSettings {
+  repeated rv.data.VideoInput inputs = 1;
+
+}
