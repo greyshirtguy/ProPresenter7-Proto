@@ -198,11 +198,25 @@ message Graphics {
     }
     ScaleBehavior scale_behavior = 7;
     rv.data.Graphics.EdgeInsets margins = 8;
+    bool is_superscript_standardized = 9;
 
     message LineFillMask {
       bool enabled = 1;
       double height_offset = 2;
       double vertical_offset = 3;
+      enum LineMaskStyle {
+        LINE_MASK_STYLE_FULL_WIDTH = 0;
+        LINE_MASK_STYLE_LINE_WIDTH = 1;
+        LINE_MASK_STYLE_MAX_LINE_WIDTH = 2;
+      }
+      LineMaskStyle mask_style = 4;
+      double width_offset = 5;
+      double horizontal_offset = 6;
+
+    }
+    message GradientFill {
+      rv.data.Graphics.Gradient gradient = 1;
+      bool stretch_to_document_bounds = 2;
 
     }
     message Attributes {
@@ -215,7 +229,6 @@ message Graphics {
         CAPITALIZATION_START_CASE = 4;
       }
       Capitalization capitalization = 2;
-      rv.data.Color text_color = 3;
       rv.data.Graphics.Text.Attributes.Underline underline_style = 4;
       rv.data.Color underline_color = 5;
       rv.data.Graphics.Text.Attributes.Paragraph paragraph_style = 6;
@@ -226,6 +239,12 @@ message Graphics {
       double stroke_width = 11;
       rv.data.Color stroke_color = 12;
       repeated rv.data.Graphics.Text.Attributes.CustomAttribute custom_attributes = 13;
+      rv.data.Color background_color = 15;
+      oneof fill {
+        rv.data.Color text_solid_fill = 3;
+        rv.data.Graphics.Text.GradientFill text_gradient_fill = 14;
+      }
+
 
       message Font {
         string name = 1;
@@ -323,8 +342,9 @@ message Graphics {
         }
         oneof Attribute {
           Capitalization capitalization = 2;
-          double originalFontSize = 3;
-          double fontScaleFactor = 4;
+          double original_font_size = 3;
+          double font_scale_factor = 4;
+          rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
         }
 
 
@@ -389,7 +409,6 @@ message Media {
       repeated rv.data.Media.Audio.Channel.Output outputs = 5;
 
       message Output {
-        rv.data.UUID uuid = 1;
         int32 channel_index = 2;
 
       }

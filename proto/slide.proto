@@ -75,6 +75,18 @@ message Slide {
         rv.data.Slide.Element.DataLink.VideoCountdown video_countdown = 12;
         rv.data.Slide.Element.DataLink.SlideImage slide_image = 13;
         rv.data.Slide.Element.DataLink.CCLIText ccli_text = 14;
+        rv.data.Slide.Element.DataLink.GroupName group_name = 15;
+        rv.data.Slide.Element.DataLink.GroupColor group_color = 16;
+        rv.data.Slide.Element.DataLink.PresentationNotes presentation_notes = 17;
+        rv.data.Slide.Element.DataLink.PlaylistItem playlist_item = 18;
+        rv.data.Slide.Element.DataLink.AutoAdvanceTimeRemaining auto_advance_time_remaining = 19;
+        rv.data.Slide.Element.DataLink.CaptureStatusText capture_status_text = 20;
+        rv.data.Slide.Element.DataLink.CaptureStatusColor capture_status_color = 21;
+        rv.data.Slide.Element.DataLink.SlideCount slide_count = 22;
+        rv.data.Slide.Element.DataLink.AudioCountdown audio_countdown = 23;
+        rv.data.Slide.Element.DataLink.Presentation presentation = 24;
+        rv.data.Slide.Element.DataLink.SlideLabelText slide_Label_Text = 25;
+        rv.data.Slide.Element.DataLink.SlideLabelColor slide_Label_Color = 26;
       }
 
 
@@ -183,6 +195,9 @@ message Slide {
             rv.data.Slide.Element.DataLink.VisibilityLink.Condition.ElementVisibility element_visibility = 1;
             rv.data.Slide.Element.DataLink.VisibilityLink.Condition.TimerVisibility timer_visibility = 2;
             rv.data.Slide.Element.DataLink.VisibilityLink.Condition.VideoCountdownVisibility video_countdown_visibility = 3;
+            rv.data.Slide.Element.DataLink.VisibilityLink.Condition.CaptureSessionVisibility capture_session_visibility = 4;
+            rv.data.Slide.Element.DataLink.VisibilityLink.Condition.VideoInputVisibility video_input_visibility = 5;
+            rv.data.Slide.Element.DataLink.VisibilityLink.Condition.AudioCountdownVisibility audio_countdown_visibility = 6;
           }
 
 
@@ -220,6 +235,35 @@ message Slide {
             VideoCountdownVisibilityCriterion visibility_criterion = 1;
 
           }
+          message AudioCountdownVisibility {
+            enum AudioCountdownVisibilityCriterion {
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_HAS_TIME_REMAINING = 0;
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_HAS_EXPIRED = 1;
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_IS_RUNNING = 2;
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_NOT_RUNNING = 3;
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_LOOPING = 4;
+              AUDIO_COUNTDOWN_VISIBILITY_CRITERION_NOT_LOOPING = 5;
+            }
+            AudioCountdownVisibilityCriterion visibility_criterion = 1;
+
+          }
+          message CaptureSessionVisibility {
+            enum CaptureSessionVisibilityCriterion {
+              CAPTURE_SESSION_VISIBILITY_CRITERION_ACTIVE = 0;
+              CAPTURE_SESSION_VISIBILITY_CRITERION_INACTIVE = 1;
+            }
+            CaptureSessionVisibilityCriterion visibility_criterion = 1;
+
+          }
+          message VideoInputVisibility {
+            int32 video_input_index = 1;
+            enum VideoInputVisibilityCriterion {
+              VIDEO_INPUT_VISIBILITY_CRITERION_ACTIVE = 0;
+              VIDEO_INPUT_VISIBILITY_CRITERION_INACTIVE = 1;
+            }
+            VideoInputVisibilityCriterion visibility_criterion = 2;
+
+          }
         }
       }
       message SlideText {
@@ -231,9 +275,18 @@ message Slide {
         enum TextSourceOption {
           TEXT_SOURCE_OPTION_TEXT = 0;
           TEXT_SOURCE_OPTION_NOTES = 1;
+          TEXT_SOURCE_OPTION_ELEMENT_MATCHING_NAME = 2;
         }
         TextSourceOption source_option = 2;
         bool preserve_notes_format = 3;
+        string name_to_match = 4;
+        enum TextTransformOption {
+          TEXT_TRANSFORM_OPTION_NONE = 0;
+          TEXT_TRANSFORM_OPTION_REMOVE_LINE_RETURNS = 1;
+          TEXT_TRANSFORM_OPTION_ONE_WORD_PER_LINE = 2;
+          TEXT_TRANSFORM_OPTION_ONE_CHARACTER_PER_LINE = 3;
+        }
+        TextTransformOption element_text_transform = 5;
 
       }
       message SlideImage {
@@ -253,6 +306,112 @@ message Slide {
         rv.data.Timer.Format timer_format = 1;
         string timer_format_string = 2;
         repeated rv.data.Slide.Element.DataLink.ColorTrigger color_triggers = 3;
+        bool ignore_looping_videos = 4;
+        enum VideoCountdownSource {
+          VIDEO_COUNTDOWN_SOURCE_PRESENTATION = 0;
+          VIDEO_COUNTDOWN_SOURCE_ANNOUNCEMENT = 1;
+        }
+        VideoCountdownSource video_countdown_source = 5;
+
+      }
+      message AudioCountdown {
+        rv.data.Timer.Format timer_format = 1;
+        string timer_format_string = 2;
+        repeated rv.data.Slide.Element.DataLink.ColorTrigger color_triggers = 3;
+        bool ignore_looping_audio = 4;
+
+      }
+      message GroupName {
+        enum GroupSourceType {
+          GROUP_SOURCE_TYPE_CURRENT_SLIDE = 0;
+          GROUP_SOURCE_TYPE_NEXT_SLIDE = 1;
+          GROUP_SOURCE_TYPE_NEXT_GROUP = 2;
+        }
+        GroupSourceType groupSource = 1;
+
+      }
+      message GroupColor {
+        enum GroupSourceType {
+          GROUP_SOURCE_TYPE_CURRENT_SLIDE = 0;
+          GROUP_SOURCE_TYPE_NEXT_SLIDE = 1;
+          GROUP_SOURCE_TYPE_NEXT_GROUP = 2;
+        }
+        GroupSourceType groupSource = 1;
+
+      }
+      message SlideLabelText {
+        enum SlideLabelSource {
+          SLIDE_LABEL_SOURCE_CURRENT_SLIDE = 0;
+          SLIDE_LABEL_SOURCE_NEXT_SLIDE = 1;
+        }
+        SlideLabelSource slide_label_source = 1;
+
+      }
+      message SlideLabelColor {
+        enum SlideLabelSource {
+          SLIDE_LABEL_SOURCE_CURRENT_SLIDE = 0;
+          SLIDE_LABEL_SOURCE_NEXT_SLIDE = 1;
+        }
+        SlideLabelSource slide_label_source = 1;
+
+      }
+      message PresentationNotes {
+
+      }
+      message Presentation {
+        enum PresentationSource {
+          PRESENTATION_SOURCE_PRESENTATION = 0;
+          PRESENTATION_SOURCE_ANNOUNCEMENT = 1;
+        }
+        PresentationSource presentation_source = 1;
+
+      }
+      message PlaylistItem {
+        enum PlaylistItemSourceType {
+          PLAYLIST_ITEM_SOURCE_TYPE_CURRENT = 0;
+          PLAYLIST_ITEM_SOURCE_TYPE_NEXT = 1;
+          PLAYLIST_ITEM_SOURCE_TYPE_CURRENT_HEADER = 2;
+          PLAYLIST_ITEM_SOURCE_TYPE_NEXT_HEADER = 3;
+          PLAYLIST_ITEM_SOURCE_TYPE_PARENT_PLAYLIST = 4;
+        }
+        PlaylistItemSourceType playlistItemSource = 1;
+        bool showArrangement = 2;
+
+      }
+      message AutoAdvanceTimeRemaining {
+        enum AutoAdvanceSource {
+          AUTO_ADVANCE_SOURCE_PRESENTATION = 0;
+          AUTO_ADVANCE_SOURCE_ANNOUNCEMENT = 1;
+        }
+        AutoAdvanceSource auto_advance_source = 1;
+        rv.data.Timer.Format timer_format = 2;
+
+      }
+      message CaptureStatusText {
+        oneof TextType {
+          rv.data.Slide.Element.DataLink.CaptureStatusText.StatusText status_text = 1;
+          rv.data.Slide.Element.DataLink.CaptureStatusText.ElapsedTime elapsed_time = 2;
+        }
+
+
+        message StatusText {
+
+        }
+        message ElapsedTime {
+          rv.data.Timer.Format timer_format = 1;
+
+        }
+      }
+      message CaptureStatusColor {
+
+      }
+      message SlideCount {
+        enum SlideCountSourceType {
+          SLIDE_COUNT_SOURCE_TYPE_CURRENT = 0;
+          SLIDE_COUNT_SOURCE_TYPE_REMAINING = 1;
+          SLIDE_COUNT_SOURCE_TYPE_TOTAL = 2;
+        }
+        SlideCountSourceType slideCountSourceType = 1;
 
       }
     }
