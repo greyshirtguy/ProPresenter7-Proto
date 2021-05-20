@@ -20,6 +20,8 @@ message ProAudienceLook {
     bool presentation_foreground_enabled = 7;
     rv.data.UUID mask_uuid = 8;
     bool announcements_enabled = 9;
+    bool props_layer_enabled = 10;
+    bool messages_layer_enabled = 11;
 
   }
 }

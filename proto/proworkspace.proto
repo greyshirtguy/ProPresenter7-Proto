@@ -23,5 +23,6 @@ message ProPresenterWorkspace {
   rv.data.Recording.SettingsDocument record_settings = 9;
   rv.data.DigitalAudio.Setup digital_audio_setup = 10;
   repeated rv.data.AudioInput audio_inputs = 11;
+  double audio_input_transition_time = 12;
 
 }

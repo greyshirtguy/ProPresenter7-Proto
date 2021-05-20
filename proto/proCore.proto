@@ -6,6 +6,8 @@ import "effects.proto";
 import "action.proto";
 import "graphicsData.proto";
 import "input.proto";
+import "recording.proto";
+import "basicTypes.proto";
 
 message MediaMetadataRequestInfo {
   string file_path = 1;
@@ -64,6 +66,8 @@ message TriggerOptions {
   bool suppressMediaBackground = 3;
   bool forceRetrigger = 4;
   bool resetChordChart = 5;
+  bool fromPlaylistLibrary = 6;
+  bool ignore_analytics = 7;
 
 }
 message ControlTransport {
@@ -229,9 +233,27 @@ message ControlTransport {
 }
 message AudioInputSettings {
   repeated rv.data.AudioInput inputs = 1;
+  double transitionTime = 2;
 
 }
 message VideoInputSettings {
   repeated rv.data.VideoInput inputs = 1;
 
+}
+message RecordRequest {
+  rv.data.Recording.Stream stream = 1;
+  rv.data.URL working_directory = 2;
+  rv.data.RecordRequest.Resi resi = 3;
+
+  message Resi {
+    uint32 gop = 1;
+    double segmentSize = 2;
+    string destinationGroupId = 3;
+    uint32 bufSize = 4;
+    uint32 minRate = 5;
+    uint32 maxRate = 6;
+    string eventName = 7;
+    string social_description = 8;
+
+  }
 }

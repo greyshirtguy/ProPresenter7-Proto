@@ -83,9 +83,15 @@ message Recording {
       oneof Destination {
         rv.data.Recording.Stream.DiskDestination disk = 1;
         rv.data.Recording.Stream.RTMPDestination rtmp = 2;
+        rv.data.Recording.Stream.Destination.Resi resi = 3;
       }
 
 
+      message Resi {
+        rv.data.UUID destination_group_id = 1;
+        rv.data.UUID encoder_profile_id = 2;
+
+      }
     }
   }
 }
