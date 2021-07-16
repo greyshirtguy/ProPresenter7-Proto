@@ -46,6 +46,8 @@ message Action {
     ACTION_TYPE_AUDIO_INPUT = 19;
     ACTION_TYPE_AUDIO_BIN_PLAYLIST = 20;
     ACTION_TYPE_MEDIA_BIN_PLAYLIST = 21;
+    ACTION_TYPE_SLIDE_DESTINATION = 22;
+    ACTION_TYPE_MACRO = 23;
   }
   ActionType type = 9;
   oneof ActionTypeData {
@@ -71,6 +73,8 @@ message Action {
     rv.data.Action.ExternalPresentationType external_presentation = 36;
     rv.data.Action.AudienceLookType audience_look = 37;
     rv.data.Action.AudioInputType audio_input = 38;
+    rv.data.Action.SlideDestinationType slide_destination = 39;
+    rv.data.Action.MacroType macro = 40;
   }
 
 
@@ -237,6 +241,7 @@ message Action {
       ACTION_STOP = 1;
       ACTION_RESET = 2;
       ACTION_RESET_AND_START = 3;
+      ACTION_STOP_AND_RESET = 4;
     }
     TimerAction action_type = 2;
     rv.data.CollectionElementType timer_identification = 4;
@@ -270,6 +275,15 @@ message Action {
       SLIDE_TARGET_ALL = 2;
     }
     SlideTarget slide_target = 5;
+
+  }
+  message SlideDestinationType {
+    enum SlideTarget {
+      SLIDE_TARGET_NO_CHANGE = 0;
+      SLIDE_TARGET_STAGE_ONLY = 1;
+      SLIDE_TARGET_ALL = 2;
+    }
+    SlideTarget slide_target = 1;
 
   }
   message PropType {
@@ -385,6 +399,10 @@ message Action {
     rv.data.AudioInput.BehaviorMode behavior_mode = 3;
     bool override_volume = 4;
     double volume = 5;
+
+  }
+  message MacroType {
+    rv.data.CollectionElementType identification = 1;
 
   }
 }

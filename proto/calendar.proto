@@ -34,12 +34,17 @@ message Calendar {
       rv.data.UUID uuid = 2;
       oneof ActionType {
         rv.data.Calendar.Event.Action.Playlist playlist = 3;
+        rv.data.Calendar.Event.Action.Macro macro = 4;
       }
 
 
       message Playlist {
         rv.data.UUID playlist_uuid = 1;
         rv.data.UUID playlist_item_uuid = 2;
+
+      }
+      message Macro {
+        rv.data.CollectionElementType identification = 1;
 
       }
     }

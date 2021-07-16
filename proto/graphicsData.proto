@@ -199,6 +199,15 @@ message Graphics {
     ScaleBehavior scale_behavior = 7;
     rv.data.Graphics.EdgeInsets margins = 8;
     bool is_superscript_standardized = 9;
+    enum Transform {
+      TRANSFORM_NONE = 0;
+      TRANSFORM_SINGLE_LINE = 1;
+      TRANSFORM_ONE_WORD_PER_LINE = 2;
+      TRANSFORM_ONE_CHARACTER_PER_LINE = 3;
+      TRANSFORM_REPLACE_LINE_RETURNS = 4;
+    }
+    Transform transform = 10;
+    string transformDelimiter = 11;
 
     message LineFillMask {
       bool enabled = 1;

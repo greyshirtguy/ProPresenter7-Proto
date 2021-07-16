@@ -31,6 +31,7 @@ message Slide {
     repeated rv.data.Slide.Element.DataLink data_links = 6;
     repeated rv.data.Slide.Element.ChildBuild childBuilds = 7;
     uint32 reveal_from_index = 8;
+    rv.data.Slide.Element.TextScroller text_scroller = 9;
 
     message Build {
       rv.data.UUID uuid = 1;
@@ -87,9 +88,25 @@ message Slide {
         rv.data.Slide.Element.DataLink.Presentation presentation = 24;
         rv.data.Slide.Element.DataLink.SlideLabelText slide_Label_Text = 25;
         rv.data.Slide.Element.DataLink.SlideLabelColor slide_Label_Color = 26;
+        rv.data.Slide.Element.DataLink.RSSFeed rss_feed = 27;
+        rv.data.Slide.Element.DataLink.FileFeed file_feed = 28;
       }
 
 
+      message RSSFeed {
+        rv.data.URL url = 1;
+        enum ContentType {
+          CONTENT_TYPE_TITLE_ONLY = 0;
+          CONTENT_TYPE_TITLE_AND_DESCRIPTION = 1;
+        }
+        ContentType content = 2;
+        string text_delimiter = 3;
+
+      }
+      message FileFeed {
+        rv.data.URL url = 1;
+
+      }
       message Ticker {
         double play_rate = 4;
         bool should_loop = 5;
@@ -414,6 +431,23 @@ message Slide {
         SlideCountSourceType slideCountSourceType = 1;
 
       }
+    }
+    message TextScroller {
+      bool should_scroll = 1;
+      double scroll_rate = 2;
+      bool should_repeat = 3;
+      double repeat_distance = 4;
+      enum Direction {
+        DIRECTION_LEFT = 0;
+        DIRECTION_RIGHT = 1;
+        DIRECTION_UP = 2;
+        DIRECTION_DOWN = 3;
+      }
+      Direction scrolling_direction = 5;
+      bool starts_off_screen = 6;
+      double fade_left = 7;
+      double fade_right = 8;
+
     }
   }
 }

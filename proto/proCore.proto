@@ -257,3 +257,13 @@ message RecordRequest {
 
   }
 }
+message TextSegmentRequest {
+  repeated rv.data.TextSegmentRequest.Segment segments = 1;
+  double start_position = 2;
+
+  message Segment {
+    uint32 index = 1;
+    double size = 2;
+
+  }
+}

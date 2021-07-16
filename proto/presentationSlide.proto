@@ -6,6 +6,7 @@ import "slide.proto";
 import "basicTypes.proto";
 import "alignmentGuide.proto";
 import "effects.proto";
+import "graphicsData.proto";
 
 message PresentationSlide {
   rv.data.Slide base_slide = 1;
@@ -16,6 +17,7 @@ message PresentationSlide {
 
   message Notes {
     bytes rtf_data = 1;
+    rv.data.Graphics.Text.Attributes attributes = 2;
 
   }
 }
