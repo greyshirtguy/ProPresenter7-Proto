@@ -32,6 +32,7 @@ message Playlist {
     TIMING_TYPE_TIME_OF_DAY = 2;
   }
   TimingType timing = 11;
+  rv.data.Playlist.StartupInfo startup_info = 16;
   oneof ChildrenType {
     rv.data.Playlist.PlaylistArray playlists = 12;
     rv.data.Playlist.PlaylistItems items = 13;
@@ -66,16 +67,22 @@ message Playlist {
     rv.data.UUID uuid = 3;
 
   }
+  message StartupInfo {
+    bool trigger_on_startup = 1;
+
+  }
 }
 message PlaylistItem {
   rv.data.UUID uuid = 1;
   string name = 2;
   repeated rv.data.UUID tags = 7;
+  bool is_hidden = 9;
   oneof ItemType {
     rv.data.PlaylistItem.Header header = 3;
     rv.data.PlaylistItem.Presentation presentation = 4;
     rv.data.Cue cue = 5;
     rv.data.PlaylistItem.PlanningCenter planning_center = 6;
+    rv.data.PlaylistItem.Placeholder placeholder = 8;
   }
 
 
@@ -97,6 +104,10 @@ message PlaylistItem {
   message PlanningCenter {
     rv.data.PlanningCenterPlan.PlanItem item = 1;
     rv.data.PlaylistItem linked_data = 2;
+
+  }
+  message Placeholder {
+    rv.data.PlaylistItem linked_data = 1;
 
   }
 }
