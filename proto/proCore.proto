@@ -67,7 +67,8 @@ message TriggerOptions {
   bool forceRetrigger = 4;
   bool resetChordChart = 5;
   bool fromPlaylistLibrary = 6;
-  bool ignore_analytics = 7;
+  bool fromTimeline = 7;
+  bool ignore_analytics = 8;
 
 }
 message ControlTransport {
