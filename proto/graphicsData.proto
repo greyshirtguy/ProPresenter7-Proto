@@ -304,6 +304,7 @@ message Graphics {
         repeated rv.data.Graphics.Text.Attributes.Paragraph.TabStop tab_stops = 11;
         double default_tab_interval = 12;
         rv.data.Graphics.Text.Attributes.Paragraph.TextList text_list = 13;
+        repeated rv.data.Graphics.Text.Attributes.Paragraph.TextList text_lists = 14;
 
         message TabStop {
           double location = 1;
@@ -354,6 +355,7 @@ message Graphics {
           double original_font_size = 3;
           double font_scale_factor = 4;
           rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
+          bool should_preserve_foreground_color = 6;
         }
 
 
