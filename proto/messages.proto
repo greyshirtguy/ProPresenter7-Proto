@@ -46,6 +46,7 @@ message Message {
   }
   message TokenValue {
     rv.data.UUID token_id = 1;
+    string token_name = 5;
     oneof TokenValueType {
       rv.data.Message.TokenValue.TokenValueText text = 2;
       rv.data.Message.TokenValue.TokenValueTimer timer = 3;
