@@ -90,6 +90,7 @@ message Slide {
         rv.data.Slide.Element.DataLink.SlideLabelColor slide_Label_Color = 26;
         rv.data.Slide.Element.DataLink.RSSFeed rss_feed = 27;
         rv.data.Slide.Element.DataLink.FileFeed file_feed = 28;
+        rv.data.Slide.Element.DataLink.ChordProChart chord_pro_chart = 29;
       }
 
 
@@ -429,6 +430,9 @@ message Slide {
           SLIDE_COUNT_SOURCE_TYPE_TOTAL = 2;
         }
         SlideCountSourceType slideCountSourceType = 1;
+
+      }
+      message ChordProChart {
 
       }
     }

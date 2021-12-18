@@ -208,6 +208,7 @@ message Graphics {
     }
     Transform transform = 10;
     string transformDelimiter = 11;
+    rv.data.Graphics.Text.ChordPro chord_pro = 12;
 
     message LineFillMask {
       bool enabled = 1;
@@ -226,6 +227,18 @@ message Graphics {
     message GradientFill {
       rv.data.Graphics.Gradient gradient = 1;
       bool stretch_to_document_bounds = 2;
+
+    }
+    message ChordPro {
+      bool enabled = 1;
+      enum Notation {
+        NOTATION_CHORDS = 0;
+        NOTATION_NUMBERS = 1;
+        NOTATION_NUMERALS = 2;
+        NOTATION_DO_RE_MI = 3;
+      }
+      Notation notation = 2;
+      rv.data.Color color = 3;
 
     }
     message Attributes {
@@ -356,6 +369,7 @@ message Graphics {
           double font_scale_factor = 4;
           rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
           bool should_preserve_foreground_color = 6;
+          string chord = 7;
         }
 
 
