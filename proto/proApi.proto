@@ -6,11 +6,13 @@ import "basicTypes.proto";
 import "messages.proto";
 import "timers.proto";
 import "timestamp.proto";
+import "proApiV1.proto";
 
 message ProApiIn {
   oneof MessageType {
     rv.data.ProLink.HandlerIn handler_in = 1;
     rv.data.NetworkAPI network_api = 2;
+    rv.data.NetworkAPI_v1 network_api_v1 = 3;
   }
 
 
@@ -20,8 +22,24 @@ message ProApiOut {
     rv.data.ProLink.HandlerOut handler_out = 1;
     rv.data.ProLink.ClientAction client_action = 2;
     rv.data.NetworkAPI network_api = 3;
+    rv.data.NetworkAPI_v1 network_api_v1 = 4;
   }
 
+
+}
+message ProApiNetworkConfiguration {
+  bool enable_network = 1;
+  uint32 port = 2;
+  string network_name = 3;
+  bool remote_enable = 4;
+  bool remote_control_enable = 5;
+  string remote_control_password = 6;
+  bool remote_observe_enable = 7;
+  string remote_observe_password = 8;
+  bool stage_enable = 9;
+  string stage_password = 10;
+  bool link_enable = 11;
+  string web_resource_root = 12;
 
 }
 message ProLink {
@@ -31,10 +49,24 @@ message ProLink {
     string secret = 2;
     string name = 3;
     repeated rv.data.ProLink.GroupDefinition.Member members = 4;
+    rv.data.UUID group_identifier = 5;
 
     message Member {
       string ip = 1;
       uint32 port = 2;
+
+    }
+  }
+  message ZeroConfig {
+
+    message NetworkEnvironment {
+      repeated rv.data.ProLink.GroupDefinition available_groups = 1;
+      repeated rv.data.ProLink.MemberStatus available_devices = 2;
+
+    }
+    message MulticastPacket {
+      rv.data.ProLink.GroupDefinition group = 1;
+      rv.data.ProLink.MemberStatus device = 2;
 
     }
   }
@@ -108,26 +140,12 @@ message ProLink {
     ConnectionStatus connection_status = 8;
 
   }
-  message Configuration {
-    bool enable_network = 1;
-    uint32 port = 2;
-    string network_name = 3;
-    bool remote_enable = 4;
-    bool remote_control_enable = 5;
-    string remote_control_password = 6;
-    bool remote_observe_enable = 7;
-    string remote_observe_password = 8;
-    bool stage_enable = 9;
-    string stage_password = 10;
-    bool link_enable = 11;
-
-  }
   message ClientAction {
     oneof ActionType {
-      rv.data.ProLink.Configuration set_configuration = 1;
-      rv.data.ProLink.ClientAction.AddConnection add_connection = 2;
-      rv.data.ProLink.ClientAction.RemoveConnection remove_connection = 3;
-      rv.data.ProLink.ClientAction.CancelAction cancel_action = 4;
+      rv.data.ProLink.ClientAction.AddConnection add_connection = 1;
+      rv.data.ProLink.ClientAction.RemoveConnection remove_connection = 2;
+      rv.data.ProLink.ClientAction.CancelAction cancel_action = 3;
+      rv.data.ProLink.ClientAction.RenderTime render_time = 4;
     }
 
 
@@ -145,6 +163,11 @@ message ProLink {
     message CancelAction {
 
     }
+    message RenderTime {
+      uint64 latency = 1;
+      uint64 render_time = 2;
+
+    }
   }
   message HandlerIn {
     oneof Request {
@@ -158,6 +181,8 @@ message ProLink {
       rv.data.ProLink.HandlerIn.ProPresenterInfo propresenter_info = 8;
       rv.data.ProLink.HandlerIn.ServerState server_state = 9;
       rv.data.ProLink.HandlerIn.ConfigurationRequest configuration_request = 10;
+      rv.data.ProLink.ZeroConfig.NetworkEnvironment zeroconfig_network_environment_change = 11;
+      rv.data.ProLink.HandlerIn.LogRequest log_request = 12;
     }
 
 
@@ -246,9 +271,23 @@ message ProLink {
       string local_ip = 1;
       string public_ip = 2;
       uint32 port = 3;
+      bool success = 4;
 
     }
     message ConfigurationRequest {
+
+    }
+    message LogRequest {
+      enum Severity {
+        SEVERITY_DEBUG = 0;
+        SEVERITY_DEBUG_WARNING = 1;
+        SEVERITY_INFO = 2;
+        SEVERITY_WARNING = 3;
+        SEVERITY_ERROR = 4;
+        SEVERITY_FATAL_ERROR = 5;
+      }
+      Severity severity = 1;
+      string message = 2;
 
     }
   }
@@ -259,7 +298,7 @@ message ProLink {
       rv.data.ProLink.HandlerOut.GroupJoinConfirmation group_join_confirmation = 3;
       rv.data.ProLink.HandlerOut.GroupJoinPassword group_join_password = 4;
       rv.data.ProLink.HandlerOut.ProPresenterInfo propresenter_info = 5;
-      rv.data.ProLink.Configuration configuration = 6;
+      rv.data.ProApiNetworkConfiguration configuration = 6;
     }
 
 
@@ -384,6 +423,8 @@ message NetworkAPI {
       rv.data.NetworkAPI.Action.API_Stage stage = 9;
       rv.data.NetworkAPI.Action.API_Status status = 10;
       rv.data.NetworkAPI.Action.API_StatusResponse status_response = 11;
+      rv.data.NetworkAPI.Action.API_TwoStepTrigger two_step_trigger = 12;
+      rv.data.NetworkAPI.Action.API_PrerollComplete preroll_complete = 13;
     }
 
 
@@ -403,6 +444,30 @@ message NetworkAPI {
         rv.data.NetworkAPI.IndexOrNameIdentifier group_identifier = 2;
       }
 
+
+    }
+    message API_TwoStepTrigger {
+      uint64 id = 1;
+      enum Operation {
+        OPERATION_PREROLL = 0;
+        OPERATION_ACTIVATE = 1;
+      }
+      Operation operation = 2;
+      uint64 render_time = 3;
+      oneof TriggerData {
+        rv.data.NetworkAPI.Action.API_Trigger.Presentation presentation = 4;
+        rv.data.NetworkAPI.Action.API_Trigger.Media media = 5;
+        rv.data.NetworkAPI.Action.API_Trigger.VideoInput video_input = 6;
+        rv.data.NetworkAPI.Action.API_Trigger.Audio audio = 7;
+        rv.data.NetworkAPI.Action.API_Prop.TriggerProp prop = 8;
+        rv.data.NetworkAPI.Action.API_Message.TriggerMessage message = 9;
+      }
+
+
+    }
+    message API_PrerollComplete {
+      uint64 id = 1;
+      bool failed = 2;
 
     }
     message API_Trigger {
