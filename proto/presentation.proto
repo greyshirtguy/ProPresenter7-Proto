@@ -75,6 +75,8 @@ message Presentation {
     double duration = 5;
     bool loop = 6;
     rv.data.Action audio_action = 8;
+    bool timecode_enable = 9;
+    double timecode_offset = 10;
 
     message Cue {
       double trigger_time = 1;
