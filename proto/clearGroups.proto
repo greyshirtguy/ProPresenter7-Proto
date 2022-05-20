@@ -58,6 +58,7 @@ message ClearGroupsDocument {
       CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
     }
     repeated ContentDestination timeline_targets = 9;
+    bool clear_presentation_next_slide = 10;
 
   }
 }
