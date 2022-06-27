@@ -31,9 +31,7 @@ __They are NOT created, endorsed or supported by the makers of ProPresenter: Ren
 In addition to the "usual disclaimers" that should obviously apply, please note the following:
 * _If you don't understand what you are doing with these files or you don't have a proven backup and recovery process, you may end up destroying your ProPresenter documents and configuration with no way to recover what you have lost._
 * __Do NOT contact Renewed Vision for support!__
-* _You might also destroy the computer itself, and all other computers on the your network (including the Pastor's Macbook)._
-* __Do NOT contact Renewed Vision for support!__
-* _It's possible you might even be responsible for the destruction of millions of other computers around the world and cause the building you are in to burn down._  
+* _Who knows what else could go wrong if you don't understand how to correctly use these files - You might destroy the computer itself, and all other computers on your network (maybe even the Pastor's Macbook). It's possible you might even be responsible for the destruction of millions of other computers around the world and cause the building you are in to burn down. All kidding aside - be careful when changing ProPresenter files - mistakes can crash/break the application_  
 * __Do NOT contact Renewed Vision for support!__
   
   
