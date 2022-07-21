@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package rv.data;
 
+option java_outer_classname = "KeyMappingProtos";
+
 import "basicTypes.proto";
 
 message KeyMapping {

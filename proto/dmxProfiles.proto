@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package rv.data;
 
+option java_outer_classname = "DMXProfilesProtos";
 
 message DMXProfiles {
   rv.data.DMXProfiles.DMXProfile workspaceProfile = 1;
