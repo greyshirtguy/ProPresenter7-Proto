@@ -119,9 +119,26 @@ message Graphics {
       rv.data.Color color = 1;
       rv.data.Graphics.Gradient gradient = 2;
       rv.data.Media media = 3;
+      rv.data.Graphics.BackgroundEffect backgroundEffect = 5;
     }
 
 
+  }
+  message BackgroundEffect {
+    oneof EffectType {
+      rv.data.Graphics.BackgroundEffect.BackgroundEffectBlur backgroundBlur = 2;
+      rv.data.Graphics.BackgroundEffect.BackgroundEffectInvert backgroundInvert = 3;
+    }
+
+
+    message BackgroundEffectBlur {
+      double saturation = 1;
+      double blur_amount = 2;
+
+    }
+    message BackgroundEffectInvert {
+
+    }
   }
   message Gradient {
     enum Type {
@@ -229,6 +246,14 @@ message Graphics {
       bool stretch_to_document_bounds = 2;
 
     }
+    message CutOutFill {
+
+    }
+    message MediaFill {
+      rv.data.Media media = 1;
+      bool use_object_bounds = 2;
+
+    }
     message ChordPro {
       bool enabled = 1;
       enum Notation {
@@ -265,6 +290,9 @@ message Graphics {
       oneof fill {
         rv.data.Color text_solid_fill = 3;
         rv.data.Graphics.Text.GradientFill text_gradient_fill = 14;
+        rv.data.Graphics.Text.CutOutFill cut_out_fill = 16;
+        rv.data.Graphics.Text.MediaFill media_fill = 17;
+        rv.data.Graphics.BackgroundEffect background_effect = 18;
       }
 
 
@@ -370,6 +398,9 @@ message Graphics {
           rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
           bool should_preserve_foreground_color = 6;
           string chord = 7;
+          rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
+          rv.data.Graphics.Text.MediaFill media_fill = 9;
+          rv.data.Graphics.BackgroundEffect background_effect = 10;
         }
 
 

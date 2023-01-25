@@ -7,7 +7,6 @@ import "layers.proto";
 import "effects.proto";
 import "graphicsData.proto";
 import "background.proto";
-import "template.proto";
 import "presentationSlide.proto";
 import "propSlide.proto";
 import "timers.proto";
@@ -77,6 +76,7 @@ message Action {
     rv.data.Action.SlideDestinationType slide_destination = 39;
     rv.data.Action.MacroType macro = 40;
     rv.data.Action.ClearGroupType clear_group = 41;
+    rv.data.Action.TransportControlType transport_control = 42;
   }
 
 
@@ -170,6 +170,7 @@ message Action {
     }
     LayerType layer_type = 10;
     bool always_retrigger = 11;
+    repeated rv.data.Action.MediaType.PlaybackMarker markers = 12;
     oneof MediaType {
       rv.data.Action.MediaType.Image image = 6;
       rv.data.Action.MediaType.Video video = 7;
@@ -223,10 +224,17 @@ message Action {
     message LiveVideo {
 
     }
+    message PlaybackMarker {
+      rv.data.UUID uuid = 1;
+      double time = 2;
+      rv.data.Color color = 3;
+      string name = 4;
+      repeated rv.data.Action actions = 5;
+
+    }
   }
   message SlideType {
     oneof Slide {
-      rv.data.Template.Slide template = 1;
       rv.data.PresentationSlide presentation = 2;
       rv.data.PropSlide prop = 3;
     }
@@ -273,6 +281,25 @@ message Action {
   message ClearGroupType {
     rv.data.CollectionElementType identification = 1;
 
+  }
+  message TransportControlType {
+    oneof Command {
+      rv.data.Action.TransportControlType.Play play = 1;
+      rv.data.Action.TransportControlType.Pause pause = 2;
+      rv.data.Action.TransportControlType.JumpToTime jumpToTime = 3;
+    }
+
+
+    message Play {
+
+    }
+    message Pause {
+
+    }
+    message JumpToTime {
+      double time = 1;
+
+    }
   }
   message StageLayoutType {
     repeated rv.data.Stage.ScreenAssignment stage_screen_assignments = 4;

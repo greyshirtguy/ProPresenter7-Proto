@@ -3,7 +3,7 @@ syntax = "proto3";
 package rv.data;
 
 import "basicTypes.proto";
-import "timestamp.proto";
+import "rvtimestamp.proto";
 import "presentation.proto";
 
 message PlanningCenterPlan {
