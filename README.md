@@ -9,7 +9,9 @@ When ProPresenter7 first came out I was a bit surprised to find that the files w
 Instead, ProPresenter 7 uses Google "Protocol Buffers" to encode data stored in documents and various configuration files.  
 (See https://developers.google.com/protocol-buffers for more information.)
 
-Even though the new files encoded with protocol buffers are not human readable, one of the nice things about using protocol buffers is how easy it is to auto-generate code that to work with the files once you have the data structure (messages) defined in human-readable .proto files.  If you have the .proto files, you have everything you need to create, read and update the data files.
+Even though the new files encoded with protocol buffers are not human readable, one of the nice things about using protocol buffers is how easy it is to auto-generate code that to work with the files once you have the data structure (messages) defined in human-readable .proto files.  
+
+**✅ If you have the .proto files, you have everything you need to create, read and update the data files.**
 
 That's what you will find in this repository - a set of unofficial .proto files, *that I have reverse-engineered*, which you can use to *auto-generate code* that will enable you to read, create and modify ProPresenter 7 data files including:  
 
