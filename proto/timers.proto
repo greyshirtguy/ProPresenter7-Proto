@@ -2,12 +2,21 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
+import "applicationInfo.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message Clock {
   string format = 1;
 
   message Format {
+    .rv.data.Clock.Format.DateFormatterStyle date_type = 2;
+    .rv.data.Clock.Format.DateFormatterStyle time_format = 3;
+    bool military_time_enabled = 4;
+
     enum DateFormatterStyle {
       DATE_FORMATTER_STYLE_NONE = 0;
       DATE_FORMATTER_STYLE_SHORT = 1;
@@ -15,18 +24,24 @@ message Clock {
       DATE_FORMATTER_STYLE_LONG = 3;
       DATE_FORMATTER_STYLE_FULL = 4;
     }
-    DateFormatterStyle date_type = 2;
-    DateFormatterStyle time_format = 3;
-    bool military_time_enabled = 4;
-
+    reserved 1 to 2;
   }
 }
+
 message Timer {
-  rv.data.UUID uuid = 1;
+  .rv.data.UUID uuid = 1;
   string name = 2;
-  rv.data.Timer.Configuration configuration = 10;
+  .rv.data.Timer.Configuration configuration = 10;
 
   message Format {
+    .rv.data.Timer.Format.Style hour = 1;
+    .rv.data.Timer.Format.Style minute = 2;
+    .rv.data.Timer.Format.Style second = 3;
+    .rv.data.Timer.Format.Style millisecond = 4;
+    bool is_wall_clock_time = 5;
+    bool is_24_hour_time = 6;
+    bool show_milliseconds_under_minute_only = 7;
+
     enum Style {
       STYE_NONE = 0;
       STYLE_SHORT = 1;
@@ -34,49 +49,49 @@ message Timer {
       STYLE_REMOVE_SHORT = 3;
       STYLE_REMOVE_LONG = 4;
     }
-    Style hour = 1;
-    Style minute = 2;
-    Style second = 3;
-    Style millisecond = 4;
-    bool is_wall_clock_time = 5;
-    bool is_24_hour_time = 6;
-    bool show_milliseconds_under_minute_only = 7;
-
   }
+
   message Configuration {
     bool allows_overrun = 4;
-    oneof TimerType {
-      rv.data.Timer.Configuration.TimerTypeCountdown countdown = 1;
-      rv.data.Timer.Configuration.TimerTypeCountdownToTime countdown_to_time = 2;
-      rv.data.Timer.Configuration.TimerTypeElapsedTime elapsed_time = 3;
-    }
-
 
     message TimerTypeCountdown {
       double duration = 1;
-
     }
+
     message TimerTypeCountdownToTime {
       double time_of_day = 1;
+      .rv.data.Timer.Configuration.TimerTypeCountdownToTime.TimePeriod period = 2;
+
       enum TimePeriod {
         TIME_PERIOD_AM = 0;
         TIME_PERIOD_PM = 1;
         TIME_PERIOD_24 = 2;
       }
-      TimePeriod period = 2;
-
     }
+
     message TimerTypeElapsedTime {
       double start_time = 1;
       double end_time = 2;
       bool has_end_time = 3;
-
     }
-  }
-}
-message TimersDocument {
-  rv.data.ApplicationInfo application_info = 1;
-  rv.data.Clock clock = 2;
-  repeated rv.data.Timer timers = 3;
 
+    oneof TimerType {
+      .rv.data.Timer.Configuration.TimerTypeCountdown countdown = 1;
+      .rv.data.Timer.Configuration.TimerTypeCountdownToTime countdown_to_time = 2;
+      .rv.data.Timer.Configuration.TimerTypeElapsedTime elapsed_time = 3;
+    };
+  }
+  reserved 3 to 4;
+  reserved 4 to 5;
+  reserved 5 to 6;
+  reserved 6 to 7;
+  reserved 7 to 8;
+  reserved 8 to 9;
+  reserved 9 to 10;
+}
+
+message TimersDocument {
+  .rv.data.ApplicationInfo application_info = 1;
+  .rv.data.Clock clock = 2;
+  repeated .rv.data.Timer timers = 3;
 }

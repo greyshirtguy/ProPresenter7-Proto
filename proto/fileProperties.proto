@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "url.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message FileProperties {
+  .rv.data.URL local_url = 1;
+  .rv.data.FileProperties.RemoteProperties remote_properties = 2;
+
+  message RemoteProperties {
+    .rv.data.FileProperties.RemoteProperties.ProContent procontent = 1;
+
+    message ProContent {
+      string download_identifier = 1;
+    }
+  }
+}

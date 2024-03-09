@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "applicationInfo.proto";
+import "proApi.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message NetworkLinkDocument {
+  .rv.data.ProLink.GroupDefinition group_info = 1;
+  .rv.data.ApplicationInfo application_info = 2;
+  bool enabled = 3;
+}
+
+message NetworkLinkStatus {
+  repeated .rv.data.NetworkLinkStatus.StatusPair status_pairs = 1;
+
+  message LinkedClientInformation {
+    .rv.data.ApplicationInfo.Platform platform = 1;
+    string os_version = 2;
+    string version = 3;
+    string description = 4;
+  }
+
+  message StatusPair {
+    string ip_address = 1;
+    int32 port = 2;
+    .rv.data.NetworkLinkStatus.LinkedClientInformation linked_client_information = 3;
+  }
+}

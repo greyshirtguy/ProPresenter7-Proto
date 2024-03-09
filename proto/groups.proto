@@ -2,19 +2,23 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
+import "color.proto";
 import "hotKey.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message Group {
-  rv.data.UUID uuid = 1;
+  .rv.data.UUID uuid = 1;
   string name = 2;
-  rv.data.Color color = 3;
-  rv.data.HotKey hotKey = 4;
-  rv.data.UUID application_group_identifier = 5;
+  .rv.data.Color color = 3;
+  .rv.data.HotKey hotKey = 4;
+  .rv.data.UUID application_group_identifier = 5;
   string application_group_name = 6;
-
 }
-message ProGroupsDocument {
-  repeated rv.data.Group groups = 1;
 
+message ProGroupsDocument {
+  repeated .rv.data.Group groups = 1;
 }

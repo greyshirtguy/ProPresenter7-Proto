@@ -2,18 +2,23 @@ syntax = "proto3";
 
 package rv.data;
 
+import "color.proto";
 import "graphicsData.proto";
-import "basicTypes.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message Mask {
-  rv.data.UUID uuid = 1;
+  .rv.data.UUID uuid = 1;
   string name = 2;
-  rv.data.Color color = 3;
+  .rv.data.Color color = 3;
+  .rv.data.Mask.Mode mode = 4;
+  repeated .rv.data.Graphics.Element shapes = 5;
+
   enum Mode {
     MODE_OVERLAY = 0;
     MODE_KEYHOLE = 1;
   }
-  Mode mode = 4;
-  repeated rv.data.Graphics.Element shapes = 5;
-
 }

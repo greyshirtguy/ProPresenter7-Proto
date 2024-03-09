@@ -2,75 +2,105 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
-import "effects.proto";
+import "alphaType.proto";
+import "color.proto";
 import "digitalAudio.proto";
+import "effects.proto";
+import "fileProperties.proto";
+import "font.proto";
+import "intRange.proto";
+import "url.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message Graphics {
 
   message Element {
-    rv.data.UUID uuid = 1;
+    .rv.data.UUID uuid = 1;
     string name = 2;
-    rv.data.Graphics.Rect bounds = 3;
+    .rv.data.Graphics.Rect bounds = 3;
     double rotation = 4;
     double opacity = 5;
     bool locked = 6;
     bool aspect_ratio_locked = 7;
-    rv.data.Graphics.Path path = 8;
-    rv.data.Graphics.Fill fill = 9;
-    rv.data.Graphics.Stroke stroke = 10;
-    rv.data.Graphics.Shadow shadow = 11;
-    rv.data.Graphics.Feather feather = 12;
-    rv.data.Graphics.Text text = 13;
+    .rv.data.Graphics.Path path = 8;
+    .rv.data.Graphics.Fill fill = 9;
+    .rv.data.Graphics.Stroke stroke = 10;
+    .rv.data.Graphics.Shadow shadow = 11;
+    .rv.data.Graphics.Feather feather = 12;
+    .rv.data.Graphics.Text text = 13;
+    .rv.data.Graphics.Element.FlipMode flipMode = 15;
+    bool hidden = 16;
+
     enum FlipMode {
       FLIP_MODE_NONE = 0;
       FLIP_MODE_VERTICAL = 1;
       FLIP_MODE_HORIZONTAL = 2;
       FLIP_MODE_BOTH = 3;
     }
-    FlipMode flipMode = 15;
-    bool hidden = 16;
+
     oneof Mask {
-      rv.data.Graphics.Text.LineFillMask text_line_mask = 14;
-    }
-
-
+      .rv.data.Graphics.Text.LineFillMask text_line_mask = 14;
+    };
   }
+
   message Rect {
-    rv.data.Graphics.Point origin = 1;
-    rv.data.Graphics.Size size = 2;
-
+    .rv.data.Graphics.Point origin = 1;
+    .rv.data.Graphics.Size size = 2;
   }
+
   message Point {
     double x = 1;
     double y = 2;
-
   }
+
   message Size {
     double width = 1;
     double height = 2;
-
   }
+
   message EdgeInsets {
     double left = 1;
     double right = 2;
     double top = 3;
     double bottom = 4;
-
   }
+
   message Path {
     bool closed = 1;
-    repeated rv.data.Graphics.Path.BezierPoint points = 2;
-    rv.data.Graphics.Path.Shape shape = 3;
+    repeated .rv.data.Graphics.Path.BezierPoint points = 2;
+    .rv.data.Graphics.Path.Shape shape = 3;
 
     message BezierPoint {
-      rv.data.Graphics.Point point = 1;
-      rv.data.Graphics.Point q0 = 2;
-      rv.data.Graphics.Point q1 = 3;
+      .rv.data.Graphics.Point point = 1;
+      .rv.data.Graphics.Point q0 = 2;
+      .rv.data.Graphics.Point q1 = 3;
       bool curved = 4;
-
     }
+
     message Shape {
+      .rv.data.Graphics.Path.Shape.Type type = 1;
+
+      message RoundedRectangle {
+        double roundness = 1;
+      }
+
+      message Arrow {
+        .rv.data.Graphics.Point corner = 1;
+      }
+
+      message Polygon {
+        uint32 number_sides = 1;
+      }
+
+      message Star {
+        double inner_radius = 1;
+        uint32 number_points = 2;
+      }
+
       enum Type {
         TYPE_UNKNOWN = 0;
         TYPE_RECTANGLE = 1;
@@ -85,234 +115,184 @@ message Graphics {
         TYPE_DOUBLE_ARROW = 10;
         TYPE_ROUNDED_RECTANGLE = 11;
       }
-      Type type = 1;
+
       oneof AdditionalData {
-        rv.data.Graphics.Path.Shape.RoundedRectangle rounded_rectangle = 2;
-        rv.data.Graphics.Path.Shape.Polygon polygon = 3;
-        rv.data.Graphics.Path.Shape.Star star = 4;
-        rv.data.Graphics.Path.Shape.Arrow arrow = 5;
-      }
-
-
-      message RoundedRectangle {
-        double roundness = 1;
-
-      }
-      message Arrow {
-        rv.data.Graphics.Point corner = 1;
-
-      }
-      message Polygon {
-        uint32 number_sides = 1;
-
-      }
-      message Star {
-        double inner_radius = 1;
-        uint32 number_points = 2;
-
-      }
+        .rv.data.Graphics.Path.Shape.RoundedRectangle rounded_rectangle = 2;
+        .rv.data.Graphics.Path.Shape.Polygon polygon = 3;
+        .rv.data.Graphics.Path.Shape.Star star = 4;
+        .rv.data.Graphics.Path.Shape.Arrow arrow = 5;
+      };
     }
   }
+
   message Fill {
     bool enable = 4;
+
     oneof FillType {
-      rv.data.Color color = 1;
-      rv.data.Graphics.Gradient gradient = 2;
-      rv.data.Media media = 3;
-      rv.data.Graphics.BackgroundEffect backgroundEffect = 5;
-    }
-
-
+      .rv.data.Color color = 1;
+      .rv.data.Graphics.Gradient gradient = 2;
+      .rv.data.Media media = 3;
+      .rv.data.Graphics.BackgroundEffect backgroundEffect = 5;
+    };
   }
-  message BackgroundEffect {
-    oneof EffectType {
-      rv.data.Graphics.BackgroundEffect.BackgroundEffectBlur backgroundBlur = 2;
-      rv.data.Graphics.BackgroundEffect.BackgroundEffectInvert backgroundInvert = 3;
-    }
 
+  message BackgroundEffect {
 
     message BackgroundEffectBlur {
       double saturation = 1;
       double blur_amount = 2;
-
     }
+
     message BackgroundEffectInvert {
-
     }
+
+    oneof EffectType {
+      .rv.data.Graphics.BackgroundEffect.BackgroundEffectBlur backgroundBlur = 2;
+      .rv.data.Graphics.BackgroundEffect.BackgroundEffectInvert backgroundInvert = 3;
+    };
+    reserved 1 to 2;
+    reserved "layer";
   }
+
   message Gradient {
+    .rv.data.Graphics.Gradient.Type type = 1;
+    double angle = 2;
+    double length = 3;
+    repeated .rv.data.Graphics.Gradient.ColorStop stops = 4;
+
+    message ColorStop {
+      .rv.data.Color color = 1;
+      double position = 2;
+      double blend_point = 3;
+    }
+
     enum Type {
       TYPE_LINEAR = 0;
       TYPE_RADIAL = 1;
       TYPE_ANGLE = 2;
     }
-    Type type = 1;
-    double angle = 2;
-    double length = 3;
-    repeated rv.data.Graphics.Gradient.ColorStop stops = 4;
-
-    message ColorStop {
-      rv.data.Color color = 1;
-      double position = 2;
-      double blend_point = 3;
-
-    }
   }
+
   message Shadow {
-    enum Style {
-      STYLE_DROP = 0;
-    }
-    Style style = 1;
+    .rv.data.Graphics.Shadow.Style style = 1;
     double angle = 2;
     double offset = 3;
     double radius = 4;
-    rv.data.Color color = 5;
+    .rv.data.Color color = 5;
     double opacity = 6;
     bool enable = 7;
 
+    enum Style {
+      STYLE_DROP = 0;
+    }
   }
+
   message Stroke {
+    .rv.data.Graphics.Stroke.Style style = 1;
+    double width = 2;
+    .rv.data.Color color = 3;
+    repeated double pattern = 4;
+    bool enable = 5;
+
     enum Style {
       STYLE_SOLID_LINE = 0;
       STYLE_SQUARE_DASH = 1;
       STYLE_SHORT_DASH = 2;
       STYLE_LONG_DASH = 3;
     }
-    Style style = 1;
-    double width = 2;
-    rv.data.Color color = 3;
-    repeated double pattern = 4;
-    bool enable = 5;
-
   }
+
   message Feather {
+    .rv.data.Graphics.Feather.Style style = 1;
+    double radius = 2;
+    bool enable = 3;
+
     enum Style {
       STYLE_INSIDE = 0;
       STYLE_CENTER = 1;
       STYLE_OUTSIDE = 2;
     }
-    Style style = 1;
-    double radius = 2;
-    bool enable = 3;
-
   }
+
   message Text {
-    rv.data.Graphics.Text.Attributes attributes = 3;
-    rv.data.Graphics.Shadow shadow = 4;
+    .rv.data.Graphics.Text.Attributes attributes = 3;
+    .rv.data.Graphics.Shadow shadow = 4;
     bytes rtf_data = 5;
-    enum VerticalAlignment {
-      VERTICAL_ALIGNMENT_TOP = 0;
-      VERTICAL_ALIGNMENT_MIDDLE = 1;
-      VERTICAL_ALIGNMENT_BOTTOM = 2;
-    }
-    VerticalAlignment vertical_alignment = 6;
-    enum ScaleBehavior {
-      SCALE_BEHAVIOR_NONE = 0;
-      SCALE_BEHAVIOR_ADJUST_CONTAINER_HEIGHT = 1;
-      SCALE_BEHAVIOR_SCALE_FONT_DOWN = 2;
-      SCALE_BEHAVIOR_SCALE_FONT_UP = 3;
-      SCALE_BEHAVIOR_SCALE_FONT_UP_DOWN = 4;
-    }
-    ScaleBehavior scale_behavior = 7;
-    rv.data.Graphics.EdgeInsets margins = 8;
+    .rv.data.Graphics.Text.VerticalAlignment vertical_alignment = 6;
+    .rv.data.Graphics.Text.ScaleBehavior scale_behavior = 7;
+    .rv.data.Graphics.EdgeInsets margins = 8;
     bool is_superscript_standardized = 9;
-    enum Transform {
-      TRANSFORM_NONE = 0;
-      TRANSFORM_SINGLE_LINE = 1;
-      TRANSFORM_ONE_WORD_PER_LINE = 2;
-      TRANSFORM_ONE_CHARACTER_PER_LINE = 3;
-      TRANSFORM_REPLACE_LINE_RETURNS = 4;
-    }
-    Transform transform = 10;
+    .rv.data.Graphics.Text.Transform transform = 10;
     string transformDelimiter = 11;
-    rv.data.Graphics.Text.ChordPro chord_pro = 12;
+    .rv.data.Graphics.Text.ChordPro chord_pro = 12;
 
     message LineFillMask {
       bool enabled = 1;
       double height_offset = 2;
       double vertical_offset = 3;
+      .rv.data.Graphics.Text.LineFillMask.LineMaskStyle mask_style = 4;
+      double width_offset = 5;
+      double horizontal_offset = 6;
+
       enum LineMaskStyle {
         LINE_MASK_STYLE_FULL_WIDTH = 0;
         LINE_MASK_STYLE_LINE_WIDTH = 1;
         LINE_MASK_STYLE_MAX_LINE_WIDTH = 2;
       }
-      LineMaskStyle mask_style = 4;
-      double width_offset = 5;
-      double horizontal_offset = 6;
-
     }
+
     message GradientFill {
-      rv.data.Graphics.Gradient gradient = 1;
+      .rv.data.Graphics.Gradient gradient = 1;
       bool stretch_to_document_bounds = 2;
-
     }
+
     message CutOutFill {
-
     }
+
     message MediaFill {
-      rv.data.Media media = 1;
-      bool use_object_bounds = 2;
-
+      .rv.data.Media media = 1;
     }
+
     message ChordPro {
       bool enabled = 1;
+      .rv.data.Graphics.Text.ChordPro.Notation notation = 2;
+      .rv.data.Color color = 3;
+
       enum Notation {
         NOTATION_CHORDS = 0;
         NOTATION_NUMBERS = 1;
         NOTATION_NUMERALS = 2;
         NOTATION_DO_RE_MI = 3;
       }
-      Notation notation = 2;
-      rv.data.Color color = 3;
-
     }
+
     message Attributes {
-      rv.data.Graphics.Text.Attributes.Font font = 1;
-      enum Capitalization {
-        CAPITALIZATION_NONE = 0;
-        CAPITALIZATION_ALL_CAPS = 1;
-        CAPITALIZATION_SMALL_CAPS = 2;
-        CAPITALIZATION_TITLE_CASE = 3;
-        CAPITALIZATION_START_CASE = 4;
-      }
-      Capitalization capitalization = 2;
-      rv.data.Graphics.Text.Attributes.Underline underline_style = 4;
-      rv.data.Color underline_color = 5;
-      rv.data.Graphics.Text.Attributes.Paragraph paragraph_style = 6;
+      .rv.data.Font font = 1;
+      .rv.data.Graphics.Text.Attributes.Capitalization capitalization = 2;
+      .rv.data.Graphics.Text.Attributes.Underline underline_style = 4;
+      .rv.data.Color underline_color = 5;
+      .rv.data.Graphics.Text.Attributes.Paragraph paragraph_style = 6;
       double kerning = 7;
       int32 superscript = 8;
-      rv.data.Graphics.Text.Attributes.Underline strikethrough_style = 9;
-      rv.data.Color strikethrough_color = 10;
+      .rv.data.Graphics.Text.Attributes.Underline strikethrough_style = 9;
+      .rv.data.Color strikethrough_color = 10;
       double stroke_width = 11;
-      rv.data.Color stroke_color = 12;
-      repeated rv.data.Graphics.Text.Attributes.CustomAttribute custom_attributes = 13;
-      rv.data.Color background_color = 15;
-      oneof fill {
-        rv.data.Color text_solid_fill = 3;
-        rv.data.Graphics.Text.GradientFill text_gradient_fill = 14;
-        rv.data.Graphics.Text.CutOutFill cut_out_fill = 16;
-        rv.data.Graphics.Text.MediaFill media_fill = 17;
-        rv.data.Graphics.BackgroundEffect background_effect = 18;
-      }
+      .rv.data.Color stroke_color = 12;
+      repeated .rv.data.Graphics.Text.Attributes.CustomAttribute custom_attributes = 13;
+      .rv.data.Color background_color = 15;
 
-
-      message Font {
-        string name = 1;
-        double size = 2;
-        bool italic = 4;
-        bool bold = 8;
-        string family = 9;
-        string face = 10;
-
-      }
       message Underline {
+        .rv.data.Graphics.Text.Attributes.Underline.Style style = 1;
+        .rv.data.Graphics.Text.Attributes.Underline.Pattern pattern = 2;
+        bool by_word = 3;
+
         enum Style {
           STYLE_NONE = 0;
           STYLE_SINGLE = 1;
           STYLE_THICK = 2;
           STYLE_DOUBLE = 3;
         }
-        Style style = 1;
+
         enum Pattern {
           PATTERN_SOLID = 0;
           PATTERN_DOT = 1;
@@ -320,19 +300,10 @@ message Graphics {
           PATTERN_DASH_DOT = 3;
           PATTERN_DASH_DOT_DOT = 4;
         }
-        Pattern pattern = 2;
-        bool by_word = 3;
-
       }
+
       message Paragraph {
-        enum Alignment {
-          ALIGNMENT_LEFT = 0;
-          ALIGNMENT_RIGHT = 1;
-          ALIGNMENT_CENTER = 2;
-          ALIGNMENT_JUSTIFIED = 3;
-          ALIGNMENT_NATURAL = 4;
-        }
-        Alignment alignment = 1;
+        .rv.data.Graphics.Text.Attributes.Alignment alignment = 1;
         double first_line_head_indent = 2;
         double head_indent = 3;
         double tail_indent = 4;
@@ -342,25 +313,23 @@ message Graphics {
         double line_spacing = 8;
         double paragraph_spacing = 9;
         double paragraph_spacing_before = 10;
-        repeated rv.data.Graphics.Text.Attributes.Paragraph.TabStop tab_stops = 11;
+        repeated .rv.data.Graphics.Text.Attributes.Paragraph.TabStop tab_stops = 11;
         double default_tab_interval = 12;
-        rv.data.Graphics.Text.Attributes.Paragraph.TextList text_list = 13;
-        repeated rv.data.Graphics.Text.Attributes.Paragraph.TextList text_lists = 14;
+        .rv.data.Graphics.Text.Attributes.Paragraph.TextList text_list = 13;
+        repeated .rv.data.Graphics.Text.Attributes.Paragraph.TextList text_lists = 14;
 
         message TabStop {
           double location = 1;
-          enum Alignment {
-            ALIGNMENT_LEFT = 0;
-            ALIGNMENT_RIGHT = 1;
-            ALIGNMENT_CENTER = 2;
-            ALIGNMENT_JUSTIFIED = 3;
-            ALIGNMENT_NATURAL = 4;
-          }
-          Alignment alignment = 2;
-
+          .rv.data.Graphics.Text.Attributes.Alignment alignment = 2;
         }
+
         message TextList {
           bool is_enabled = 1;
+          .rv.data.Graphics.Text.Attributes.Paragraph.TextList.NumberType number_type = 2;
+          string prefix = 3;
+          string postfix = 4;
+          int32 starting_number = 5;
+
           enum NumberType {
             NUMBER_TYPE_BOX = 0;
             NUMBER_TYPE_CHECK = 1;
@@ -375,61 +344,97 @@ message Graphics {
             NUMBER_TYPE_LOWERCASE_ROMAN = 10;
             NUMBER_TYPE_UPPERCASE_ROMAN = 11;
           }
-          NumberType number_type = 2;
-          string prefix = 3;
-          string postfix = 4;
-          int32 starting_number = 5;
-
         }
       }
+
       message CustomAttribute {
-        rv.data.IntRange range = 1;
-        enum Capitalization {
-          CAPITALIZATION_NONE = 0;
-          CAPITALIZATION_ALL_CAPS = 1;
-          CAPITALIZATION_SMALL_CAPS = 2;
-          CAPITALIZATION_TITLE_CASE = 3;
-          CAPITALIZATION_START_CASE = 4;
-        }
+        .rv.data.IntRange range = 1;
+
         oneof Attribute {
-          Capitalization capitalization = 2;
+          .rv.data.Graphics.Text.Attributes.Capitalization capitalization = 2;
           double original_font_size = 3;
           double font_scale_factor = 4;
-          rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
+          .rv.data.Graphics.Text.GradientFill text_gradient_fill = 5;
           bool should_preserve_foreground_color = 6;
           string chord = 7;
-          rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
-          rv.data.Graphics.Text.MediaFill media_fill = 9;
-          rv.data.Graphics.BackgroundEffect background_effect = 10;
-        }
-
-
+          .rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
+          .rv.data.Graphics.Text.MediaFill media_fill = 9;
+          .rv.data.Graphics.BackgroundEffect background_effect = 10;
+        };
       }
+
+      enum Capitalization {
+        CAPITALIZATION_NONE = 0;
+        CAPITALIZATION_ALL_CAPS = 1;
+        CAPITALIZATION_SMALL_CAPS = 2;
+        CAPITALIZATION_TITLE_CASE = 3;
+        CAPITALIZATION_START_CASE = 4;
+      }
+
+      enum Alignment {
+        ALIGNMENT_LEFT = 0;
+        ALIGNMENT_RIGHT = 1;
+        ALIGNMENT_CENTER = 2;
+        ALIGNMENT_JUSTIFIED = 3;
+        ALIGNMENT_NATURAL = 4;
+      }
+
+      oneof fill {
+        .rv.data.Color text_solid_fill = 3;
+        .rv.data.Graphics.Text.GradientFill text_gradient_fill = 14;
+        .rv.data.Graphics.Text.CutOutFill cut_out_fill = 16;
+        .rv.data.Graphics.Text.MediaFill media_fill = 17;
+        .rv.data.Graphics.BackgroundEffect background_effect = 18;
+      };
     }
+
+    enum VerticalAlignment {
+      VERTICAL_ALIGNMENT_TOP = 0;
+      VERTICAL_ALIGNMENT_MIDDLE = 1;
+      VERTICAL_ALIGNMENT_BOTTOM = 2;
+    }
+
+    enum ScaleBehavior {
+      SCALE_BEHAVIOR_NONE = 0;
+      SCALE_BEHAVIOR_ADJUST_CONTAINER_HEIGHT = 1;
+      SCALE_BEHAVIOR_SCALE_FONT_DOWN = 2;
+      SCALE_BEHAVIOR_SCALE_FONT_UP = 3;
+      SCALE_BEHAVIOR_SCALE_FONT_UP_DOWN = 4;
+    }
+
+    enum Transform {
+      TRANSFORM_NONE = 0;
+      TRANSFORM_SINGLE_LINE = 1;
+      TRANSFORM_ONE_WORD_PER_LINE = 2;
+      TRANSFORM_ONE_CHARACTER_PER_LINE = 3;
+      TRANSFORM_REPLACE_LINE_RETURNS = 4;
+    }
+    reserved 1 to 2;
+    reserved 2 to 3;
   }
 }
-message Media {
-  rv.data.UUID uuid = 1;
-  rv.data.URL url = 2;
-  rv.data.Media.Metadata metadata = 3;
-  oneof TypeProperties {
-    rv.data.Media.AudioTypeProperties audio = 4;
-    rv.data.Media.ImageTypeProperties image = 5;
-    rv.data.Media.VideoTypeProperties video = 6;
-    rv.data.Media.LiveVideoTypeProperties live_video = 7;
-    rv.data.Media.WebContentTypeProperties web_content = 8;
-  }
 
+message Media {
+  .rv.data.UUID uuid = 1;
+  .rv.data.URL url = 2;
+  .rv.data.Media.Metadata metadata = 3;
 
   message Metadata {
     string manufacture_name = 1;
-    rv.data.URL manufacture_url = 2;
+    .rv.data.URL manufacture_url = 2;
     string information = 3;
     string artist = 4;
     string format = 5;
-
   }
+
   message VideoDevice {
+    .rv.data.Media.VideoDevice.Type type = 1;
+    string name = 2;
+    string unique_id = 3;
+    string model_id = 4;
+    uint32 format_index = 5;
+    .rv.data.DigitalAudio.Device.Routing audio_routing = 6;
+
     enum Type {
       TYPE_GENERIC = 0;
       TYPE_DIRECTSHOW = 1;
@@ -440,21 +445,15 @@ message Media {
       TYPE_NDI = 6;
       TYPE_BLUEFISH = 7;
     }
-    Type type = 1;
-    string name = 2;
-    string unique_id = 3;
-    string model_id = 4;
-    uint32 format_index = 5;
-    rv.data.DigitalAudio.Device.Routing audio_routing = 6;
-
   }
+
   message AudioDevice {
     string name = 1;
     string unique_id = 2;
     string model_id = 3;
     uint32 channel_count = 4;
-
   }
+
   message Audio {
 
     message Channel {
@@ -462,20 +461,21 @@ message Media {
       bool muted = 2;
       double volume = 3;
       bool compress_limit = 4;
-      repeated rv.data.Media.Audio.Channel.Output outputs = 5;
+      repeated .rv.data.Media.Audio.Channel.Output outputs = 5;
 
       message Output {
         int32 channel_index = 2;
-
+        reserved 1 to 2;
       }
     }
   }
+
   message AudioProperties {
     double volume = 1;
-    repeated rv.data.Media.Audio.Channel audio_channels = 2;
+    repeated .rv.data.Media.Audio.Channel audio_channels = 2;
     bool is_custom_mapping = 3;
-
   }
+
   message TransportProperties {
     double play_rate = 1;
     double in_point = 2;
@@ -485,67 +485,65 @@ message Media {
     bool should_fade_in = 9;
     bool should_fade_out = 10;
     double end_point = 11;
+    .rv.data.Media.TransportProperties.PlaybackBehavior playback_behavior = 12;
+    double loop_time = 13;
+    uint32 times_to_loop = 14;
+    .rv.data.Media.TransportProperties.RetriggerSetting retrigger = 15;
+
     enum PlaybackBehavior {
       PLAYBACK_BEHAVIOR_STOP = 0;
       PLAYBACK_BEHAVIOR_LOOP = 1;
       PLAYBACK_BEHAVIOR_LOOP_FOR_COUNT = 2;
       PLAYBACK_BEHAVIOR_LOOP_FOR_TIME = 3;
     }
-    PlaybackBehavior playback_behavior = 12;
-    double loop_time = 13;
-    uint32 times_to_loop = 14;
 
+    enum RetriggerSetting {
+      RETRIGGER_SETTING_UNSET = 0;
+      RETRIGGER_SETTING_ALWAYS = 1;
+      RETRIGGER_SETTING_NEVER = 2;
+      RETRIGGER_SETTING_AUTOMATIC = 3;
+    }
+    reserved 4 to 5;
+    reserved 5 to 6;
+    reserved 6 to 7;
+    reserved "start_ramp_time";
+    reserved "end_ramp_time";
+    reserved "fade_start_position";
   }
+
   message DrawingProperties {
-    enum ScaleBehavior {
-      SCALE_BEHAVIOR_FIT = 0;
-      SCALE_BEHAVIOR_FILL = 1;
-      SCALE_BEHAVIOR_STRETCH = 2;
-      SCALE_BEHAVIOR_CUSTOM = 3;
-    }
-    ScaleBehavior scale_behavior = 1;
-    enum ScaleAlignment {
-      SCALE_ALIGNMENT_MIDDLE_CENTER = 0;
-      SCALE_ALIGNMENT_TOP_LEFT = 1;
-      SCALE_ALIGNMENT_TOP_CENTER = 2;
-      SCALE_ALIGNMENT_TOP_RIGHT = 3;
-      SCALE_ALIGNMENT_MIDDLE_RIGHT = 4;
-      SCALE_ALIGNMENT_BOTTOM_RIGHT = 5;
-      SCALE_ALIGNMENT_BOTTOM_CENTER = 6;
-      SCALE_ALIGNMENT_BOTTOM_LEFT = 7;
-      SCALE_ALIGNMENT_MIDDLE_LEFT = 8;
-    }
-    ScaleAlignment scale_alignment = 2;
+    .rv.data.Media.ScaleBehavior scale_behavior = 1;
+    .rv.data.Media.ScaleAlignment scale_alignment = 2;
     bool flipped_horizontally = 3;
     bool flipped_vertically = 4;
-    rv.data.Graphics.Size natural_size = 5;
+    .rv.data.Graphics.Size natural_size = 5;
     double custom_image_rotation = 6;
-    rv.data.Graphics.Rect custom_image_bounds = 7;
+    .rv.data.Graphics.Rect custom_image_bounds = 7;
     bool custom_image_aspect_locked = 8;
     bool alpha_inverted = 9;
+    .rv.data.Media.DrawingProperties.NativeRotationType native_rotation = 10;
+    .rv.data.UUID selected_effect_preset_uuid = 11;
+    repeated .rv.data.Effect effects = 12;
+    bool crop_enable = 13;
+    .rv.data.Graphics.EdgeInsets crop_insets = 14;
+    .rv.data.AlphaType alpha_type = 15;
+
     enum NativeRotationType {
       NATIVE_ROTATION_TYPE_ROTATE_STANDARD = 0;
       NATIVE_ROTATION_TYPE_ROTATE_90 = 90;
       NATIVE_ROTATION_TYPE_ROTATE_180 = 180;
       NATIVE_ROTATION_TYPE_ROTATE_270 = 270;
     }
-    NativeRotationType native_rotation = 10;
-    rv.data.UUID selected_effect_preset_uuid = 11;
-    repeated rv.data.Effect effects = 12;
-    bool crop_enable = 13;
-    rv.data.Graphics.EdgeInsets crop_insets = 14;
-
   }
+
   message VideoProperties {
     double frame_rate = 1;
-    enum FieldType {
-      FIELD_TYPE_UNKNOWN = 0;
-      FIELD_TYPE_PROGRESSIVE = 1;
-      FIELD_TYPE_INTERLACED_UPPER_FIRST = 2;
-      FIELD_TYPE_INTERLACED_LOWER_FIRST = 3;
-    }
-    FieldType field_type = 2;
+    .rv.data.Media.VideoProperties.FieldType field_type = 2;
     double thumbnail_position = 3;
+    .rv.data.Media.VideoProperties.EndBehavior end_behavior = 4;
+    bool soft_loop = 5;
+    double soft_loop_duration = 6;
+
     enum EndBehavior {
       END_BEHAVIOR_STOP = 0;
       END_BEHAVIOR_STOP_ON_BLACK = 1;
@@ -553,42 +551,75 @@ message Media {
       END_BEHAVIOR_FADE_TO_BLACK = 3;
       END_BEHAVIOR_FADE_TO_CLEAR = 4;
     }
-    EndBehavior end_behavior = 4;
-    bool soft_loop = 5;
-    double soft_loop_duration = 6;
 
+    enum FieldType {
+      FIELD_TYPE_UNKNOWN = 0;
+      FIELD_TYPE_PROGRESSIVE = 1;
+      FIELD_TYPE_INTERLACED_UPPER_FIRST = 2;
+      FIELD_TYPE_INTERLACED_LOWER_FIRST = 3;
+    }
   }
+
   message LiveVideoProperties {
-    rv.data.Media.VideoDevice video_device = 1;
-    rv.data.Media.AudioDevice audio_device = 2;
+    .rv.data.Media.VideoDevice video_device = 1;
+    .rv.data.Media.AudioDevice audio_device = 2;
     int32 live_video_index = 3;
-
   }
+
   message AudioTypeProperties {
-    rv.data.Media.AudioProperties audio = 1;
-    rv.data.Media.TransportProperties transport = 2;
-
+    .rv.data.Media.AudioProperties audio = 1;
+    .rv.data.Media.TransportProperties transport = 2;
+    .rv.data.FileProperties file = 3;
   }
+
   message ImageTypeProperties {
-    rv.data.Media.DrawingProperties drawing = 1;
-
+    .rv.data.Media.DrawingProperties drawing = 1;
+    .rv.data.FileProperties file = 2;
   }
+
   message VideoTypeProperties {
-    rv.data.Media.DrawingProperties drawing = 1;
-    rv.data.Media.AudioProperties audio = 2;
-    rv.data.Media.TransportProperties transport = 3;
-    rv.data.Media.VideoProperties video = 4;
-
+    .rv.data.Media.DrawingProperties drawing = 1;
+    .rv.data.Media.AudioProperties audio = 2;
+    .rv.data.Media.TransportProperties transport = 3;
+    .rv.data.Media.VideoProperties video = 4;
+    .rv.data.FileProperties file = 5;
   }
+
   message LiveVideoTypeProperties {
-    rv.data.Media.DrawingProperties drawing = 1;
-    rv.data.Media.AudioProperties audio = 2;
-    rv.data.Media.LiveVideoProperties live_video = 3;
-
+    .rv.data.Media.DrawingProperties drawing = 1;
+    .rv.data.Media.AudioProperties audio = 2;
+    .rv.data.Media.LiveVideoProperties live_video = 3;
   }
+
   message WebContentTypeProperties {
-    rv.data.Media.DrawingProperties drawing = 1;
-    rv.data.URL url = 2;
-
+    .rv.data.Media.DrawingProperties drawing = 1;
+    .rv.data.URL url = 2;
   }
+
+  enum ScaleBehavior {
+    SCALE_BEHAVIOR_FIT = 0;
+    SCALE_BEHAVIOR_FILL = 1;
+    SCALE_BEHAVIOR_STRETCH = 2;
+    SCALE_BEHAVIOR_CUSTOM = 3;
+  }
+
+  enum ScaleAlignment {
+    SCALE_ALIGNMENT_MIDDLE_CENTER = 0;
+    SCALE_ALIGNMENT_TOP_LEFT = 1;
+    SCALE_ALIGNMENT_TOP_CENTER = 2;
+    SCALE_ALIGNMENT_TOP_RIGHT = 3;
+    SCALE_ALIGNMENT_MIDDLE_RIGHT = 4;
+    SCALE_ALIGNMENT_BOTTOM_RIGHT = 5;
+    SCALE_ALIGNMENT_BOTTOM_CENTER = 6;
+    SCALE_ALIGNMENT_BOTTOM_LEFT = 7;
+    SCALE_ALIGNMENT_MIDDLE_LEFT = 8;
+  }
+
+  oneof TypeProperties {
+    .rv.data.Media.AudioTypeProperties audio = 4;
+    .rv.data.Media.ImageTypeProperties image = 5;
+    .rv.data.Media.VideoTypeProperties video = 6;
+    .rv.data.Media.LiveVideoTypeProperties live_video = 7;
+    .rv.data.Media.WebContentTypeProperties web_content = 8;
+  };
 }

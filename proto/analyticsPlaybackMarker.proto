@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics";
+option swift_prefix = "Analytics_";
+
+message PlaybackMarker {
+
+  message CreateMarker {
+    .rv.analytics.PlaybackMarker.CreateMarker.Location location = 1;
+
+    enum Location {
+      LOCATION_INSPECTOR = 0;
+      LOCATION_SIDEBAR = 1;
+    }
+  }
+
+  oneof Event {
+    .rv.analytics.PlaybackMarker.CreateMarker create = 1;
+  };
+}

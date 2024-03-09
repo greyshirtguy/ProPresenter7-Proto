@@ -2,19 +2,31 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
 import "action.proto";
+import "applicationInfo.proto";
+import "color.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message ClearGroupsDocument {
-  rv.data.ApplicationInfo application_info = 1;
-  repeated rv.data.ClearGroupsDocument.ClearGroup groups = 2;
+  .rv.data.ApplicationInfo application_info = 1;
+  repeated .rv.data.ClearGroupsDocument.ClearGroup groups = 2;
 
   message ClearGroup {
-    rv.data.UUID uuid = 1;
+    .rv.data.UUID uuid = 1;
     string name = 2;
-    repeated rv.data.Action.ClearType layer_targets = 3;
+    repeated .rv.data.Action.ClearType layer_targets = 3;
     bool is_hidden_in_preview = 4;
     bytes image_data = 5;
+    .rv.data.ClearGroupsDocument.ClearGroup.ImageType image_type = 6;
+    bool is_icon_tinted = 7;
+    .rv.data.Color icon_tint_color = 8;
+    repeated .rv.data.Action.ContentDestination timeline_targets = 9;
+    bool clear_presentation_next_slide = 10;
+
     enum ImageType {
       ImageTypeCustom = 0;
       ImageTypeOne = 1;
@@ -50,15 +62,5 @@ message ClearGroupsDocument {
       ImageTypeCloud = 31;
       ImageTypeExclamation = 32;
     }
-    ImageType image_type = 6;
-    bool is_icon_tinted = 7;
-    rv.data.Color icon_tint_color = 8;
-    enum ContentDestination {
-      CONTENT_DESTINATION_GLOBAL = 0;
-      CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
-    }
-    repeated ContentDestination timeline_targets = 9;
-    bool clear_presentation_next_slide = 10;
-
   }
 }

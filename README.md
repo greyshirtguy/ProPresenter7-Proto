@@ -2,6 +2,296 @@
 
 This is a set of ***unoffical and unsupported*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are encoded as Google Protocol Buffers.
 
+## Reverse engineering of `Pro.SerializationInterop.dll` by reflection
+```cs
+using Google.Protobuf;
+using Google.Protobuf.Collections;
+using Google.Protobuf.Reflection;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
+
+var libPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Renewed Vision", "ProPresenter");
+
+var protobuf = Assembly.LoadFrom(Path.Join(libPath, "Google.Protobuf.dll"));
+var fd = protobuf.GetType("Google.Protobuf.Reflection.FileDescriptor")!;
+var bs = protobuf.GetType("Google.Protobuf.ByteString")!;
+var n = fd.GetProperty("Name", typeof(string))!;
+var sd = fd.GetProperty("SerializedData", bs)!;
+var tba = bs.GetMethod("ToByteArray")!;
+
+var interop = Assembly.LoadFrom(Path.Join(libPath, "Pro.SerializationInterop.dll"));
+var fds = (
+    from type in interop.GetExportedTypes()
+    let descriptor = type.GetProperty("Descriptor", fd)
+    where descriptor != null
+    select (byte[])tba.Invoke(sd.GetValue(descriptor.GetValue(null)), null)!
+).Select(d =>
+{
+    FileDescriptorProto p = new();
+    {
+        using CodedInputStream s = new(d);
+        s.ReadRawMessage(p);
+    }
+    return p;
+});
+foreach (var p in fds)
+{
+    FileInfo fi = new(p.Name);
+    fi.Directory?.Create();
+    using var file = File.Create(p.Name);
+    using var writer = new StreamWriter(file, Encoding.ASCII);
+    var isProto3 = false;
+    if (p.HasSyntax)
+    {
+        if (p.Syntax == "proto3")
+        {
+            isProto3 = true;
+        }
+        writer.Write("syntax = \"");
+        writer.Write(p.Syntax);
+        writer.Write("\";\n\n");
+    }
+    if (p.HasPackage)
+    {
+        writer.Write("package ");
+        writer.Write(p.Package);
+        writer.Write(";\n\n");
+    }
+    foreach (var import in p.Dependency)
+    {
+        writer.Write("import \"");
+        writer.Write(import);
+        writer.Write("\";\n");
+    }
+    writer.Write("\n");
+    void WriteBoolOption(string name, bool value, int level = 0)
+    {
+        writer.Write(new string(' ', level * 2));
+        writer.Write("option ");
+        writer.Write(name);
+        writer.Write(value ? " = true;\n" : " = false;\n");
+    }
+    void WriteStringOption(string name, string value, int level = 0)
+    {
+        writer.Write(new string(' ', level * 2));
+        writer.Write(name);
+        writer.Write(" = \"");
+        writer.Write(value);
+        writer.Write("\";\n");
+    }
+    if (p.Options.HasCcEnableArenas)
+    {
+        WriteBoolOption("cc_enable_arenas", p.Options.CcEnableArenas);
+    }
+    if (p.Options.HasObjcClassPrefix)
+    {
+        writer.Write("option ");
+        WriteStringOption("object_class_prefix", p.Options.ObjcClassPrefix);
+    }
+    if (p.Options.HasCsharpNamespace)
+    {
+        WriteStringOption("csharp_namespace", p.Options.CsharpNamespace);
+    }
+    if (p.Options.HasSwiftPrefix)
+    {
+        WriteStringOption("swift_prefix", p.Options.SwiftPrefix);
+    }
+    if (p.Options.HasPhpClassPrefix)
+    {
+        WriteStringOption("php_class_prefix", p.Options.PhpClassPrefix);
+    }
+    if (p.Options.HasPhpNamespace)
+    {
+        WriteStringOption("php_namespace", p.Options.PhpNamespace);
+    }
+    if (p.Options.HasPhpMetadataNamespace)
+    {
+        WriteStringOption("php_metadata_namespace", p.Options.PhpMetadataNamespace);
+    }
+    if (p.Options.HasRubyPackage)
+    {
+        WriteStringOption("ruby_package", p.Options.RubyPackage);
+    }
+    void WriteMessageOptions(MessageOptions options, int level)
+    {
+        if (options.HasMessageSetWireFormat)
+        {
+            WriteBoolOption("message_set_wire_format", options.MessageSetWireFormat, level);
+        }
+        if (options.HasNoStandardDescriptorAccessor)
+        {
+            WriteBoolOption("no_standard_descriptor_accessor", options.NoStandardDescriptorAccessor, level);
+        }
+        if (options.HasDeprecated)
+        {
+            WriteBoolOption("deprecated", options.Deprecated, level);
+        }
+    }
+    void WriteFields(IEnumerable<FieldDescriptorProto> fs, int level)
+    {
+        foreach (var field in fs)
+        {
+            writer.Write(new string(' ', level * 2));
+            if (field is { Options: { HasDeprecated: true, Deprecated: true } })
+            {
+                writer.Write("deprecated ");
+            }
+            if (field.HasLabel)
+            {
+                if (field.Label switch
+                {
+                    FieldDescriptorProto.Types.Label.Optional => isProto3 ? null : "optional ",
+                    FieldDescriptorProto.Types.Label.Required => "required ",
+                    FieldDescriptorProto.Types.Label.Repeated => "repeated ",
+                    _ => throw new UnreachableException()
+                } is { } label)
+                {
+                    writer.Write(label);
+                }
+            }
+            if (field.HasTypeName)
+            {
+                writer.Write(field.TypeName);
+                writer.Write(' ');
+            }
+            if (field.HasName)
+            {
+                writer.Write(field.Name);
+                writer.Write(' ');
+            }
+            if (field.HasNumber)
+            {
+                writer.Write("= ");
+                writer.Write(field.Number);
+            }
+            writer.Write(";\n");
+        }
+    }
+    void WriteMessage(RepeatedField<DescriptorProto> ds, int level = 0)
+    {
+        foreach (var message in ds)
+        {
+            writer.Write("\n");
+            writer.Write(new string(' ', level * 2));
+            writer.Write("message ");
+            if (message.HasName)
+            {
+                writer.Write(message.Name);
+                writer.Write(" ");
+            }
+            writer.Write("{\n");
+            WriteFields(message.Field.Where(f => !f.HasOneofIndex), level + 1);
+            // TODO: extension
+            WriteMessage(message.NestedType, level + 1);
+            foreach (var e in message.EnumType)
+            {
+                writer.Write("\n");
+                writer.Write(new string(' ', level * 2));
+                writer.Write("enum ");
+                if (e.HasName)
+                {
+                    writer.Write(e.Name);
+                    writer.Write(' ');
+                }
+                writer.Write("{\n");
+                foreach (var v in e.Value)
+                {
+                    writer.Write(new string(' ', (level + 1) * 2));
+                    if (v.HasName)
+                    {
+                        writer.Write(v.Name);
+                    }
+                    if (v.HasNumber)
+                    {
+                        writer.Write(" = ");
+                        writer.Write(v.Number);
+                        writer.Write(";\n");
+                    }
+                }
+                foreach (var r in e.ReservedRange)
+                {
+                    writer.Write(new string(' ', (level + 1) * 2));
+                    writer.Write("reserved ");
+                    if (r.HasStart)
+                    {
+                        writer.Write(r.Start);
+                    }
+                    if (r.HasStart && r.HasEnd)
+                    {
+                        writer.Write(" to ");
+                    }
+                    if (r.HasEnd)
+                    {
+                        writer.Write(r.End);
+                    }
+                    writer.Write(";\n");
+                }
+                foreach (var r in e.ReservedName)
+                {
+                    writer.Write(new string(' ', (level + 1) * 2));
+                    writer.Write("reserved \"");
+                    writer.Write(r);
+                    writer.Write("\";\n");
+                }
+                writer.Write("}\n");
+            }
+            // TODO: extension range
+            foreach (var p in message.OneofDecl
+                .Select((o, i) => new KeyValuePair<string, IEnumerable<FieldDescriptorProto>>(o.HasName ? o.Name : null, message.Field
+                    .Where(f => f.HasOneofIndex && f.OneofIndex == i))))
+            {
+                writer.Write('\n');
+                writer.Write(new string(' ', (level + 1) * 2));
+                writer.Write(value: "oneof ");
+                if (p.Key is { } name)
+                {
+                    writer.Write(name);
+                    writer.Write(' ');
+                }
+                writer.Write("{\n");
+                WriteFields(p.Value, level + 1);
+                writer.Write(new string(' ', (level + 1) * 2));
+                writer.Write("};\n");
+            }
+            if (message.Options is { } options)
+            {
+                WriteMessageOptions(options, level + 1);
+            }
+            writer.Write('\n');
+            foreach (var r in message.ReservedRange)
+            {
+                writer.Write(new string(' ', (level + 1) * 2));
+                writer.Write("reserved ");
+                if (r.HasStart)
+                {
+                    writer.Write(r.Start);
+                }
+                if (r.HasStart && r.HasEnd)
+                {
+                    writer.Write(" to ");
+                }
+                if (r.HasEnd)
+                {
+                    writer.Write(r.End);
+                }
+                writer.Write(";\n");
+            }
+            foreach (var r in message.ReservedName)
+            {
+                writer.Write(new string(' ', (level + 1) * 2));
+                writer.Write("reserved \"");
+                writer.Write(r);
+                writer.Write("\";\n");
+            }
+            writer.Write(new string(' ', level * 2));
+            writer.Write("}\n");
+        }
+    }
+    WriteMessage(p.MessageType);
+}
+```
+
 ## Background
 One of the things I really loved about ProPresenter 5 and 6 was how easy it was to read and understand the documents and configuration files - both of which are XML. I loved being able to make scripts and programs that could help improve and automate our workflow by working directly with Pro6 documents and also perform my own troubleshooting.
 

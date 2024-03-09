@@ -2,26 +2,31 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
-import "playlist.proto";
 import "action.proto";
+import "applicationInfo.proto";
+import "playlist.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message PlaylistDocument {
-  rv.data.ApplicationInfo application_info = 1;
+  .rv.data.ApplicationInfo application_info = 1;
+  .rv.data.PlaylistDocument.Type type = 2;
+  .rv.data.Playlist root_node = 3;
+  repeated .rv.data.Playlist.Tag tags = 4;
+  .rv.data.Playlist live_video_playlist = 5;
+  .rv.data.Playlist downloads_playlist = 6;
+
   enum Type {
     TYPE_UNKNOWN = 0;
     TYPE_PRESENTATION = 1;
     TYPE_MEDIA = 2;
     TYPE_AUDIO = 3;
   }
-  Type type = 2;
-  rv.data.Playlist root_node = 3;
-  repeated rv.data.Playlist.Tag tags = 4;
-  rv.data.Playlist live_video_playlist = 5;
-  rv.data.Playlist downloads_playlist = 6;
-
 }
-message SettingsDocument {
-  repeated rv.data.Action.Label labels = 2;
 
+message SettingsDocument {
+  repeated .rv.data.Action.Label labels = 2;
+  reserved 1 to 2;
 }

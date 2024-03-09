@@ -2,12 +2,15 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
 import "action.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message LiveVideoPlaylist {
-  repeated rv.data.Action actions = 1;
-  rv.data.UUID targeted_layer_UUID = 2;
-  rv.data.UUID uuid = 3;
-
+  repeated .rv.data.Action actions = 1;
+  .rv.data.UUID targeted_layer_UUID = 2;
+  .rv.data.UUID uuid = 3;
 }

@@ -4,12 +4,15 @@ package rv.data;
 
 import "playlist.proto";
 
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
 message PlaylistTemplate {
-  repeated rv.data.PlaylistTemplate.Template templates = 1;
+  repeated .rv.data.PlaylistTemplate.Template templates = 1;
 
   message Template {
     string name = 1;
-    repeated rv.data.PlaylistItem playlist_items = 2;
-
+    repeated .rv.data.PlaylistItem playlist_items = 2;
   }
 }

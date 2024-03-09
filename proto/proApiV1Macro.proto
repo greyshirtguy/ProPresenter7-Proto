@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Color.proto";
+import "proApiV1Identifier.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message API_v1_Macro {
+  .rv.data.API_v1_Identifier id = 1;
+  .rv.data.API_v1_Color color = 2;
+}
+
+message API_v1_Macro_Request {
+
+  message Macros {
+  }
+
+  message GetMacro {
+    string id = 1;
+  }
+
+  message PutMacro {
+    string id = 1;
+    string name_change = 2;
+    .rv.data.API_v1_Color color_change = 3;
+  }
+
+  message DeleteMacro {
+    string id = 1;
+  }
+
+  message TriggerMacro {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Macro_Request.Macros macros = 1;
+    .rv.data.API_v1_Macro_Request.GetMacro get_macro = 2;
+    .rv.data.API_v1_Macro_Request.PutMacro put_macro = 3;
+    .rv.data.API_v1_Macro_Request.DeleteMacro delete_macro = 4;
+    .rv.data.API_v1_Macro_Request.TriggerMacro trigger_macro = 5;
+  };
+}
+
+message API_v1_Macro_Response {
+
+  message Macros {
+    repeated .rv.data.API_v1_Macro macros = 1;
+  }
+
+  message GetMacro {
+    .rv.data.API_v1_Macro macro = 1;
+  }
+
+  message PutMacro {
+    .rv.data.API_v1_Macro macro = 1;
+  }
+
+  message DeleteMacro {
+  }
+
+  message TriggerMacro {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Macro_Response.Macros macros = 1;
+    .rv.data.API_v1_Macro_Response.GetMacro get_macro = 2;
+    .rv.data.API_v1_Macro_Response.PutMacro put_macro = 3;
+    .rv.data.API_v1_Macro_Response.DeleteMacro delete_macro = 4;
+    .rv.data.API_v1_Macro_Response.TriggerMacro trigger_macro = 5;
+  };
+}

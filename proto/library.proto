@@ -2,26 +2,29 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
+import "url.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message Library {
-  rv.data.URL url = 1;
-  oneof ChildType {
-    rv.data.Library.LibraryArray libraryChildren = 2;
-    rv.data.Library.LibraryItems libraryItems = 3;
-  }
-
+  .rv.data.URL url = 1;
 
   message LibraryArray {
-    repeated rv.data.Library libraries = 1;
-
+    repeated .rv.data.Library libraries = 1;
   }
+
   message LibraryItems {
-    repeated rv.data.LibraryItem items = 1;
-
+    repeated .rv.data.LibraryItem items = 1;
   }
-}
-message LibraryItem {
-  rv.data.URL url = 1;
 
+  oneof ChildType {
+    .rv.data.Library.LibraryArray libraryChildren = 2;
+    .rv.data.Library.LibraryItems libraryItems = 3;
+  };
+}
+
+message LibraryItem {
+  .rv.data.URL url = 1;
 }

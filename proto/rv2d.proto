@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message IdentificationOverlay {
+  string screen_name = 3;
+  repeated .rv.data.IdentificationOverlay.Output outputs = 1;
+
+  message Output {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
+    string name = 5;
+    double frame_rate = 6;
+  }
+}

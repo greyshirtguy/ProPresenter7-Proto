@@ -2,15 +2,19 @@ syntax = "proto3";
 
 package rv.data;
 
-import "basicTypes.proto";
+import "uuid.proto";
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
 
 message AlignmentGuide {
-  rv.data.UUID uuid = 1;
+  .rv.data.UUID uuid = 1;
+  .rv.data.AlignmentGuide.GuidelineOrientation orientation = 2;
+  double location = 3;
+
   enum GuidelineOrientation {
     GUIDELINE_ORIENTATION_HORIZONTAL = 0;
     GUIDELINE_ORIENTATION_VERTICAL = 1;
   }
-  GuidelineOrientation orientation = 2;
-  double location = 3;
-
 }
