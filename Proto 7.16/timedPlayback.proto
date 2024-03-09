@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "action.proto";
+import "cue.proto";
+import "presentation.proto";
+import "uuid.proto";
+
+message TriggerSource {
+  oneof Location {
+    rv.data.TriggerSource.Library library_location = 1;
+    rv.data.TriggerSource.Playlist playlist_location = 2;
+  }
+
+
+  message Library {
+    string path = 1;
+    string presentation_name = 2;
+
+  }
+  message Playlist {
+    rv.data.UUID identifier = 1;
+    rv.data.UUID item_identifier = 2;
+
+  }
+}
+message TimedPlayback {
+  rv.data.TimedPlayback.Sequence sequence = 1;
+  rv.data.TimedPlayback.Timing timing = 2;
+
+  message Sequence {
+    repeated rv.data.TimedPlayback.Sequence.SequenceItem sequence = 1;
+    enum ContentDestination {
+      CONTENT_DESTINATION_GLOBAL = 0;
+      CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
+    }
+    ContentDestination content_destination = 2;
+    rv.data.Presentation presentation = 3;
+
+    message SequenceItem {
+      rv.data.UUID identifier = 1;
+      double time = 2;
+      rv.data.TriggerSource trigger_source = 3;
+      enum ContentDestination {
+        CONTENT_DESTINATION_GLOBAL = 0;
+        CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
+      }
+      ContentDestination content_destination = 4;
+      double end_time = 7;
+      oneof Item {
+        rv.data.Cue cue = 5;
+        rv.data.Action action = 6;
+      }
+
+
+    }
+  }
+  message Timing {
+    oneof Source {
+      rv.data.TimedPlayback.Timing.LayerTransport layer_transport = 1;
+      rv.data.TimedPlayback.Timing.SMPTETimecode smpte_timecode = 2;
+      rv.data.TimedPlayback.Timing.Internal internal = 3;
+    }
+
+
+    message LayerTransport {
+      int32 layer = 1;
+
+    }
+    message SMPTETimecode {
+      string device_identifier = 1;
+      int32 channel = 2;
+      enum Format {
+        FORMAT_24_FPS = 0;
+        FORMAT_25_FPS = 1;
+        FORMAT_29_97_FPS = 2;
+        FORMAT_30_FPS = 3;
+      }
+      Format format = 3;
+      double offset = 4;
+
+    }
+    message Internal {
+      double duration = 1;
+      bool should_loop = 2;
+
+    }
+  }
+  message Update {
+    oneof ActionType {
+      rv.data.TimedPlayback.Update.Play play = 1;
+      rv.data.TimedPlayback.Update.Record record = 2;
+      rv.data.TimedPlayback.Update.Pause pause = 3;
+      rv.data.TimedPlayback.Update.Reset reset = 4;
+      rv.data.TimedPlayback.Update.JumpToTime jump_to_time = 5;
+      rv.data.TimedPlayback.Update.StartScrub start_scrub = 6;
+      rv.data.TimedPlayback.Update.EndScrub end_scrub = 7;
+      rv.data.TimedPlayback.Update.Duration duration = 8;
+      rv.data.TimedPlayback.Update.Loop loop = 9;
+      rv.data.TimedPlayback.Sequence update_sequence = 10;
+      rv.data.TimedPlayback.Update.MonitorSource monitor_source = 11;
+    }
+
+
+    message Play {
+
+    }
+    message Record {
+      bool is_recording = 1;
+
+    }
+    message Pause {
+
+    }
+    message Reset {
+
+    }
+    message JumpToTime {
+      double time = 1;
+
+    }
+    message StartScrub {
+      double time = 1;
+
+    }
+    message EndScrub {
+      double time = 2;
+
+    }
+    message Duration {
+      double duration = 1;
+
+    }
+    message Loop {
+      bool loop = 1;
+
+    }
+    message MonitorSource {
+      bool enable = 1;
+
+    }
+  }
+}

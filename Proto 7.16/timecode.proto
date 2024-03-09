@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "uuid.proto";
+
+message TimecodeSettings {
+  string device_identifier = 1;
+  int32 channel = 2;
+  enum Format {
+    FORMAT_24_FPS = 0;
+    FORMAT_25_FPS = 1;
+    FORMAT_29_97_FPS = 2;
+    FORMAT_30_FPS = 3;
+  }
+  Format format = 3;
+  double offset = 4;
+  rv.data.UUID playlist_identifier = 5;
+  bool is_active = 6;
+
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message UserFeedback {
+
+  message ApplicationMetadata {
+    string application_version = 1;
+    string os_version = 2;
+    repeated rv.data.UserFeedback.ApplicationMetadata.ApplicationInstance application_instances = 3;
+    repeated rv.data.UserFeedback.ApplicationMetadata.ApplicationInstance blackmagic_desktop_video_instances = 4;
+    repeated rv.data.UserFeedback.ApplicationMetadata.Screen screens = 5;
+    bool crash_reporting_enabled = 6;
+    bool analytics_reporting_enabled = 7;
+
+    message ApplicationInstance {
+      string path = 1;
+      string version = 2;
+
+    }
+    message Screen {
+      string name = 1;
+      rv.data.UserFeedback.ApplicationMetadata.Screen.Resolution resolution = 2;
+      enum Type {
+        UNKNOWN = 0;
+        AUDIENCE = 1;
+        STAGE = 2;
+      }
+      Type type = 3;
+      string output_name = 4;
+
+      message Resolution {
+        uint32 width = 1;
+        uint32 height = 2;
+
+      }
+    }
+  }
+}

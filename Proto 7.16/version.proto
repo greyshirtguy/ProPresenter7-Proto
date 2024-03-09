@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message Version {
+  uint32 major_version = 1;
+  uint32 minor_version = 2;
+  uint32 patch_version = 3;
+  string build = 4;
+
+}
