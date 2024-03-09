@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message PlaybackMarker {
+  oneof Event {
+    rv.analytics.PlaybackMarker.CreateMarker create = 1;
+  }
+
+
+  message CreateMarker {
+    enum Location {
+      LOCATION_INSPECTOR = 0;
+      LOCATION_SIDEBAR = 1;
+    }
+    Location location = 1;
+
+  }
+}

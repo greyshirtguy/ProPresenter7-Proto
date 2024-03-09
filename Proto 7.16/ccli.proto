@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "applicationInfo.proto";
+import "template.proto";
+
+message CCLIDocument {
+  rv.data.ApplicationInfo application_info = 1;
+  bool enable_ccli_display = 2;
+  string ccli_license = 3;
+  enum DisplayType {
+    DISPLAY_TYPE_FIRST_SLIDE = 0;
+    DISPLAY_TYPE_LAST_SLIDE = 1;
+    DISPLAY_TYPE_FIRST_AND_LAST_SLIDE = 2;
+    DISPLAY_TYPE_ALL_SLIDES = 3;
+  }
+  DisplayType display_type = 4;
+  rv.data.Template.Slide template = 5;
+
+}
+message CopyrightLayout {
+  repeated rv.data.CopyrightLayout.Token tokens = 2;
+
+  message Token {
+    enum TokenType {
+      Text = 0;
+      Artist = 1;
+      Author = 2;
+      Publisher = 3;
+      Title = 4;
+      CopyrightYear = 5;
+      LicenseNumber = 6;
+      SongNumber = 7;
+    }
+    TokenType token_type = 1;
+    string text = 2;
+
+  }
+}

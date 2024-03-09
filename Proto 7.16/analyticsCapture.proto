@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message Capture {
+  oneof Event {
+    rv.analytics.Capture.Start start = 1;
+  }
+
+
+  message Resolution {
+    int32 width = 1;
+    int32 height = 2;
+
+  }
+  message Start {
+    oneof Component {
+      rv.analytics.Capture.Start.RTMP rtmp = 1;
+      rv.analytics.Capture.Start.Disk disk = 2;
+      rv.analytics.Capture.Start.Resi resi = 3;
+    }
+
+
+    message RTMP {
+      enum Codec {
+        CODEC_UNKNOWN = 0;
+        CODEC_AUTOMATIC = 1;
+        CODEC_H264 = 2;
+        CODEC_H264_SOFTWARE = 3;
+        CODEC_H265 = 4;
+        CODEC_H265_SOFTWARE = 5;
+        CODEC_PRORES_422_PROXY = 6;
+        CODEC_PRORES_422_LT = 7;
+        CODEC_PRORES_422 = 8;
+        CODEC_PRORES_422_HQ = 9;
+        CODEC_PRORES_4444 = 10;
+        CODEC_PRORES_4444_XQ = 11;
+        CODEC_HAP = 12;
+        CODEC_HAP_ALPHA = 13;
+        CODEC_HAP_Q = 14;
+        CODEC_HAP_Q_ALPHA = 15;
+        CODEC_NOTCH = 16;
+      }
+      Codec codec = 1;
+      enum FrameRate {
+        FRAME_RATE_UNKNOWN = 0;
+        FRAME_RATE_24 = 1;
+        FRAME_RATE_25 = 2;
+        FRAME_RATE_29_97 = 3;
+        FRAME_RATE_30 = 4;
+        FRAME_RATE_50 = 5;
+        FRAME_RATE_59_94 = 6;
+        FRAME_RATE_60 = 7;
+      }
+      FrameRate frame_rate = 2;
+      string host = 3;
+      rv.analytics.Capture.Resolution resolution = 4;
+      bool stream_started = 5;
+      int32 video_bitrate = 6;
+
+    }
+    message Disk {
+      enum Codec {
+        CODEC_UNKNOWN = 0;
+        CODEC_AUTOMATIC = 1;
+        CODEC_H264 = 2;
+        CODEC_H264_SOFTWARE = 3;
+        CODEC_H265 = 4;
+        CODEC_H265_SOFTWARE = 5;
+        CODEC_PRORES_422_PROXY = 6;
+        CODEC_PRORES_422_LT = 7;
+        CODEC_PRORES_422 = 8;
+        CODEC_PRORES_422_HQ = 9;
+        CODEC_PRORES_4444 = 10;
+        CODEC_PRORES_4444_XQ = 11;
+        CODEC_HAP = 12;
+        CODEC_HAP_ALPHA = 13;
+        CODEC_HAP_Q = 14;
+        CODEC_HAP_Q_ALPHA = 15;
+        CODEC_NOTCH = 16;
+      }
+      Codec codec = 1;
+      enum FrameRate {
+        FRAME_RATE_UNKNOWN = 0;
+        FRAME_RATE_24 = 1;
+        FRAME_RATE_25 = 2;
+        FRAME_RATE_29_97 = 3;
+        FRAME_RATE_30 = 4;
+        FRAME_RATE_50 = 5;
+        FRAME_RATE_59_94 = 6;
+        FRAME_RATE_60 = 7;
+      }
+      FrameRate frame_rate = 2;
+      rv.analytics.Capture.Resolution resolution = 3;
+      bool stream_started = 4;
+      int32 video_bitrate = 5;
+
+    }
+    message Resi {
+      enum Codec {
+        CODEC_UNKNOWN = 0;
+        CODEC_AUTOMATIC = 1;
+        CODEC_H264 = 2;
+        CODEC_H264_SOFTWARE = 3;
+        CODEC_H265 = 4;
+        CODEC_H265_SOFTWARE = 5;
+        CODEC_PRORES_422_PROXY = 6;
+        CODEC_PRORES_422_LT = 7;
+        CODEC_PRORES_422 = 8;
+        CODEC_PRORES_422_HQ = 9;
+        CODEC_PRORES_4444 = 10;
+        CODEC_PRORES_4444_XQ = 11;
+        CODEC_HAP = 12;
+        CODEC_HAP_ALPHA = 13;
+        CODEC_HAP_Q = 14;
+        CODEC_HAP_Q_ALPHA = 15;
+        CODEC_NOTCH = 16;
+      }
+      Codec codec = 1;
+      enum FrameRate {
+        FRAME_RATE_UNKNOWN = 0;
+        FRAME_RATE_24 = 1;
+        FRAME_RATE_25 = 2;
+        FRAME_RATE_29_97 = 3;
+        FRAME_RATE_30 = 4;
+        FRAME_RATE_50 = 5;
+        FRAME_RATE_59_94 = 6;
+        FRAME_RATE_60 = 7;
+      }
+      FrameRate frame_rate = 2;
+      rv.analytics.Capture.Resolution resolution = 3;
+      bool stream_started = 4;
+      int32 video_bitrate = 5;
+
+    }
+  }
+}

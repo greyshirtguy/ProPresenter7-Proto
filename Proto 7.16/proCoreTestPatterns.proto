@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "testPattern.proto";
+import "uuid.proto";
+
+message TestPatternRequest {
+  oneof Request {
+    rv.data.TestPatternRequest.GetDefinitions get_definitions = 1;
+    rv.data.TestPatternState set_current_state = 2;
+    rv.data.TestPatternRequest.GetCurrentState get_current_state = 3;
+    rv.data.TestPatternRequest.GetThumbnail get_thumbnail = 4;
+  }
+
+
+  message GetDefinitions {
+
+  }
+  message GetCurrentState {
+
+  }
+  message GetThumbnail {
+    rv.data.TestPatternDefinition pattern = 1;
+    int32 width = 2;
+    int32 height = 3;
+
+  }
+}
+message TestPatternResponse {
+  oneof Response {
+    rv.data.TestPatternResponse.GetDefinitions get_definitions = 1;
+    rv.data.TestPatternState get_current_state = 2;
+    rv.data.TestPatternResponse.GetThumbnail get_thumbnail = 3;
+  }
+
+
+  message GetDefinitions {
+    repeated rv.data.TestPatternDefinition patterns = 1;
+
+  }
+  message GetThumbnail {
+    rv.data.UUID pattern = 1;
+    bytes image = 2;
+
+  }
+}

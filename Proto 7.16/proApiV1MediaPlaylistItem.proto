@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Identifier.proto";
+
+message API_v1_MediaPlaylistItem {
+  rv.data.API_v1_Identifier id = 1;
+  enum API_v1_MediaPlaylistItemType {
+    audio = 0;
+    image = 1;
+    video = 2;
+  }
+  API_v1_MediaPlaylistItemType type = 2;
+  string artist = 3;
+  uint32 duration = 4;
+
+}

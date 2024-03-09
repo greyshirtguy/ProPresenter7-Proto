@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message API_v1_Trigger_Request {
+  oneof Request {
+    rv.data.API_v1_Trigger_Request.Cue cue = 1;
+    rv.data.API_v1_Trigger_Request.Playlist playlist = 2;
+    rv.data.API_v1_Trigger_Request.Media media = 3;
+    rv.data.API_v1_Trigger_Request.Audio audio = 4;
+    rv.data.API_v1_Trigger_Request.VideoInput video_input = 5;
+    rv.data.API_v1_Trigger_Request.Library library = 6;
+    rv.data.API_v1_Trigger_Request.Next next = 7;
+    rv.data.API_v1_Trigger_Request.Previous previous = 8;
+    rv.data.API_v1_Trigger_Request.MediaNext media_next = 9;
+    rv.data.API_v1_Trigger_Request.MediaPrevious media_previous = 10;
+    rv.data.API_v1_Trigger_Request.AudioNext audio_next = 11;
+    rv.data.API_v1_Trigger_Request.AudioPrevious audio_previous = 12;
+  }
+
+
+  message Cue {
+    uint32 index = 1;
+
+  }
+  message Playlist {
+    string id = 1;
+
+  }
+  message Media {
+    string id = 1;
+
+  }
+  message MediaNext {
+
+  }
+  message MediaPrevious {
+
+  }
+  message Audio {
+    string id = 1;
+
+  }
+  message AudioNext {
+
+  }
+  message AudioPrevious {
+
+  }
+  message VideoInput {
+    string id = 1;
+
+  }
+  message Library {
+    string id = 1;
+
+  }
+  message Next {
+
+  }
+  message Previous {
+
+  }
+}
+message API_v1_Trigger_Response {
+  oneof Response {
+    rv.data.API_v1_Trigger_Response.Cue cue = 1;
+    rv.data.API_v1_Trigger_Response.Playlist playlist = 2;
+    rv.data.API_v1_Trigger_Response.Media media = 3;
+    rv.data.API_v1_Trigger_Response.Audio audio = 4;
+    rv.data.API_v1_Trigger_Response.VideoInput video_input = 5;
+    rv.data.API_v1_Trigger_Response.Library library = 6;
+    rv.data.API_v1_Trigger_Response.Next next = 7;
+    rv.data.API_v1_Trigger_Response.Previous previous = 8;
+    rv.data.API_v1_Trigger_Response.MediaNext media_next = 9;
+    rv.data.API_v1_Trigger_Response.MediaPrevious media_previous = 10;
+    rv.data.API_v1_Trigger_Response.AudioNext audio_next = 11;
+    rv.data.API_v1_Trigger_Response.AudioPrevious audio_previous = 12;
+  }
+
+
+  message Cue {
+
+  }
+  message Playlist {
+
+  }
+  message Media {
+
+  }
+  message MediaNext {
+
+  }
+  message MediaPrevious {
+
+  }
+  message Audio {
+
+  }
+  message AudioNext {
+
+  }
+  message AudioPrevious {
+
+  }
+  message VideoInput {
+
+  }
+  message Library {
+
+  }
+  message Next {
+
+  }
+  message Previous {
+
+  }
+}

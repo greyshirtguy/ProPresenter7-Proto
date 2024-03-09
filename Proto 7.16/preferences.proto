@@ -1,0 +1,262 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "action.proto";
+import "cue.proto";
+import "graphicsData.proto";
+import "groups.proto";
+import "labels.proto";
+import "proClockSource.proto";
+import "url.proto";
+
+message Preferences {
+  rv.data.Preferences.General general = 1;
+  rv.data.Preferences.Screens screens = 2;
+  rv.data.Preferences.Import import = 3;
+  rv.data.Preferences.Groups groups = 4;
+  rv.data.Preferences.Network network = 5;
+  rv.data.Preferences.Sync sync = 6;
+  rv.data.Preferences.Advanced advanced = 7;
+  rv.data.Preferences.Updates updates = 8;
+
+  message General {
+    bool house_of_worship_integrations = 1;
+    bool crash_reports = 2;
+    bool analytics = 3;
+    string logo_path = 4;
+    string language = 5;
+
+  }
+  message Screens {
+    bool enable_at_launch = 1;
+    bool show_performance_stats = 2;
+    bool ignore_background_colors = 3;
+    rv.data.ProClockSource clock_source = 4;
+    bool show_keynote_and_powerpoint = 5;
+    bool disable_blackmagic_sync_groups = 6;
+    bool use_directx_rendering = 7;
+
+  }
+  message Import {
+    enum ScaleBehavior {
+      SCALE_BEHAVIOR_FIT = 0;
+      SCALE_BEHAVIOR_FILL = 1;
+      SCALE_BEHAVIOR_STRETCH = 2;
+      SCALE_BEHAVIOR_CUSTOM = 3;
+    }
+    ScaleBehavior foreground_scaling = 1;
+    bool foreground_is_blurred = 6;
+    ScaleBehavior background_scaling = 2;
+    bool background_is_blurred = 7;
+    rv.data.Preferences.Import.Image image = 3;
+    rv.data.Preferences.Import.Video video = 4;
+    rv.data.Preferences.Import.Audio audio = 5;
+
+    message Image {
+      enum LayerType {
+        LAYER_TYPE_BACKGROUND = 0;
+        LAYER_TYPE_FOREGROUND = 1;
+        LAYER_TYPE_FILL = 2;
+        LAYER_TYPE_INPUT = 3;
+      }
+      LayerType layer_type = 1;
+      rv.data.Preferences.Import.Image.Duration duration = 2;
+      enum CompletionTargetType {
+        COMPLETION_TARGET_TYPE_NONE = 0;
+        COMPLETION_TARGET_TYPE_NEXT = 1;
+        COMPLETION_TARGET_TYPE_RANDOM = 2;
+        COMPLETION_TARGET_TYPE_CUE = 3;
+        COMPLETION_TARGET_TYPE_FIRST = 4;
+      }
+      CompletionTargetType next_behavior = 3;
+
+      message Duration {
+        oneof DurationType {
+          rv.data.Preferences.Import.Image.Duration.None none = 1;
+          rv.data.Preferences.Import.Image.Duration.Time time = 2;
+          rv.data.Preferences.Import.Image.Duration.Random random = 3;
+        }
+
+
+        message None {
+
+        }
+        message Time {
+          double time = 1;
+
+        }
+        message Random {
+          double minimum_time = 1;
+          double maximum_time = 2;
+
+        }
+      }
+    }
+    message Video {
+      enum LayerType {
+        LAYER_TYPE_BACKGROUND = 0;
+        LAYER_TYPE_FOREGROUND = 1;
+        LAYER_TYPE_FILL = 2;
+        LAYER_TYPE_INPUT = 3;
+      }
+      LayerType layer_type = 1;
+      enum PlaybackBehavior {
+        PLAYBACK_BEHAVIOR_STOP = 0;
+        PLAYBACK_BEHAVIOR_LOOP = 1;
+        PLAYBACK_BEHAVIOR_LOOP_FOR_COUNT = 2;
+        PLAYBACK_BEHAVIOR_LOOP_FOR_TIME = 3;
+      }
+      PlaybackBehavior playback_behavior = 2;
+      enum EndBehavior {
+        END_BEHAVIOR_STOP = 0;
+        END_BEHAVIOR_STOP_ON_BLACK = 1;
+        END_BEHAVIOR_STOP_ON_CLEAR = 2;
+        END_BEHAVIOR_FADE_TO_BLACK = 3;
+        END_BEHAVIOR_FADE_TO_CLEAR = 4;
+      }
+      EndBehavior end_behavior = 3;
+      enum CompletionTargetType {
+        COMPLETION_TARGET_TYPE_NONE = 0;
+        COMPLETION_TARGET_TYPE_NEXT = 1;
+        COMPLETION_TARGET_TYPE_RANDOM = 2;
+        COMPLETION_TARGET_TYPE_CUE = 3;
+        COMPLETION_TARGET_TYPE_FIRST = 4;
+      }
+      CompletionTargetType next_behavior = 4;
+
+    }
+    message Audio {
+      enum PlaybackBehavior {
+        PLAYBACK_BEHAVIOR_STOP = 0;
+        PLAYBACK_BEHAVIOR_LOOP = 1;
+        PLAYBACK_BEHAVIOR_LOOP_FOR_COUNT = 2;
+        PLAYBACK_BEHAVIOR_LOOP_FOR_TIME = 3;
+      }
+      PlaybackBehavior playback_behavior = 1;
+      enum CompletionTargetType {
+        COMPLETION_TARGET_TYPE_NONE = 0;
+        COMPLETION_TARGET_TYPE_NEXT = 1;
+        COMPLETION_TARGET_TYPE_RANDOM = 2;
+        COMPLETION_TARGET_TYPE_CUE = 3;
+        COMPLETION_TARGET_TYPE_FIRST = 4;
+      }
+      CompletionTargetType next_behavior = 2;
+
+    }
+  }
+  message Groups {
+    rv.data.ProGroupsDocument groups = 1;
+    rv.data.ProLabelsDocument labels = 2;
+
+  }
+  message Network {
+    rv.data.Preferences.Network.Network network = 1;
+    rv.data.Preferences.Network.Remotes remotes = 2;
+    rv.data.Preferences.Network.Link link = 3;
+
+    message Network {
+      bool enable = 1;
+      string name = 2;
+      uint32 port = 3;
+
+    }
+    message Remotes {
+      rv.data.Preferences.Network.Remotes.ProRemote pro_remote = 1;
+      rv.data.Preferences.Network.Remotes.StageApp stage_app = 2;
+
+      message ProRemote {
+        bool enable = 1;
+        bool enable_controller = 2;
+        string controller_password = 3;
+        bool enable_observer = 4;
+        string observer_password = 5;
+
+      }
+      message StageApp {
+        bool enable = 1;
+        string password = 2;
+
+      }
+    }
+    message Link {
+      bool enable = 1;
+      string link_group = 2;
+
+    }
+  }
+  message Sync {
+    string repository = 1;
+    bool include_libraries = 2;
+    bool include_media = 3;
+    bool include_playlists = 4;
+    bool include_themes = 5;
+    bool include_support_files = 6;
+    enum SyncDirection {
+      SYNC_DOWN = 0;
+      SYNC_UP = 1;
+    }
+    SyncDirection direction = 7;
+    bool replace_destination_files = 8;
+
+  }
+  message Advanced {
+    bool suppress_auto_start = 1;
+    enum AudioForegroundMediaBehavior {
+      IGNORE_FOREGROUND_MEDIA = 0;
+      CLEAR_FOR_ALL_MEDIA = 1;
+      CLEAR_IF_AUDIO = 2;
+      PAUSE_FOR_ALL_MEDIA = 3;
+      PAUSE_IF_AUDIO = 4;
+    }
+    AudioForegroundMediaBehavior presentation_audio_behavior = 2;
+    AudioForegroundMediaBehavior announcements_audio_behavior = 3;
+    rv.data.Preferences.Advanced.NDIDiscovery ndi_discovery = 4;
+    string support_files_path = 5;
+    bool manage_media_automatically = 6;
+    rv.data.Preferences.Advanced.SearchPaths search_paths = 7;
+
+    message NDIDiscovery {
+      bool show_local_sources = 1;
+      string receive_groups = 2;
+      string additional_search_ips = 3;
+
+    }
+    message SearchPaths {
+      bool automatically_relink = 1;
+      repeated rv.data.Preferences.Advanced.SearchPaths.Path paths = 2;
+
+      message Path {
+        bool enable = 1;
+        string name = 2;
+        string path = 3;
+        enum Root {
+          ROOT_UNKNOWN = 0;
+          ROOT_BOOT_VOLUME = 1;
+          ROOT_USER_HOME = 2;
+          ROOT_USER_DOCUMENTS = 3;
+          ROOT_USER_DOWNLOADS = 4;
+          ROOT_USER_MUSIC = 5;
+          ROOT_USER_PICTURES = 6;
+          ROOT_USER_VIDEOS = 7;
+          ROOT_USER_DESKTOP = 11;
+          ROOT_USER_APP_SUPPORT = 8;
+          ROOT_SHARED = 9;
+          ROOT_SHOW = 10;
+          ROOT_CURRENT_RESOURCE = 12;
+        }
+        Root url_root = 4;
+
+      }
+    }
+  }
+  message Updates {
+    bool notify_when_available = 1;
+    enum Channel {
+      production = 0;
+      beta = 1;
+    }
+    Channel update_channel = 2;
+
+  }
+}

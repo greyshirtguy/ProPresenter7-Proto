@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message Sync {
+  oneof SyncType {
+    rv.analytics.Sync.Local local = 1;
+  }
+
+
+  message Local {
+    enum SyncType {
+      SYNC_TYPE_UP = 0;
+      SYNC_TYPE_DOWN = 1;
+    }
+    SyncType sync_type = 1;
+    bool include_library = 2;
+    bool include_media = 3;
+    bool include_playlists = 4;
+    bool include_themes = 5;
+    bool include_support_files = 6;
+    bool replace_files = 7;
+
+  }
+}

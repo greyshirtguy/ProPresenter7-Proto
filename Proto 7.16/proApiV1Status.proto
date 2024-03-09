@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Identifier.proto";
+import "proApiV1Size.proto";
+
+message API_v1_SlideDisplayDetails {
+  string text = 1;
+  string notes = 2;
+  string uuid = 3;
+
+}
+message API_v1_ScreenConfig {
+  rv.data.API_v1_Identifier id = 1;
+  rv.data.API_v1_Size size = 2;
+  enum API_v1_ScreenType {
+    audience = 0;
+    stage = 1;
+  }
+  API_v1_ScreenType screen_type = 3;
+
+}
+message API_v1_Status_Request {
+  oneof Request {
+    rv.data.API_v1_Status_Request.GetLayers get_layers = 1;
+    rv.data.API_v1_Status_Request.GetStageScreens get_stage_screens = 2;
+    rv.data.API_v1_Status_Request.PutStageScreens put_stage_screens = 3;
+    rv.data.API_v1_Status_Request.GetAudienceScreens get_audience_screens = 4;
+    rv.data.API_v1_Status_Request.PutAudienceScreens put_audience_screens = 5;
+    rv.data.API_v1_Status_Request.GetScreens get_screens = 6;
+    rv.data.API_v1_Status_Request.GetSlide get_slide = 7;
+  }
+
+
+  message GetLayers {
+
+  }
+  message GetStageScreens {
+
+  }
+  message PutStageScreens {
+    bool enabled = 1;
+
+  }
+  message GetAudienceScreens {
+
+  }
+  message PutAudienceScreens {
+    bool enabled = 1;
+
+  }
+  message GetScreens {
+
+  }
+  message GetSlide {
+
+  }
+}
+message API_v1_Status_Response {
+  oneof Response {
+    rv.data.API_v1_Status_Response.GetLayers get_layers = 1;
+    rv.data.API_v1_Status_Response.GetStageScreens get_stage_screens = 2;
+    rv.data.API_v1_Status_Response.PutStageScreens put_stage_screens = 3;
+    rv.data.API_v1_Status_Response.GetAudienceScreens get_audience_screens = 4;
+    rv.data.API_v1_Status_Response.PutAudienceScreens put_audience_screens = 5;
+    rv.data.API_v1_Status_Response.GetScreens get_screens = 6;
+    rv.data.API_v1_Status_Response.GetSlide get_slide = 7;
+  }
+
+
+  message GetLayers {
+    bool video_input = 1;
+    bool media = 2;
+    bool slide = 3;
+    bool announcements = 4;
+    bool props = 5;
+    bool messages = 6;
+    bool audio = 7;
+
+  }
+  message GetStageScreens {
+    bool enabled = 1;
+
+  }
+  message PutStageScreens {
+
+  }
+  message GetAudienceScreens {
+    bool enabled = 1;
+
+  }
+  message PutAudienceScreens {
+
+  }
+  message GetScreens {
+    repeated rv.data.API_v1_ScreenConfig screens = 1;
+
+  }
+  message GetSlide {
+    rv.data.API_v1_SlideDisplayDetails current = 1;
+    rv.data.API_v1_SlideDisplayDetails next = 2;
+
+  }
+}

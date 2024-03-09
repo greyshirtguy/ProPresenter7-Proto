@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "rvtimestamp.proto";
+import "uuid.proto";
+
+message API_v1_GroupMember {
+  string ip = 1;
+  uint32 port = 2;
+
+}
+message API_v1_GroupMemberStatus {
+  string ip = 1;
+  uint32 port = 2;
+  string name = 3;
+  enum API_v1_GroupMemberStatus_Platform {
+    PLATFORM_UNKNOWN = 0;
+    PLATFORM_MACOS = 1;
+    PLATFORM_WIN32 = 2;
+    PLATFORM_WEB = 3;
+  }
+  API_v1_GroupMemberStatus_Platform platform = 4;
+  string os_version = 5;
+  string host_description = 6;
+  string api_version = 7;
+  enum API_v1_GroupMemberStatus_ConnectionStatus {
+    CONNECTION_STATUS_UNKNOWN = 0;
+    CONNECTION_STATUS_CONNECTED = 1;
+    CONNECTION_STATUS_DISCONNECTED = 2;
+  }
+  API_v1_GroupMemberStatus_ConnectionStatus connection_status = 8;
+
+}
+message API_v1_GroupDefinition {
+  rv.data.Timestamp timestamp = 1;
+  string secret = 2;
+  string name = 3;
+  repeated rv.data.API_v1_GroupMember members = 4;
+  rv.data.UUID group_identifier = 5;
+
+}
+message API_v1_Link_Request {
+  oneof Request {
+    rv.data.API_v1_Link_Request.Heartbeat heartbeat = 1;
+    rv.data.API_v1_Link_Request.Status status = 2;
+    rv.data.API_v1_Link_Request.AddMember add_member = 3;
+    rv.data.API_v1_Link_Request.RemoveMember remove_member = 4;
+  }
+
+
+  message Heartbeat {
+    uint32 port = 1;
+    string if_modified_since = 2;
+
+  }
+  message Status {
+
+  }
+  message AddMember {
+    oneof AddType {
+      rv.data.API_v1_GroupDefinition group_definition = 1;
+      rv.data.API_v1_GroupMember member_details = 2;
+    }
+
+
+  }
+  message RemoveMember {
+    rv.data.API_v1_GroupMember member_details = 1;
+
+  }
+}
+message API_v1_Link_Response {
+  oneof Response {
+    rv.data.API_v1_Link_Response.Heartbeat heartbeat = 1;
+    rv.data.API_v1_Link_Response.Status status = 2;
+    rv.data.API_v1_Link_Response.AddMember add_member = 3;
+    rv.data.API_v1_Link_Response.RemoveMember remove_member = 4;
+  }
+
+
+  message Heartbeat {
+    rv.data.API_v1_GroupDefinition group_definition = 1;
+    rv.data.API_v1_GroupMemberStatus status = 2;
+
+  }
+  message Status {
+    rv.data.API_v1_GroupDefinition group_definition = 1;
+    string member_name = 2;
+
+  }
+  message AddMember {
+    oneof Result {
+      rv.data.API_v1_GroupDefinition group_definition = 1;
+      rv.data.API_v1_Link_Response.AddMember.RemoteMachineAccepts accept = 2;
+      rv.data.API_v1_Link_Response.AddMember.RemoteMachineDecline decline = 3;
+    }
+
+
+    message RemoteMachineAccepts {
+
+    }
+    message RemoteMachineDecline {
+      enum DeclineReason {
+        ALREADY_IN_GROUP = 0;
+        USER_DECLINED = 1;
+      }
+      DeclineReason reason = 1;
+
+    }
+  }
+  message RemoveMember {
+
+  }
+}

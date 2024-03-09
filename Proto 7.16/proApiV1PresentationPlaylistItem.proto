@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message API_v1_PlaylistPresentationItem {
+  string presentation_uuid = 1;
+
+}

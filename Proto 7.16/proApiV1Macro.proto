@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Color.proto";
+import "proApiV1Identifier.proto";
+
+message API_v1_Macro {
+  rv.data.API_v1_Identifier id = 1;
+  rv.data.API_v1_Color color = 2;
+  string image_type = 3;
+
+}
+message API_v1_Macro_Collection {
+  rv.data.API_v1_Identifier id = 1;
+  repeated rv.data.API_v1_Macro macros = 2;
+
+}
+message API_v1_Macro_Request {
+  oneof Request {
+    rv.data.API_v1_Macro_Request.Macros macros = 1;
+    rv.data.API_v1_Macro_Request.GetMacro get_macro = 2;
+    rv.data.API_v1_Macro_Request.PutMacro put_macro = 3;
+    rv.data.API_v1_Macro_Request.DeleteMacro delete_macro = 4;
+    rv.data.API_v1_Macro_Request.TriggerMacro trigger_macro = 5;
+    rv.data.API_v1_Macro_Request.MacroCollections macro_collections = 6;
+    rv.data.API_v1_Macro_Request.GetMacroCollection get_macro_collection = 7;
+    rv.data.API_v1_Macro_Request.PostMacroCollections post_macro_collections = 8;
+    rv.data.API_v1_Macro_Request.PutMacroCollection put_macro_collection = 9;
+    rv.data.API_v1_Macro_Request.DeleteMacroCollection delete_macro_collection = 10;
+    rv.data.API_v1_Macro_Request.MacroIcon macro_icon = 11;
+    rv.data.API_v1_Macro_Request.PutMacroIcon put_macro_icon = 12;
+  }
+
+
+  message Macros {
+
+  }
+  message GetMacro {
+    string id = 1;
+
+  }
+  message PutMacro {
+    string id = 1;
+    string name_change = 2;
+    rv.data.API_v1_Color color_change = 3;
+    string image_type_change = 4;
+
+  }
+  message DeleteMacro {
+    string id = 1;
+
+  }
+  message TriggerMacro {
+    string id = 1;
+
+  }
+  message MacroCollections {
+
+  }
+  message GetMacroCollection {
+    string id = 1;
+
+  }
+  message PostMacroCollections {
+    string name = 1;
+
+  }
+  message PutMacroCollection {
+    string id = 1;
+    rv.data.API_v1_Macro_Collection changes = 2;
+
+  }
+  message DeleteMacroCollection {
+    string id = 1;
+
+  }
+  message MacroIcon {
+    string id = 1;
+
+  }
+  message PutMacroIcon {
+    string id = 1;
+    string content_type = 2;
+    bytes icon = 3;
+
+  }
+}
+message API_v1_Macro_Response {
+  oneof Response {
+    rv.data.API_v1_Macro_Response.Macros macros = 1;
+    rv.data.API_v1_Macro_Response.GetMacro get_macro = 2;
+    rv.data.API_v1_Macro_Response.PutMacro put_macro = 3;
+    rv.data.API_v1_Macro_Response.DeleteMacro delete_macro = 4;
+    rv.data.API_v1_Macro_Response.TriggerMacro trigger_macro = 5;
+    rv.data.API_v1_Macro_Response.MacroCollections macro_collections = 6;
+    rv.data.API_v1_Macro_Response.GetMacroCollection get_macro_collection = 7;
+    rv.data.API_v1_Macro_Response.PostMacroCollections post_macro_collections = 8;
+    rv.data.API_v1_Macro_Response.PutMacroCollection put_macro_collection = 9;
+    rv.data.API_v1_Macro_Response.DeleteMacroCollection delete_macro_collection = 10;
+    rv.data.API_v1_Macro_Response.MacroIcon macro_icon = 11;
+    rv.data.API_v1_Macro_Response.PutMacroIcon put_macro_icon = 12;
+  }
+
+
+  message Macros {
+    repeated rv.data.API_v1_Macro macros = 1;
+
+  }
+  message GetMacro {
+    rv.data.API_v1_Macro macro = 1;
+
+  }
+  message PutMacro {
+    rv.data.API_v1_Macro macro = 1;
+
+  }
+  message DeleteMacro {
+
+  }
+  message TriggerMacro {
+
+  }
+  message MacroCollections {
+    rv.data.API_v1_Macro_Response.MacroCollections.Collections macro_collections = 1;
+
+    message Collections {
+      repeated rv.data.API_v1_Macro_Collection collections = 1;
+
+    }
+  }
+  message GetMacroCollection {
+    rv.data.API_v1_Macro_Collection macro_collection = 1;
+
+  }
+  message PostMacroCollections {
+    rv.data.API_v1_Macro_Collection macro_collection = 1;
+
+  }
+  message PutMacroCollection {
+    rv.data.API_v1_Macro_Collection macro_collection = 1;
+
+  }
+  message DeleteMacroCollection {
+
+  }
+  message MacroIcon {
+    string content_type = 1;
+    bytes icon = 2;
+
+  }
+  message PutMacroIcon {
+
+  }
+}

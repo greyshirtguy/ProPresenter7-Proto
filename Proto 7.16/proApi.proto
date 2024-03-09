@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "applicationInfo.proto";
+import "messages.proto";
+import "proApiV1.proto";

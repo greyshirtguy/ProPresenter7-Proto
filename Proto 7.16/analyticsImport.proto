@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+import "analyticsMultiTracks.proto";
+
+message Import {
+  oneof Component {
+    rv.analytics.Import.SongSelect song_select = 1;
+    rv.analytics.MultiTracks.Import multitracks = 2;
+  }
+
+
+  message SongSelect {
+    int32 template_slide_text_element_count = 1;
+    bool import_into_playlist = 2;
+    enum LineDelimiter {
+      LINE_DELIMITER_UNKNOWN = 0;
+      LINE_DELIMITER_LINE_BREAK = 1;
+      LINE_DELIMITER_PARAGRAPH_BREAK = 2;
+    }
+    LineDelimiter line_delimiter = 3;
+    int32 line_delimiter_count = 4;
+    bool did_open_edit_view = 5;
+
+  }
+}

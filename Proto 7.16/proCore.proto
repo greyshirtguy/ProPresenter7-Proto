@@ -1,0 +1,658 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "action.proto";
+import "alphaType.proto";
+import "ccli.proto";
+import "cue.proto";
+import "effects.proto";
+import "graphicsData.proto";
+import "input.proto";
+import "macros.proto";
+import "messages.proto";
+import "playlist.proto";
+import "preferences.proto";
+import "presentation.proto";
+import "proCoreTestPatterns.proto";
+import "propDocument.proto";
+import "propresenter.proto";
+import "slide.proto";
+import "recording.proto";
+import "stage.proto";
+import "timers.proto";
+import "url.proto";
+import "uuid.proto";
+import "proworkspace.proto";
+import "digitalAudio.proto";
+import "proAudienceLook.proto";
+import "proMask.proto";
+import "timedPlayback.proto";
+
+message MediaMetadataRequestInfo {
+  string file_path = 1;
+  float time = 2;
+  uint32 width = 3;
+  uint32 height = 4;
+  repeated rv.data.Effect effects = 5;
+  rv.data.Graphics.EdgeInsets crop_insets = 6;
+  enum NativeRotationType {
+    NATIVE_ROTATION_TYPE_ROTATE_STANDARD = 0;
+    NATIVE_ROTATION_TYPE_ROTATE_90 = 90;
+    NATIVE_ROTATION_TYPE_ROTATE_180 = 180;
+    NATIVE_ROTATION_TYPE_ROTATE_270 = 270;
+  }
+  NativeRotationType native_rotation = 7;
+  bool flipped_horizontally = 8;
+  bool flipped_vertically = 9;
+  enum AlphaType {
+    ALPHA_TYPE_UNKNOWN = 0;
+    ALPHA_TYPE_STRAIGHT = 1;
+    ALPHA_TYPE_PREMULTIPLIED = 2;
+  }
+  AlphaType alpha_type = 10;
+
+}
+message MediaMetadataRequestResponse {
+  rv.data.MediaMetadataRequestResponse.Metadata metadata = 1;
+  rv.data.MediaMetadataRequestResponse.BitmapInfo generated_bitmap_info = 2;
+
+  message Metadata {
+    uint32 width = 1;
+    uint32 height = 2;
+    float fps = 3;
+    float duration = 4;
+    uint32 number_audio_channels = 5;
+    string codec = 6;
+    string artist = 7;
+    string title = 8;
+    float rotation = 9;
+    enum ContentType {
+      CONTENT_TYPE_UNKNOWN = 0;
+      CONTENT_TYPE_AUDIO = 1;
+      CONTENT_TYPE_IMAGE = 2;
+      CONTENT_TYPE_VIDEO = 3;
+    }
+    ContentType content_type = 10;
+    bool has_alpha_channel = 11;
+
+  }
+  message BitmapInfo {
+    uint32 width = 1;
+    uint32 height = 2;
+
+  }
+}
+message NetworkIdentifier {
+  repeated rv.data.NetworkIdentifier.IndexOrName identifiers = 1;
+
+  message IndexOrName {
+    oneof Component {
+      int32 index = 1;
+      string name = 2;
+    }
+
+
+  }
+}
+message TriggerOptions {
+  enum ContentDestination {
+    CONTENT_DESTINATION_GLOBAL = 0;
+    CONTENT_DESTINATION_ANNOUNCEMENTS = 1;
+  }
+  ContentDestination content_destination = 1;
+  bool suppress_auto_start_video = 2;
+  bool suppress_media_background = 3;
+  bool force_retrigger = 4;
+  bool reset_chord_chart = 5;
+  bool from_playlist_library = 6;
+  bool from_timeline = 7;
+  bool ignore_analytics = 8;
+  double start_position = 9;
+  rv.data.TriggerSource trigger_source = 10;
+  rv.data.NetworkIdentifier network_identifier = 11;
+  bool request_client_context = 12;
+
+}
+message ControlTransport {
+  oneof ControlType {
+    rv.data.ControlTransport.PlayControlType play = 1;
+    rv.data.ControlTransport.PauseControlType pause = 2;
+    rv.data.ControlTransport.RewindControlType rewind = 3;
+    rv.data.ControlTransport.FastForwardControlType fastforward = 4;
+    rv.data.ControlTransport.SkipBackControlType skip_back = 5;
+    rv.data.ControlTransport.SkipForwardControlType skip_forward = 6;
+    rv.data.ControlTransport.StepBackControlType step_back = 7;
+    rv.data.ControlTransport.StepForwardControlType step_forward = 8;
+    rv.data.ControlTransport.GoToStartControlType go_to_start = 9;
+    rv.data.ControlTransport.GoToEndControlType go_to_end = 10;
+    rv.data.ControlTransport.JumpToTimeControlType jump_to_time = 11;
+    rv.data.ControlTransport.JumpToPercentControlType jump_to_percent = 12;
+    rv.data.ControlTransport.MarkInPointControlType mark_in = 13;
+    rv.data.ControlTransport.MarkOutPointControlType mark_out = 14;
+    rv.data.ControlTransport.SetScaleModeControlType set_scale_mode = 15;
+    rv.data.ControlTransport.SetFlippedModeControlType set_flipped_mode = 16;
+    rv.data.ControlTransport.SetPlayRateControlType set_play_rate = 17;
+    rv.data.ControlTransport.SetNativeRotationControlType set_rotation = 18;
+    rv.data.ControlTransport.TogglePlaybackControlType toggle_playback = 19;
+    rv.data.ControlTransport.SetEffectsControlType set_effects = 20;
+    rv.data.ControlTransport.UpdateEffectControlType update_effect = 21;
+    rv.data.ControlTransport.BeginScrubControlType begin_scrub = 22;
+    rv.data.ControlTransport.EndScrubControlType end_scrub = 23;
+    rv.data.ControlTransport.ScrubToTimeControlType scrub_to_time = 24;
+    rv.data.ControlTransport.ScrubToPercentControlType scrub_to_percent = 25;
+    rv.data.ControlTransport.SetAudioFadeType set_audio_fade = 26;
+    rv.data.ControlTransport.SetAudioPropertiesType set_audio_properties = 27;
+    rv.data.ControlTransport.SetAlphaTypeControlType set_alpha_type = 28;
+  }
+
+
+  message PlayControlType {
+
+  }
+  message PauseControlType {
+
+  }
+  message RewindControlType {
+
+  }
+  message FastForwardControlType {
+
+  }
+  message SkipBackControlType {
+    double offset = 1;
+
+  }
+  message SkipForwardControlType {
+    double offset = 1;
+
+  }
+  message StepBackControlType {
+
+  }
+  message StepForwardControlType {
+
+  }
+  message GoToStartControlType {
+    double offset = 1;
+
+  }
+  message GoToEndControlType {
+    double offset = 1;
+
+  }
+  message JumpToTimeControlType {
+    double time = 1;
+
+  }
+  message JumpToPercentControlType {
+    double percent = 1;
+
+  }
+  message MarkInPointControlType {
+    double time = 1;
+
+  }
+  message MarkOutPointControlType {
+    double time = 1;
+
+  }
+  message SetScaleModeControlType {
+    enum ScaleBehavior {
+      SCALE_BEHAVIOR_FIT = 0;
+      SCALE_BEHAVIOR_FILL = 1;
+      SCALE_BEHAVIOR_STRETCH = 2;
+      SCALE_BEHAVIOR_CUSTOM = 3;
+    }
+    ScaleBehavior mode = 1;
+    bool is_blurred = 3;
+    enum ScaleAlignment {
+      SCALE_ALIGNMENT_MIDDLE_CENTER = 0;
+      SCALE_ALIGNMENT_TOP_LEFT = 1;
+      SCALE_ALIGNMENT_TOP_CENTER = 2;
+      SCALE_ALIGNMENT_TOP_RIGHT = 3;
+      SCALE_ALIGNMENT_MIDDLE_RIGHT = 4;
+      SCALE_ALIGNMENT_BOTTOM_RIGHT = 5;
+      SCALE_ALIGNMENT_BOTTOM_CENTER = 6;
+      SCALE_ALIGNMENT_BOTTOM_LEFT = 7;
+      SCALE_ALIGNMENT_MIDDLE_LEFT = 8;
+    }
+    ScaleAlignment alignment = 2;
+
+  }
+  message SetFlippedModeControlType {
+    bool horizontal = 1;
+    bool vertical = 2;
+
+  }
+  message SetPlayRateControlType {
+    double play_rate = 1;
+
+  }
+  message SetNativeRotationControlType {
+    enum NativeRotationType {
+      NATIVE_ROTATION_TYPE_ROTATE_STANDARD = 0;
+      NATIVE_ROTATION_TYPE_ROTATE_90 = 90;
+      NATIVE_ROTATION_TYPE_ROTATE_180 = 180;
+      NATIVE_ROTATION_TYPE_ROTATE_270 = 270;
+    }
+    NativeRotationType rotation = 1;
+
+  }
+  message SetAlphaTypeControlType {
+    enum AlphaType {
+      ALPHA_TYPE_UNKNOWN = 0;
+      ALPHA_TYPE_STRAIGHT = 1;
+      ALPHA_TYPE_PREMULTIPLIED = 2;
+    }
+    AlphaType alpha_type = 1;
+
+  }
+  message TogglePlaybackControlType {
+
+  }
+  message SetEffectsControlType {
+    repeated rv.data.Effect effects = 1;
+
+  }
+  message UpdateEffectControlType {
+    rv.data.Effect effect = 1;
+
+  }
+  message BeginScrubControlType {
+    double time = 1;
+
+  }
+  message EndScrubControlType {
+    double time = 1;
+
+  }
+  message ScrubToTimeControlType {
+    double time = 1;
+
+  }
+  message ScrubToPercentControlType {
+    double percent = 1;
+
+  }
+  message SetAudioFadeType {
+    double fade_in_duration = 1;
+    double fade_out_duration = 2;
+    bool should_fade_in = 3;
+    bool should_fade_out = 4;
+
+  }
+  message SetAudioPropertiesType {
+    rv.data.Media.AudioProperties audio_properties = 1;
+    repeated bool solo = 2;
+
+  }
+}
+message AudioInputSettings {
+  repeated rv.data.AudioInput inputs = 1;
+  double transitionTime = 2;
+
+}
+message VideoInputSettings {
+  repeated rv.data.VideoInput inputs = 1;
+
+}
+message RecordRequest {
+  rv.data.Recording.Stream stream = 1;
+  rv.data.URL working_directory = 2;
+  rv.data.RecordRequest.Resi resi = 3;
+
+  message Resi {
+    uint32 gop = 1;
+    double segmentSize = 2;
+    string destinationGroupId = 3;
+    uint32 bufSize = 4;
+    uint32 minRate = 5;
+    uint32 maxRate = 6;
+    string eventName = 7;
+    string social_description = 8;
+
+  }
+}
+message TextSegmentRequest {
+  repeated rv.data.TextSegmentRequest.Segment segments = 1;
+  double start_position = 2;
+
+  message Segment {
+    uint32 index = 1;
+    double size = 2;
+
+  }
+}
+message TriggerCue {
+  uint64 trigger_handle = 1;
+  rv.data.TriggerOptions trigger_options = 2;
+  rv.data.Cue cue = 3;
+  rv.data.TriggerCue.PresentationCue presentation = 4;
+  rv.data.Playlist playlist = 5;
+  uint64 client_data = 6;
+
+  message PresentationCue {
+    rv.data.Presentation presentation = 1;
+    rv.data.UUID arrangement_id = 2;
+    int32 cue_index = 3;
+
+  }
+}
+message NetworkTriggerDataItem {
+  rv.data.TriggerOptions trigger_options = 3;
+  rv.data.TriggerCue trigger_cue = 4;
+  oneof Type {
+    rv.data.Action action = 1;
+    rv.data.Cue cue = 2;
+  }
+
+
+}
+message SlideElementTextRenderInfo {
+  repeated rv.data.SlideElementTextRenderInfo.Layer layers = 1;
+
+  message Layer {
+    enum LayerType {
+      LAYER_TYPE_COMPOSITE = 0;
+      LAYER_TYPE_MASK = 1;
+      LAYER_TYPE_OVER = 2;
+      LAYER_TYPE_UNDER = 3;
+    }
+    LayerType layer_type = 1;
+    int32 text_build_index = 5;
+    oneof AdvancedFill {
+      rv.data.Graphics.Text.CutOutFill cut_out_fill = 2;
+      rv.data.Graphics.Text.MediaFill media_fill = 3;
+      rv.data.Graphics.BackgroundEffect background_effect = 4;
+    }
+
+
+  }
+}
+message ValidateEncoderRequest {
+  rv.data.Recording.Stream.Encoder encoder = 1;
+
+}
+message ValidateEncoderResponse {
+  bool is_valid = 1;
+
+}
+message CaptureActionRequest {
+  oneof RequestType {
+    rv.data.CaptureActionRequest.StartResi start_resi = 1;
+    rv.data.CaptureActionRequest.StopCapture stop_capture = 2;
+    rv.data.CaptureActionRequest.Error error = 3;
+  }
+
+
+  message StartResi {
+
+  }
+  message StopCapture {
+
+  }
+  message Error {
+    int32 error_code = 1;
+    rv.data.Action.CaptureType capture_action = 2;
+
+  }
+}
+message CaptureActionResponse {
+  oneof ResponseType {
+    rv.data.CaptureActionResponse.StartResi start_resi = 1;
+    rv.data.CaptureActionResponse.StopCapture stop_capture = 2;
+    rv.data.CaptureActionResponse.CancelCaptureAction cancel_capture_action = 3;
+  }
+
+
+  message CancelCaptureAction {
+
+  }
+  message StartResi {
+    string event_name = 1;
+    string event_description = 2;
+
+  }
+  message StopCapture {
+    bool stop_capture = 1;
+
+  }
+}
+message MacroIcons {
+  repeated rv.data.MacroIcons.MacroIcon icons = 1;
+
+  message MacroIcon {
+    enum ImageType {
+      ImageTypeDefault = 0;
+      ImageTypeOne = 1;
+      ImageTypeTwo = 2;
+      ImageTypeThree = 3;
+      ImageTypeFour = 4;
+      ImageTypeFive = 5;
+      ImageTypeSix = 6;
+      ImageTypeSeven = 7;
+      ImageTypeEight = 8;
+      ImageTypeNine = 9;
+      ImageTypeZero = 10;
+      ImageTypeArrow = 11;
+      ImageTypeAudio = 12;
+      ImageTypeBell = 13;
+      ImageTypeBulb = 14;
+      ImageTypeCloud = 15;
+      ImageTypeCupcake = 16;
+      ImageTypeExclamation = 17;
+      ImageTypeFlask = 18;
+      ImageTypeFlower = 19;
+      ImageTypeGlasses = 20;
+      ImageTypeHashtag = 21;
+      ImageTypeHat = 22;
+      ImageTypeHeart = 23;
+      ImageTypeMegaphone = 24;
+      ImageTypeMessage = 25;
+      ImageTypePaperclip = 26;
+      ImageTypePlay = 27;
+      ImageTypeSlide = 28;
+      ImageTypeStar = 29;
+      ImageTypeSun = 30;
+      ImageTypeSunglasses = 31;
+      ImageTypeTarget = 32;
+      ImageTypeTimer = 33;
+      ImageTypeVideoInput = 34;
+      ImageTypeXClear = 35;
+      ImageTypeLetterA = 36;
+      ImageTypeLetterB = 37;
+      ImageTypeLetterC = 38;
+      ImageTypeLetterD = 39;
+      ImageTypeLetterE = 40;
+      ImageTypeLetterF = 41;
+      ImageTypeLetterG = 42;
+      ImageTypeLetterH = 43;
+      ImageTypeLetterI = 44;
+      ImageTypeLetterJ = 45;
+      ImageTypeLetterK = 46;
+      ImageTypeLetterL = 47;
+      ImageTypeLetterM = 48;
+      ImageTypeLetterN = 49;
+      ImageTypeLetterO = 50;
+      ImageTypeLetterP = 51;
+      ImageTypeLetterQ = 52;
+      ImageTypeLetterR = 53;
+      ImageTypeLetterS = 54;
+      ImageTypeLetterT = 55;
+      ImageTypeLetterU = 56;
+      ImageTypeLetterV = 57;
+      ImageTypeLetterW = 58;
+      ImageTypeLetterX = 59;
+      ImageTypeLetterY = 60;
+      ImageTypeLetterZ = 61;
+      ImageTypeCustom = 62;
+    }
+    ImageType image_type = 1;
+    bytes image_data = 2;
+
+  }
+}
+message GenericEvent {
+
+}
+message SendData {
+  int32 message_id = 1;
+  oneof MessageType {
+    rv.data.ProPresenterWorkspace workspace = 2;
+    rv.data.Stage.Document stage_document = 3;
+    rv.data.TimersDocument timers_document = 4;
+    rv.data.ValidateEncoderRequest validate_encoder_request = 5;
+    rv.data.TriggerCue trigger_cue = 6;
+    rv.data.DigitalAudio.Setup digital_audio_setup = 7;
+    rv.data.MacrosDocument macros_document = 8;
+    rv.data.MessageDocument message_document = 9;
+    rv.data.PropDocument prop_document = 10;
+    rv.data.CCLIDocument ccli_document = 11;
+    rv.data.AudienceLookCollection audience_looks = 12;
+    rv.data.ProAudienceLook live_audience_look = 13;
+    rv.data.MaskCollection masks = 14;
+    rv.data.Recording.SettingsDocument recording_settings_document = 15;
+    rv.data.CaptureActionResponse capture_action_response = 16;
+    rv.data.CopyrightLayout copyright_layout = 17;
+    rv.data.Transition global_background_transition = 18;
+    rv.data.Transition global_messages_transition = 19;
+    rv.data.Transition global_foreground_transition = 20;
+    rv.data.Transition global_bible_transition = 21;
+    rv.data.Transition global_props_transition = 22;
+    rv.data.Transition global_audio_transition = 23;
+    rv.data.Preferences preferences = 24;
+    rv.data.TestPatternRequest test_pattern = 25;
+    rv.data.GenericEvent startup_complete = 26;
+    rv.data.PlaylistDocument visual_playlist_doc = 27;
+    rv.data.PlaylistDocument audio_playlist_doc = 28;
+    rv.data.GenericEvent kill_watchdog = 29;
+    rv.data.MacroIcons macro_icons = 30;
+    rv.data.GenericEvent debug_trigger_data_dump = 31;
+    rv.data.PlaylistDocument library_playlist_doc = 32;
+    rv.data.UUID audio_playlist_focus_uuid = 33;
+  }
+
+
+}
+message TimerRuntimeState {
+  rv.data.UUID timer_uuid = 1;
+  string timer_name = 2;
+  rv.data.Action.TimerType action_type = 3;
+  bool is_running = 4;
+  bool has_overrun = 5;
+  enum ResourceState {
+    PREROLLING = 0;
+    ACTIVATED = 1;
+    UPDATED = 2;
+    DEACTIVATED = 3;
+    RELEASED = 4;
+  }
+  ResourceState state = 6;
+  double current_time = 7;
+
+}
+message TimerStateUpdate {
+  rv.data.Timer timer = 1;
+  rv.data.TimerRuntimeState state = 2;
+
+}
+message HandledException {
+  string description = 1;
+
+}
+message CoreDataStateDump {
+  rv.data.MacrosDocument macros = 1;
+
+}
+message SendDataResponse {
+  int32 message_id = 1;
+  oneof MessageType {
+    rv.data.ValidateEncoderResponse validate_encoder_response = 2;
+    rv.data.TimerStateUpdate timer_state = 3;
+    rv.data.CaptureActionRequest capture_action_request = 4;
+    rv.data.TestPatternResponse test_pattern = 5;
+    rv.data.HandledException handled_exception = 6;
+    rv.data.CoreDataStateDump test_state_dump = 7;
+    rv.data.UUID audio_playlist_focus_uuid = 8;
+    rv.data.UUID audio_playlist_item_triggered_uuid = 9;
+  }
+
+
+}
+message TriggerTransferRenderState {
+  rv.data.Slide slide = 1;
+  string stage_message = 2;
+  rv.data.TriggerTransferRenderState.MediaState presentation_media = 3;
+  rv.data.TriggerTransferRenderState.MediaState announcement_media = 4;
+  rv.data.TriggerTransferRenderState.MediaState audio_media = 5;
+  rv.data.Media live_video_media = 6;
+  rv.data.TriggerTransferRenderState.SlideState presentation = 7;
+  rv.data.TriggerTransferRenderState.SlideState announcement = 8;
+  repeated rv.data.TriggerTransferRenderState.TimerState timers = 9;
+  rv.data.TriggerTransferRenderState.CaptureState capture = 10;
+  rv.data.TriggerTransferRenderState.TimecodeState timecode = 11;
+  uint64 system_time = 12;
+
+  message TimerState {
+    rv.data.Timer timer = 1;
+    bool is_running = 2;
+    bool has_overrun = 3;
+    float value = 4;
+
+  }
+  message MediaState {
+    rv.data.Media current_media = 1;
+    bool is_playing = 2;
+    bool is_looping = 3;
+    float current_time = 4;
+    float time_remaining = 5;
+    rv.data.UUID playlist_uuid = 6;
+    string playlist_name = 7;
+    repeated rv.data.Action.MediaType.PlaybackMarker markers = 8;
+
+  }
+  message CaptureState {
+    enum Status {
+      Stopped = 0;
+      Active = 1;
+      Caution = 2;
+      Error = 3;
+    }
+    Status status = 1;
+    float time = 2;
+
+  }
+  message AutoAdvanceState {
+    bool active = 1;
+    float remaining_time = 2;
+
+  }
+  message TimelineState {
+    bool active = 1;
+    float current_time = 2;
+    int32 last_slide_index = 3;
+
+  }
+  message SlideState {
+    rv.data.Presentation presentation = 1;
+    rv.data.Playlist playlist = 2;
+    rv.data.UUID current_cue = 3;
+    rv.data.UUID next_cue = 4;
+    rv.data.TriggerTransferRenderState.AutoAdvanceState auto_advance = 5;
+    rv.data.TriggerTransferRenderState.TimelineState timeline_state = 6;
+    int32 current_cue_index = 7;
+    int32 current_playlist_index = 8;
+
+  }
+  message TimecodeState {
+    enum Status {
+      Stopped = 0;
+      Playing = 1;
+      Error = 2;
+    }
+    Status status = 1;
+    float time = 2;
+
+  }
+}

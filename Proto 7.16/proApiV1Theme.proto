@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Color.proto";
+import "proApiV1Identifier.proto";
+import "proApiV1Size.proto";
+
+message API_v1_ThemeGroup {
+  rv.data.API_v1_Identifier id = 1;
+  repeated rv.data.API_v1_ThemeGroup groups = 2;
+  repeated rv.data.API_v1_Theme themes = 3;
+
+}
+message API_v1_Theme {
+  rv.data.API_v1_Identifier id = 1;
+  repeated rv.data.API_v1_ThemeSlide slides = 2;
+
+}
+message API_v1_ThemeSlide {
+  rv.data.API_v1_Identifier id = 1;
+  rv.data.API_v1_Size size = 2;
+  rv.data.API_v1_Color background = 3;
+
+}
+message API_v1_Theme_Request {
+  oneof Request {
+    rv.data.API_v1_Theme_Request.GetAll get_all = 1;
+    rv.data.API_v1_Theme_Request.GetTheme get_theme = 2;
+    rv.data.API_v1_Theme_Request.DeleteTheme delete_theme = 3;
+    rv.data.API_v1_Theme_Request.GetThemeName get_theme_name = 4;
+    rv.data.API_v1_Theme_Request.PutThemeName put_theme_name = 5;
+    rv.data.API_v1_Theme_Request.GetThemeSlide get_theme_slide = 6;
+    rv.data.API_v1_Theme_Request.PutThemeSlide put_theme_slide = 7;
+    rv.data.API_v1_Theme_Request.DeleteThemeSlide delete_theme_slide = 8;
+    rv.data.API_v1_Theme_Request.GetThemeSlideThumbnail get_theme_slide_thumbnail = 9;
+  }
+
+
+  message GetAll {
+
+  }
+  message GetTheme {
+    string id = 1;
+
+  }
+  message DeleteTheme {
+    string id = 1;
+
+  }
+  message GetThemeName {
+    string id = 1;
+
+  }
+  message PutThemeName {
+    string id = 1;
+    string name = 2;
+
+  }
+  message GetThemeSlide {
+    string id = 1;
+    string theme_slide = 2;
+
+  }
+  message PutThemeSlide {
+    string id = 1;
+    string theme_slide = 2;
+    rv.data.API_v1_ThemeSlide slide = 3;
+
+  }
+  message DeleteThemeSlide {
+    string id = 1;
+    string theme_slide = 2;
+
+  }
+  message GetThemeSlideThumbnail {
+    string id = 1;
+    string theme_slide = 2;
+    int32 quality = 3;
+
+  }
+}
+message API_v1_Theme_Response {
+  oneof Response {
+    rv.data.API_v1_Theme_Response.GetAll get_all = 1;
+    rv.data.API_v1_Theme_Response.GetTheme get_theme = 2;
+    rv.data.API_v1_Theme_Response.DeleteTheme delete_theme = 3;
+    rv.data.API_v1_Theme_Response.GetThemeName get_theme_name = 4;
+    rv.data.API_v1_Theme_Response.PutThemeName put_theme_name = 5;
+    rv.data.API_v1_Theme_Response.GetThemeSlide get_theme_slide = 6;
+    rv.data.API_v1_Theme_Response.PutThemeSlide put_theme_slide = 7;
+    rv.data.API_v1_Theme_Response.DeleteThemeSlide delete_theme_slide = 8;
+    rv.data.API_v1_Theme_Response.GetThemeSlideThumbnail get_theme_slide_thumbnail = 9;
+  }
+
+
+  message GetAll {
+    repeated rv.data.API_v1_ThemeGroup groups = 1;
+    repeated rv.data.API_v1_Theme themes = 2;
+
+  }
+  message GetTheme {
+    oneof Value {
+      rv.data.API_v1_Theme theme = 1;
+      rv.data.API_v1_ThemeGroup group = 2;
+    }
+
+
+  }
+  message DeleteTheme {
+
+  }
+  message GetThemeName {
+    string name = 1;
+
+  }
+  message PutThemeName {
+
+  }
+  message GetThemeSlide {
+    rv.data.API_v1_ThemeSlide theme_slide = 1;
+
+  }
+  message PutThemeSlide {
+
+  }
+  message DeleteThemeSlide {
+
+  }
+  message GetThemeSlideThumbnail {
+    bytes data = 1;
+
+  }
+}

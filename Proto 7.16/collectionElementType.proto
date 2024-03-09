@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "uuid.proto";
+
+message CollectionElementType {
+  rv.data.UUID parameter_uuid = 1;
+  string parameter_name = 2;
+  rv.data.CollectionElementType parent_collection = 3;
+
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message Update {
+  oneof Action {
+    rv.analytics.Update.Downgrade downgrade = 1;
+  }
+
+
+  message Downgrade {
+    enum FromVersionType {
+      FROM_VERSION_TYPE_UNKNOWN = 0;
+      FROM_VERSION_TYPE_BETA = 1;
+      FROM_VERSION_TYPE_RELEASE = 2;
+    }
+    FromVersionType from_version_type = 1;
+
+  }
+}

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message Create {
+  oneof Component {
+    rv.analytics.Create.Library library = 1;
+    rv.analytics.Create.Playlist playlist = 2;
+    rv.analytics.Create.Presentation presentation = 3;
+    rv.analytics.Create.TemplatePlaylist template_playlist = 4;
+  }
+
+
+  message Library {
+    enum Source {
+      SOURCE_UNKNOWN = 0;
+      SOURCE_APPLICATION_MENU = 1;
+      SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;
+    }
+    Source source = 1;
+
+  }
+  message Playlist {
+    enum Source {
+      SOURCE_UNKNOWN = 0;
+      SOURCE_APPLICATION_MENU = 1;
+      SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;
+    }
+    Source source = 1;
+    enum Type {
+      TYPE_UNKNOWN = 0;
+      TYPE_PRESENTATION = 1;
+      TYPE_PLANNING_CENTER = 2;
+      TYPE_FOLDER = 3;
+      TYPE_TEMPLATE_PLAYLIST = 4;
+    }
+    Type type = 2;
+
+  }
+  message Presentation {
+    enum Source {
+      SOURCE_UNKNOWN = 0;
+      SOURCE_APPLICATION_MENU = 1;
+      SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;
+      SOURCE_DETAIL_ADD_BUTTON = 3;
+      SOURCE_UNLINKED_HEADER = 4;
+    }
+    Source source = 1;
+
+  }
+  message TemplatePlaylist {
+    int32 total_item_count = 1;
+    int32 header_count = 2;
+    int32 placeholder_count = 3;
+    int32 presentation_count = 4;
+    int32 media_count = 5;
+
+  }
+}
