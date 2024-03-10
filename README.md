@@ -39,8 +39,8 @@ foreach (var p in fds)
 {
     FileInfo fi = new(p.Name);
     fi.Directory?.Create();
-    using var file = File.Create(p.Name);
-    using var writer = new StreamWriter(file, Encoding.ASCII);
+    using var file = fi.Create();
+    using var writer = new StreamWriter(file, Encoding.ASCII) { NewLine = "\n" };
     var isProto3 = false;
     if (p.HasSyntax)
     {
@@ -48,37 +48,24 @@ foreach (var p in fds)
         {
             isProto3 = true;
         }
-        writer.Write("syntax = \"");
-        writer.Write(p.Syntax);
-        writer.Write("\";\n\n");
+        writer.Write($"syntax = \"{p.Syntax}\";\n\n");
     }
     if (p.HasPackage)
     {
-        writer.Write("package ");
-        writer.Write(p.Package);
-        writer.Write(";\n\n");
+        writer.Write($"package {p.Package};\n\n");
     }
     foreach (var import in p.Dependency)
     {
-        writer.Write("import \"");
-        writer.Write(import);
-        writer.Write("\";\n");
+        writer.Write($"import \"{import}\";\n");
     }
-    writer.Write("\n");
+    writer.Write('\n');
     void WriteBoolOption(string name, bool value, int level = 0)
     {
-        writer.Write(new string(' ', level * 2));
-        writer.Write("option ");
-        writer.Write(name);
-        writer.Write(value ? " = true;\n" : " = false;\n");
+        writer.Write($"{new string(' ', level * 2)}option {name} = {(value ? "true" : "false")};\n");
     }
     void WriteStringOption(string name, string value, int level = 0)
     {
-        writer.Write(new string(' ', level * 2));
-        writer.Write(name);
-        writer.Write(" = \"");
-        writer.Write(value);
-        writer.Write("\";\n");
+        writer.Write($"{new string(' ', level * 2)}option {name} = \"{value}\";\n");
     }
     if (p.Options.HasCcEnableArenas)
     {
@@ -86,7 +73,6 @@ foreach (var p in fds)
     }
     if (p.Options.HasObjcClassPrefix)
     {
-        writer.Write("option ");
         WriteStringOption("object_class_prefix", p.Options.ObjcClassPrefix);
     }
     if (p.Options.HasCsharpNamespace)
@@ -150,11 +136,29 @@ foreach (var p in fds)
                     writer.Write(label);
                 }
             }
-            if (field.HasTypeName)
+            writer.Write(field.HasTypeName ? field.TypeName : field.Type switch
             {
-                writer.Write(field.TypeName);
-                writer.Write(' ');
-            }
+                FieldDescriptorProto.Types.Type.Double => "double",
+                FieldDescriptorProto.Types.Type.Float => "float",
+                FieldDescriptorProto.Types.Type.Int64 => "int64",
+                FieldDescriptorProto.Types.Type.Uint64 => "uint64",
+                FieldDescriptorProto.Types.Type.Int32 => "int32",
+                FieldDescriptorProto.Types.Type.Fixed64 => "fixed64",
+                FieldDescriptorProto.Types.Type.Fixed32 => "fixed32",
+                FieldDescriptorProto.Types.Type.Bool => "bool",
+                FieldDescriptorProto.Types.Type.String => "string",
+                FieldDescriptorProto.Types.Type.Group => "group",
+                FieldDescriptorProto.Types.Type.Message => "message",
+                FieldDescriptorProto.Types.Type.Bytes => "bytes",
+                FieldDescriptorProto.Types.Type.Uint32 => "uint32",
+                FieldDescriptorProto.Types.Type.Enum => "enum",
+                FieldDescriptorProto.Types.Type.Sfixed32 => "sfixed32",
+                FieldDescriptorProto.Types.Type.Sfixed64 => "sfixed64",
+                FieldDescriptorProto.Types.Type.Sint32 => "sint32",
+                FieldDescriptorProto.Types.Type.Sint64 => "sint64",
+                _ => "unknown"
+            });
+            writer.Write(' ');
             if (field.HasName)
             {
                 writer.Write(field.Name);
@@ -165,6 +169,7 @@ foreach (var p in fds)
                 writer.Write("= ");
                 writer.Write(field.Number);
             }
+            // TODO: default value and JSON name
             writer.Write(";\n");
         }
     }
@@ -172,9 +177,7 @@ foreach (var p in fds)
     {
         foreach (var message in ds)
         {
-            writer.Write("\n");
-            writer.Write(new string(' ', level * 2));
-            writer.Write("message ");
+            writer.Write($"\n{new string(' ', level * 2)}message ");
             if (message.HasName)
             {
                 writer.Write(message.Name);
@@ -186,9 +189,7 @@ foreach (var p in fds)
             WriteMessage(message.NestedType, level + 1);
             foreach (var e in message.EnumType)
             {
-                writer.Write("\n");
-                writer.Write(new string(' ', level * 2));
-                writer.Write("enum ");
+                writer.Write($"\n{new string(' ', (level + 1) * 2)}enum ");
                 if (e.HasName)
                 {
                     writer.Write(e.Name);
@@ -197,22 +198,19 @@ foreach (var p in fds)
                 writer.Write("{\n");
                 foreach (var v in e.Value)
                 {
-                    writer.Write(new string(' ', (level + 1) * 2));
+                    writer.Write(new string(' ', (level + 2) * 2));
                     if (v.HasName)
                     {
                         writer.Write(v.Name);
                     }
                     if (v.HasNumber)
                     {
-                        writer.Write(" = ");
-                        writer.Write(v.Number);
-                        writer.Write(";\n");
+                        writer.Write($" = {v.Number};\n");
                     }
                 }
                 foreach (var r in e.ReservedRange)
                 {
-                    writer.Write(new string(' ', (level + 1) * 2));
-                    writer.Write("reserved ");
+                    writer.Write($"{new string(' ', (level + 2) * 2)}reserved ");
                     if (r.HasStart)
                     {
                         writer.Write(r.Start);
@@ -229,40 +227,32 @@ foreach (var p in fds)
                 }
                 foreach (var r in e.ReservedName)
                 {
-                    writer.Write(new string(' ', (level + 1) * 2));
-                    writer.Write("reserved \"");
-                    writer.Write(r);
-                    writer.Write("\";\n");
+                    writer.Write($"{new string(' ', (level + 2) * 2)}reserved \"{r}\";\n");
                 }
-                writer.Write("}\n");
+                writer.Write($"{new string(' ', (level + 1) * 2)}}}\n");
             }
             // TODO: extension range
             foreach (var p in message.OneofDecl
-                .Select((o, i) => new KeyValuePair<string, IEnumerable<FieldDescriptorProto>>(o.HasName ? o.Name : null, message.Field
+                .Select((o, i) => new KeyValuePair<string?, IEnumerable<FieldDescriptorProto>>(o.HasName ? o.Name : null, message.Field
                     .Where(f => f.HasOneofIndex && f.OneofIndex == i))))
             {
-                writer.Write('\n');
-                writer.Write(new string(' ', (level + 1) * 2));
-                writer.Write(value: "oneof ");
+                writer.Write($"\n{new string(' ', (level + 1) * 2)}oneof ");
                 if (p.Key is { } name)
                 {
                     writer.Write(name);
                     writer.Write(' ');
                 }
                 writer.Write("{\n");
-                WriteFields(p.Value, level + 1);
-                writer.Write(new string(' ', (level + 1) * 2));
-                writer.Write("};\n");
+                WriteFields(p.Value, level + 2);
+                writer.Write($"{new string(' ', (level + 1) * 2)}}}\n");
             }
             if (message.Options is { } options)
             {
                 WriteMessageOptions(options, level + 1);
             }
-            writer.Write('\n');
             foreach (var r in message.ReservedRange)
             {
-                writer.Write(new string(' ', (level + 1) * 2));
-                writer.Write("reserved ");
+                writer.Write($"{new string(' ', (level + 1) * 2)}reserved ");
                 if (r.HasStart)
                 {
                     writer.Write(r.Start);
@@ -279,13 +269,9 @@ foreach (var p in fds)
             }
             foreach (var r in message.ReservedName)
             {
-                writer.Write(new string(' ', (level + 1) * 2));
-                writer.Write("reserved \"");
-                writer.Write(r);
-                writer.Write("\";\n");
+                writer.Write($"{new string(' ', (level + 1) * 2)}reserved \"{r}\";\n");
             }
-            writer.Write(new string(' ', level * 2));
-            writer.Write("}\n");
+            writer.Write($"{new string(' ', level * 2)}}}\n");
         }
     }
     WriteMessage(p.MessageType);
