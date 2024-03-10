@@ -26,6 +26,8 @@ message TriggerSource {
   oneof Location {
     .rv.data.TriggerSource.Library library_location = 1;
     .rv.data.TriggerSource.Playlist playlist_location = 2;
+    .rv.data.TriggerSource.Playlist media_playlist_location = 3;
+    .rv.data.TriggerSource.Playlist audio_playlist_location = 4;
   };
 }
 

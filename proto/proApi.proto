@@ -587,6 +587,7 @@ message NetworkAPI {
 
     message API_Macro {
       .rv.data.NetworkAPI.IndexOrNameIdentifier identifier = 1;
+      repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;
     }
 
     message API_Look {

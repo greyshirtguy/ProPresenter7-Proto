@@ -44,7 +44,9 @@ message Preferences {
 
   message Import {
     .rv.data.Media.ScaleBehavior foreground_scaling = 1;
+    bool foreground_is_blurred = 6;
     .rv.data.Media.ScaleBehavior background_scaling = 2;
+    bool background_is_blurred = 7;
     .rv.data.Preferences.Import.Image image = 3;
     .rv.data.Preferences.Import.Video video = 4;
     .rv.data.Preferences.Import.Audio audio = 5;

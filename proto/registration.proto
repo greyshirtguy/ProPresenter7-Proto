@@ -23,6 +23,9 @@ message Request {
     .registration.core.GetAvailableVersion get_downgrade_available = 12;
     .registration.core.DownloadNewVersion download_new_version = 13;
     .registration.core.Refresh refresh = 14;
+    .registration.core.ActivateLink activate_link = 15;
+    .registration.core.UpdateToken update_token = 16;
+    .registration.core.OldTokenData old_token_data = 17;
   };
 }
 
@@ -30,24 +33,25 @@ message Callback {
 
   oneof callback {
     .registration.core.SetWatermark set_watermark = 1;
-    .registration.core.ActivationComplete activation_complete = 2;
-    .registration.core.DeactivationComplete deactivation_complete = 3;
-    .registration.core.ChangeSeatTypeComplete change_seat_type = 4;
-    .registration.core.FreeBibles free_bibles = 5;
-    .registration.core.PurchasedBibles purchased_bibles = 6;
-    .registration.core.BibleActivationComplete bible_activation_complete = 7;
-    .registration.core.BibleDeactivationComplete bible_deactivation_complete = 8;
-    .registration.core.BibleDownloadProgress bible_download_progress = 9;
-    .registration.core.HardExit hard_exit = 10;
-    .registration.core.ReadRegistrationData read_registration_data = 11;
-    .registration.core.WriteRegistrationData write_registration_data = 12;
-    .registration.core.GetProductInformation get_product_information = 13;
-    .registration.core.Log log = 14;
-    .registration.core.UpgradesAvailable upgrades_available = 15;
-    .registration.core.DowngradeAvailable downgrade_available = 16;
-    .registration.core.DownloadProgress download_progress = 17;
-    .registration.core.Alerts alerts = 18;
-    .registration.core.ShowExpirationDialog show_expiration_dialog = 19;
+    .registration.core.DeactivationComplete deactivation_complete = 2;
+    .registration.core.FreeBibles free_bibles = 3;
+    .registration.core.PurchasedBibles purchased_bibles = 4;
+    .registration.core.BibleActivationComplete bible_activation_complete = 5;
+    .registration.core.BibleDeactivationComplete bible_deactivation_complete = 6;
+    .registration.core.BibleDownloadProgress bible_download_progress = 7;
+    .registration.core.HardExit hard_exit = 8;
+    .registration.core.ReadRegistrationData read_registration_data = 9;
+    .registration.core.WriteRegistrationData write_registration_data = 10;
+    .registration.core.GetProductInformation get_product_information = 11;
+    .registration.core.Log log = 12;
+    .registration.core.UpgradesAvailable upgrades_available = 13;
+    .registration.core.DowngradeAvailable downgrade_available = 14;
+    .registration.core.DownloadProgress download_progress = 15;
+    .registration.core.Alerts alerts = 16;
+    .registration.core.ShowExpirationDialog show_expiration_dialog = 17;
+    .registration.core.ReadOldToken read_old_token = 18;
+    .registration.core.Token token = 19;
+    .registration.core.VerificationComplete verification_complete = 20;
   };
 }
 
@@ -57,6 +61,10 @@ message Register {
   string display_name = 3;
   .registration.core.SeatType seat_type = 4;
   .registration.core.UpdateChannel channel = 5;
+}
+
+message ActivateLink {
+  string identifier = 1;
 }
 
 message Unregister {
@@ -113,6 +121,19 @@ message DownloadNewVersion {
 
 message Refresh {
   .registration.core.UpdateChannel channel = 1;
+}
+
+message UpdateToken {
+  .registration.core.TokenMetadata token_metadata = 1;
+}
+
+message OldTokenData {
+  .registration.core.ReadTokenStatus status = 1;
+  .registration.core.TokenMetadata token = 2;
+}
+
+message Token {
+  .registration.core.TokenMetadata token_metadata = 1;
 }
 
 message SetWatermark {
@@ -184,6 +205,9 @@ message ReadRegistrationData {
   string identifier = 2;
 }
 
+message ReadOldToken {
+}
+
 message WriteRegistrationData {
   bytes data = 1;
 }
@@ -231,9 +255,30 @@ message ShowExpirationDialog {
   int32 days = 1;
 }
 
+message LicenseInfo {
+  .registration.core.RegistrationInfo registration_info = 1;
+  .registration.core.Seats available_seats = 2;
+  .registration.core.Seats total_seats = 3;
+  bool legacy = 4;
+}
+
+message VerificationComplete {
+  .registration.core.Status result = 1;
+  .registration.core.LicenseInfo license = 2;
+  .registration.core.Bibles bibles = 3;
+  .registration.core.TokenMetadata token = 4;
+  .registration.core.SubscriptionInfo subscription_info = 5;
+  .registration.core.PopupAlertMessage alert = 6;
+  .registration.core.BannerMessage banner = 7;
+}
+
 message Seats {
   int32 basic = 1;
   int32 advanced = 2;
+}
+
+message SupplementalInformation {
+  string download_link = 1;
 }
 
 message Bible {
@@ -245,6 +290,10 @@ message Bible {
   string display_abbreviation = 6;
   string internal_abbreviation = 7;
   string version = 8;
+
+  oneof additional {
+    .registration.core.SupplementalInformation info = 9;
+  };
 }
 
 message PurchasedBible {
@@ -285,9 +334,9 @@ message BuildInformation {
   int32 build_number = 1;
   string version = 2;
   string min_os_version = 3;
-  int32 release_date = 4;
-  int32 registration_date = 5;
-  int32 download_size = 6;
+  int64 release_date = 4;
+  int64 registration_date = 5;
+  int64 download_size = 6;
   string download_url = 7;
   string channel = 8;
   bool is_beta = 9;
@@ -299,4 +348,31 @@ message Alert {
   string title = 2;
   .registration.core.AlertContentType content_type = 3;
   string content = 4;
+}
+
+message TokenMetadata {
+  string access_token = 1;
+  string refresh_token = 2;
+  int64 expires_at = 3;
+}
+
+message SubscriptionInfo {
+  string organization_name = 1;
+  .registration.core.ProContentLicenseType procontent_license_type = 2;
+  int64 procontent_license_expiration = 3;
+}
+
+message DownloadLink {
+  string id = 1;
+  string url = 2;
+}
+
+message Bibles {
+  repeated .registration.core.Bible free_bibles = 1;
+  repeated .registration.core.PurchasedBible purchased_bibles = 2;
+}
+
+message FeatureFlags {
+  bool use_staging = 1;
+  bool use_subscription = 2;
 }

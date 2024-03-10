@@ -14,6 +14,7 @@ message API_v1_Message {
   string message = 2;
   repeated .rv.data.API_v1_Message.API_v1_MessageToken tokens = 3;
   .rv.data.API_v1_Identifier theme = 4;
+  bool visible_on_network = 5;
 
   message API_v1_MessageToken {
     string name = 1;

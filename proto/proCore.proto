@@ -16,6 +16,7 @@ import "preferences.proto";
 import "presentation.proto";
 import "proCoreTestPatterns.proto";
 import "propDocument.proto";
+import "propresenter.proto";
 import "slide.proto";
 import "recording.proto";
 import "stage.proto";
@@ -100,6 +101,7 @@ message TriggerOptions {
   double start_position = 9;
   .rv.data.TriggerSource trigger_source = 10;
   .rv.data.NetworkIdentifier network_identifier = 11;
+  bool request_client_context = 12;
 }
 
 message ControlTransport {
@@ -156,6 +158,7 @@ message ControlTransport {
 
   message SetScaleModeControlType {
     .rv.data.Media.ScaleBehavior mode = 1;
+    bool is_blurred = 3;
     .rv.data.Media.ScaleAlignment alignment = 2;
   }
 
@@ -379,7 +382,16 @@ message CaptureActionResponse {
   };
 }
 
-message StartupComplete {
+message MacroIcons {
+  repeated .rv.data.MacroIcons.MacroIcon icons = 1;
+
+  message MacroIcon {
+    .rv.data.MacrosDocument.Macro.ImageType image_type = 1;
+    bytes image_data = 2;
+  }
+}
+
+message GenericEvent {
 }
 
 message SendData {
@@ -410,7 +422,14 @@ message SendData {
     .rv.data.Transition global_audio_transition = 23;
     .rv.data.Preferences preferences = 24;
     .rv.data.TestPatternRequest test_pattern = 25;
-    .rv.data.StartupComplete startup_complete = 26;
+    .rv.data.GenericEvent startup_complete = 26;
+    .rv.data.PlaylistDocument visual_playlist_doc = 27;
+    .rv.data.PlaylistDocument audio_playlist_doc = 28;
+    .rv.data.GenericEvent kill_watchdog = 29;
+    .rv.data.MacroIcons macro_icons = 30;
+    .rv.data.GenericEvent debug_trigger_data_dump = 31;
+    .rv.data.PlaylistDocument library_playlist_doc = 32;
+    .rv.data.UUID audio_playlist_focus_uuid = 33;
   };
 }
 
@@ -441,6 +460,10 @@ message HandledException {
   string description = 1;
 }
 
+message CoreDataStateDump {
+  .rv.data.MacrosDocument macros = 1;
+}
+
 message SendDataResponse {
   int32 message_id = 1;
 
@@ -450,6 +473,9 @@ message SendDataResponse {
     .rv.data.CaptureActionRequest capture_action_request = 4;
     .rv.data.TestPatternResponse test_pattern = 5;
     .rv.data.HandledException handled_exception = 6;
+    .rv.data.CoreDataStateDump test_state_dump = 7;
+    .rv.data.UUID audio_playlist_focus_uuid = 8;
+    .rv.data.UUID audio_playlist_item_triggered_uuid = 9;
   };
 }
 

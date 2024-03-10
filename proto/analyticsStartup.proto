@@ -267,7 +267,9 @@ message Startup {
     int32 props_count = 16;
     int32 stage_layout_count = 17;
     int32 macros_count = 18;
-    bool ubiquitous_show_directory = 19;
+    int32 macros_collections_count = 19;
+    int32 macros_custom_icons = 20;
+    bool ubiquitous_show_directory = 21;
   }
 
   message Themes {

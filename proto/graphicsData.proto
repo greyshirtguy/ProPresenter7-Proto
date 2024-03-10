@@ -513,6 +513,7 @@ message Media {
 
   message DrawingProperties {
     .rv.data.Media.ScaleBehavior scale_behavior = 1;
+    bool is_blurred = 16;
     .rv.data.Media.ScaleAlignment scale_alignment = 2;
     bool flipped_horizontally = 3;
     bool flipped_vertically = 4;

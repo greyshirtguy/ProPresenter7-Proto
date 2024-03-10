@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package rv.data;
 
+import "graphicsData.proto";
 
 option cc_enable_arenas = true;
 option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
@@ -19,4 +20,31 @@ message IdentificationOverlay {
     string name = 5;
     double frame_rate = 6;
   }
+}
+
+message LayerIdentificationOverlay {
+  .rv.data.LayerIdentificationOverlay.Layer layer = 1;
+  string layer_name = 2;
+
+  enum Layer {
+    LAYER_VIDEO_INPUT = 0;
+    LAYER_MEDIA = 1;
+    LAYER_PRESENTATION = 2;
+    LAYER_ANNOUNCEMENTS = 3;
+    LAYER_PROPS = 4;
+    LAYER_MESSAGES = 5;
+  }
+}
+
+message TextLayer {
+
+  message Composite {
+  }
+
+  oneof LayerType {
+    .rv.data.TextLayer.Composite composite = 1;
+    .rv.data.Media media = 2;
+    .rv.data.Graphics.Text.CutOutFill cut_out = 3;
+    .rv.data.Graphics.BackgroundEffect background_effect = 4;
+  };
 }
