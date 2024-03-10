@@ -28,7 +28,7 @@ message TestPatternRequest {
     .rv.data.TestPatternState set_current_state = 2;
     .rv.data.TestPatternRequest.GetCurrentState get_current_state = 3;
     .rv.data.TestPatternRequest.GetThumbnail get_thumbnail = 4;
-  };
+  }
 }
 
 message TestPatternResponse {
@@ -46,5 +46,5 @@ message TestPatternResponse {
     .rv.data.TestPatternResponse.GetDefinitions get_definitions = 1;
     .rv.data.TestPatternState get_current_state = 2;
     .rv.data.TestPatternResponse.GetThumbnail get_thumbnail = 3;
-  };
+  }
 }

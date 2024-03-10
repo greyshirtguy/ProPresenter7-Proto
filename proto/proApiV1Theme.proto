@@ -81,7 +81,7 @@ message API_v1_Theme_Request {
     .rv.data.API_v1_Theme_Request.PutThemeSlide put_theme_slide = 7;
     .rv.data.API_v1_Theme_Request.DeleteThemeSlide delete_theme_slide = 8;
     .rv.data.API_v1_Theme_Request.GetThemeSlideThumbnail get_theme_slide_thumbnail = 9;
-  };
+  }
 }
 
 message API_v1_Theme_Response {
@@ -96,7 +96,7 @@ message API_v1_Theme_Response {
     oneof Value {
       .rv.data.API_v1_Theme theme = 1;
       .rv.data.API_v1_ThemeGroup group = 2;
-    };
+    }
   }
 
   message DeleteTheme {
@@ -133,5 +133,5 @@ message API_v1_Theme_Response {
     .rv.data.API_v1_Theme_Response.PutThemeSlide put_theme_slide = 7;
     .rv.data.API_v1_Theme_Response.DeleteThemeSlide delete_theme_slide = 8;
     .rv.data.API_v1_Theme_Response.GetThemeSlideThumbnail get_theme_slide_thumbnail = 9;
-  };
+  }
 }

@@ -42,7 +42,7 @@ message Calendar {
       oneof ActionType {
         .rv.data.Calendar.Event.Action.Playlist playlist = 3;
         .rv.data.Calendar.Event.Action.Macro macro = 4;
-      };
+      }
     }
 
     enum DayOfWeek {

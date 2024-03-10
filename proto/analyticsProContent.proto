@@ -19,5 +19,5 @@ message ProContent {
   oneof Event {
     .rv.analytics.ProContent.ViewMediaBin media_bin = 1;
     .rv.analytics.ProContent.Download download = 2;
-  };
+  }
 }

@@ -57,7 +57,7 @@ message UI {
       .rv.analytics.UI.QuickSearch.Shown shown = 1;
       .rv.analytics.UI.QuickSearch.Search search = 2;
       .rv.analytics.UI.QuickSearch.OpenItems open_items = 3;
-    };
+    }
   }
 
   message Toolbar {
@@ -101,7 +101,7 @@ message UI {
       oneof Component {
         .rv.analytics.UI.Toolbar.TextStyle.Shown shown = 1;
         .rv.analytics.UI.Toolbar.TextStyle.Change change = 2;
-      };
+      }
     }
 
     message Theme {
@@ -122,13 +122,13 @@ message UI {
       oneof Component {
         .rv.analytics.UI.Toolbar.Theme.Shown shown = 1;
         .rv.analytics.UI.Toolbar.Theme.Applied applied = 2;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.UI.Toolbar.TextStyle text_style = 1;
       .rv.analytics.UI.Toolbar.Theme theme = 2;
-    };
+    }
   }
 
   message MainView {
@@ -147,7 +147,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.Show.Shown shown = 1;
-      };
+      }
     }
 
     message PresentationEditor {
@@ -165,7 +165,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.PresentationEditor.Shown shown = 1;
-      };
+      }
     }
 
     message ReflowEditor {
@@ -183,7 +183,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.ReflowEditor.Shown shown = 1;
-      };
+      }
     }
 
     message Bible {
@@ -284,7 +284,7 @@ message UI {
         .rv.analytics.UI.MainView.Bible.BibleCount install = 8;
         .rv.analytics.UI.MainView.Bible.BibleCount remove = 9;
         .rv.analytics.UI.MainView.Bible.BibleCount startup = 10;
-      };
+      }
     }
 
     message StageEditor {
@@ -302,7 +302,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.StageEditor.Shown shown = 1;
-      };
+      }
     }
 
     message ThemeEditor {
@@ -319,7 +319,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.ThemeEditor.Shown shown = 1;
-      };
+      }
     }
 
     message CopyrightEditor {
@@ -336,7 +336,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.CopyrightEditor.Shown shown = 1;
-      };
+      }
     }
 
     message PropsEditor {
@@ -353,7 +353,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.PropsEditor.Shown shown = 1;
-      };
+      }
     }
 
     message MaskEditor {
@@ -370,7 +370,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.MainView.MaskEditor.Shown shown = 1;
-      };
+      }
     }
 
     oneof Component {
@@ -383,7 +383,7 @@ message UI {
       .rv.analytics.UI.MainView.CopyrightEditor copyright_editor = 7;
       .rv.analytics.UI.MainView.PropsEditor props_editor = 8;
       .rv.analytics.UI.MainView.MaskEditor mask_editor = 9;
-    };
+    }
   }
 
   message Looks {
@@ -400,7 +400,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.Looks.Shown shown = 1;
-    };
+    }
   }
 
   message ScreenConfiguration {
@@ -417,7 +417,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.ScreenConfiguration.Shown shown = 1;
-    };
+    }
   }
 
   message LowerRight {
@@ -473,7 +473,7 @@ message UI {
         .rv.analytics.UI.LowerRight.Timers.State state = 4;
         .rv.analytics.UI.LowerRight.Timers.Create create = 5;
         .rv.analytics.UI.LowerRight.Timers.Delete delete = 6;
-      };
+      }
     }
 
     message Messages {
@@ -518,7 +518,7 @@ message UI {
         .rv.analytics.UI.LowerRight.Messages.State state = 3;
         .rv.analytics.UI.LowerRight.Messages.Create create = 4;
         .rv.analytics.UI.LowerRight.Messages.Delete delete = 5;
-      };
+      }
     }
 
     message Props {
@@ -551,7 +551,7 @@ message UI {
         .rv.analytics.UI.LowerRight.Props.State state = 3;
         .rv.analytics.UI.LowerRight.Props.Create create = 4;
         .rv.analytics.UI.LowerRight.Props.Delete delete = 5;
-      };
+      }
     }
 
     message Stage {
@@ -584,7 +584,7 @@ message UI {
         .rv.analytics.UI.LowerRight.Stage.MessageState message_state = 3;
         .rv.analytics.UI.LowerRight.Stage.ConfigureScreens configure_screens = 4;
         .rv.analytics.UI.LowerRight.Stage.EditLayouts edit_layouts = 5;
-      };
+      }
     }
 
     message AudioBin {
@@ -609,7 +609,7 @@ message UI {
         .rv.analytics.UI.LowerRight.Macros.Trigger trigger = 2;
         .rv.analytics.UI.LowerRight.Macros.Create create = 3;
         .rv.analytics.UI.LowerRight.Macros.Delete delete = 4;
-      };
+      }
     }
 
     oneof Component {
@@ -619,7 +619,7 @@ message UI {
       .rv.analytics.UI.LowerRight.Stage stage = 4;
       .rv.analytics.UI.LowerRight.AudioBin audio_bin = 5;
       .rv.analytics.UI.LowerRight.Macros macros = 6;
-    };
+    }
   }
 
   message TextInspector {
@@ -662,7 +662,7 @@ message UI {
 
       oneof Component {
         .rv.analytics.UI.TextInspector.ScrollingText.Enable enable = 1;
-      };
+      }
     }
 
     message LineTransform {
@@ -691,7 +691,7 @@ message UI {
       .rv.analytics.UI.TextInspector.BackgroundColor background_color = 4;
       .rv.analytics.UI.TextInspector.ScrollingText scrolling_text = 5;
       .rv.analytics.UI.TextInspector.LineTransform line_transform = 6;
-    };
+    }
   }
 
   message Show {
@@ -715,12 +715,12 @@ message UI {
       oneof Component {
         .rv.analytics.UI.Show.SlideLabel.Shown shown = 1;
         .rv.analytics.UI.Show.SlideLabel.Change change = 2;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.UI.Show.SlideLabel slide_label = 1;
-    };
+    }
   }
 
   message InAppStore {
@@ -743,12 +743,12 @@ message UI {
       oneof Component {
         .rv.analytics.UI.InAppStore.Trial.Shown shown = 1;
         .rv.analytics.UI.InAppStore.Trial.Complete complete = 2;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.UI.InAppStore.Trial trial = 1;
-    };
+    }
   }
 
   message Editor {
@@ -780,12 +780,12 @@ message UI {
       oneof Component {
         .rv.analytics.UI.Editor.Overlay.Shown shown = 1;
         .rv.analytics.UI.Editor.Overlay.Closed closed = 2;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.UI.Editor.Overlay overlay = 1;
-    };
+    }
   }
 
   message WhatsNew {
@@ -798,7 +798,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.WhatsNew.Viewed viewed = 1;
-    };
+    }
   }
 
   message ClearGroups {
@@ -846,7 +846,7 @@ message UI {
       oneof Component {
         .rv.analytics.UI.ClearGroups.Group.ChangeVisibility change_visibility = 1;
         .rv.analytics.UI.ClearGroups.Group.ChangeIcon change_icon = 2;
-      };
+      }
     }
 
     oneof Component {
@@ -854,7 +854,7 @@ message UI {
       .rv.analytics.UI.ClearGroups.Create create = 2;
       .rv.analytics.UI.ClearGroups.Delete delete = 3;
       .rv.analytics.UI.ClearGroups.Group group = 4;
-    };
+    }
   }
 
   message PreviewArea {
@@ -871,12 +871,12 @@ message UI {
       oneof Component {
         .rv.analytics.UI.PreviewArea.ClearGroups.Trigger trigger = 1;
         .rv.analytics.UI.PreviewArea.ClearGroups.Changed changed = 2;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.UI.PreviewArea.ClearGroups clear_groups = 1;
-    };
+    }
   }
 
   message Placeholder {
@@ -908,7 +908,7 @@ message UI {
     oneof Component {
       .rv.analytics.UI.Placeholder.Link link = 1;
       .rv.analytics.UI.Placeholder.Unlink unlink = 2;
-    };
+    }
   }
 
   message PlanningCenterLive {
@@ -925,7 +925,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.PlanningCenterLive.Shown shown = 1;
-    };
+    }
   }
 
   message NetworkGroup {
@@ -956,7 +956,7 @@ message UI {
       .rv.analytics.UI.NetworkGroup.Invite invite = 4;
       .rv.analytics.UI.NetworkGroup.Leave leave = 5;
       .rv.analytics.UI.NetworkGroup.Remove remove = 6;
-    };
+    }
   }
 
   message CCLI {
@@ -977,7 +977,7 @@ message UI {
         .rv.analytics.UI.CCLI.Report.Shown shown = 1;
         .rv.analytics.UI.CCLI.Report.Reset reset = 2;
         .rv.analytics.UI.CCLI.Report.Export export = 3;
-      };
+      }
     }
   }
 
@@ -999,7 +999,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.Capture.Shown shown = 1;
-    };
+    }
   }
 
   message WelcomeToProPresenter {
@@ -1051,7 +1051,7 @@ message UI {
       .rv.analytics.UI.WelcomeToProPresenter.Blog blog = 8;
       .rv.analytics.UI.WelcomeToProPresenter.Instagram instagram = 9;
       .rv.analytics.UI.WelcomeToProPresenter.Facebook facebook = 10;
-    };
+    }
   }
 
   message TestPattern {
@@ -1067,7 +1067,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.TestPattern.Shown shown = 1;
-    };
+    }
   }
 
   message Preferences {
@@ -1078,7 +1078,7 @@ message UI {
 
     oneof Component {
       .rv.analytics.UI.Preferences.CustomLogo custom_logo = 1;
-    };
+    }
   }
 
   oneof Component {
@@ -1103,5 +1103,5 @@ message UI {
     .rv.analytics.UI.WelcomeToProPresenter welcomeToProPresenter = 19;
     .rv.analytics.UI.TestPattern test_pattern = 20;
     .rv.analytics.UI.Preferences preferences = 21;
-  };
+  }
 }

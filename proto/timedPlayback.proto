@@ -28,7 +28,7 @@ message TriggerSource {
     .rv.data.TriggerSource.Playlist playlist_location = 2;
     .rv.data.TriggerSource.Playlist media_playlist_location = 3;
     .rv.data.TriggerSource.Playlist audio_playlist_location = 4;
-  };
+  }
 }
 
 message TimedPlayback {
@@ -50,7 +50,7 @@ message TimedPlayback {
       oneof Item {
         .rv.data.Cue cue = 5;
         .rv.data.Action action = 6;
-      };
+      }
     }
   }
 
@@ -83,7 +83,7 @@ message TimedPlayback {
       .rv.data.TimedPlayback.Timing.LayerTransport layer_transport = 1;
       .rv.data.TimedPlayback.Timing.SMPTETimecode smpte_timecode = 2;
       .rv.data.TimedPlayback.Timing.Internal internal = 3;
-    };
+    }
   }
 
   message Update {
@@ -137,6 +137,6 @@ message TimedPlayback {
       .rv.data.TimedPlayback.Update.Loop loop = 9;
       .rv.data.TimedPlayback.Sequence update_sequence = 10;
       .rv.data.TimedPlayback.Update.MonitorSource monitor_source = 11;
-    };
+    }
   }
 }

@@ -32,7 +32,7 @@ message API_v1_Message {
         .rv.data.API_v1_Timer.API_v1_Timer_Countdown countdown = 3;
         .rv.data.API_v1_Timer.API_v1_Timer_CountdownToTime count_down_to_time = 4;
         .rv.data.API_v1_Timer.API_v1_Timer_Elapsed elapsed = 5;
-      };
+      }
     }
 
     message API_v1_ClockToken {
@@ -53,7 +53,7 @@ message API_v1_Message {
       .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 2;
       .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 3;
       .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 4;
-    };
+    }
   }
 }
 
@@ -96,7 +96,7 @@ message API_v1_Message_Request {
     .rv.data.API_v1_Message_Request.DeleteMessage delete_message = 5;
     .rv.data.API_v1_Message_Request.TriggerMessage trigger_message = 6;
     .rv.data.API_v1_Message_Request.ClearMessage clear_message = 7;
-  };
+  }
 }
 
 message API_v1_Message_Response {
@@ -134,5 +134,5 @@ message API_v1_Message_Response {
     .rv.data.API_v1_Message_Response.DeleteMessage delete_message = 5;
     .rv.data.API_v1_Message_Response.TriggerMessage trigger_message = 6;
     .rv.data.API_v1_Message_Response.ClearMessage clear_message = 7;
-  };
+  }
 }

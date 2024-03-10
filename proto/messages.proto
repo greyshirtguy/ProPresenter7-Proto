@@ -41,7 +41,7 @@ message Message {
       .rv.data.Message.Token.TokenTypeText text = 2;
       .rv.data.Message.Token.TokenTypeTimer timer = 3;
       .rv.data.Message.Token.TokenTypeClock clock = 4;
-    };
+    }
   }
 
   message TokenValue {
@@ -65,7 +65,7 @@ message Message {
       .rv.data.Message.TokenValue.TokenValueText text = 2;
       .rv.data.Message.TokenValue.TokenValueTimer timer = 3;
       .rv.data.Message.TokenValue.TokenValueClock clock = 4;
-    };
+    }
   }
 
   enum ClearType {

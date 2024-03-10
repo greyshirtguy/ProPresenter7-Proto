@@ -17,7 +17,7 @@ message API_v1_CaptureSettings {
     .rv.data.API_v1_DiskCapture disk = 3;
     .rv.data.API_v1_RTMPCapture rtmp = 4;
     .rv.data.API_v1_ResiCapture resi = 5;
-  };
+  }
 }
 
 message API_v1_AudioRouting {
@@ -77,7 +77,7 @@ message API_v1_Capture_Request {
     .rv.data.API_v1_Capture_Request.GetSettings get_settings = 3;
     .rv.data.API_v1_Capture_Request.SetSettings set_settings = 4;
     .rv.data.API_v1_Capture_Request.Encodings get_encodings = 5;
-  };
+  }
 }
 
 message API_v1_Capture_Response {
@@ -108,5 +108,5 @@ message API_v1_Capture_Response {
     .rv.data.API_v1_Capture_Response.GetSettings get_settings = 3;
     .rv.data.API_v1_Capture_Response.SetSettings set_settings = 4;
     .rv.data.API_v1_Capture_Response.Encodings get_encodings = 5;
-  };
+  }
 }

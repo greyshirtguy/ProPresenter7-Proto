@@ -54,7 +54,7 @@ message API_v1_Status_Request {
     .rv.data.API_v1_Status_Request.PutAudienceScreens put_audience_screens = 5;
     .rv.data.API_v1_Status_Request.GetScreens get_screens = 6;
     .rv.data.API_v1_Status_Request.GetSlide get_slide = 7;
-  };
+  }
 }
 
 message API_v1_Status_Response {
@@ -100,5 +100,5 @@ message API_v1_Status_Response {
     .rv.data.API_v1_Status_Response.PutAudienceScreens put_audience_screens = 5;
     .rv.data.API_v1_Status_Response.GetScreens get_screens = 6;
     .rv.data.API_v1_Status_Response.GetSlide get_slide = 7;
-  };
+  }
 }

@@ -66,7 +66,7 @@ message API_v1_Looks_Request {
     .rv.data.API_v1_Looks_Request.PutLook put_look = 6;
     .rv.data.API_v1_Looks_Request.DeleteLook delete_look = 7;
     .rv.data.API_v1_Looks_Request.TriggerLook trigger_look = 8;
-  };
+  }
 }
 
 message API_v1_Looks_Response {
@@ -110,5 +110,5 @@ message API_v1_Looks_Response {
     .rv.data.API_v1_Looks_Response.PutLook put_look = 6;
     .rv.data.API_v1_Looks_Response.DeleteLook delete_look = 7;
     .rv.data.API_v1_Looks_Response.TriggerLook trigger_look = 8;
-  };
+  }
 }

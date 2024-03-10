@@ -27,7 +27,7 @@ message API_v1_Library_Request {
     .rv.data.API_v1_Library_Request.Libraries libraries = 1;
     .rv.data.API_v1_Library_Request.Library library = 2;
     .rv.data.API_v1_Library_Request.Trigger trigger = 3;
-  };
+  }
 }
 
 message API_v1_Library_Response {
@@ -54,5 +54,5 @@ message API_v1_Library_Response {
     .rv.data.API_v1_Library_Response.Libraries libraries = 1;
     .rv.data.API_v1_Library_Response.Library library = 2;
     .rv.data.API_v1_Library_Response.Trigger triggger = 3;
-  };
+  }
 }

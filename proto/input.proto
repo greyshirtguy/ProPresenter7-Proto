@@ -35,7 +35,7 @@ message VideoInput {
   oneof AltAudioSource {
     .rv.data.DigitalAudio.Device audio_device = 6;
     .rv.data.Media.VideoDevice video_device = 7;
-  };
+  }
 }
 
 message AudioInput {
@@ -63,11 +63,11 @@ message AudioInput {
       .rv.data.AudioInput.BehaviorMode.Off off = 2;
       .rv.data.AudioInput.BehaviorMode.AutoOn auto_on = 3;
       .rv.data.AudioInput.BehaviorMode.AutoOff auto_off = 4;
-    };
+    }
   }
 
   oneof Source {
     .rv.data.DigitalAudio.Device audio_device = 3;
     .rv.data.Media.VideoDevice video_device = 4;
-  };
+  }
 }

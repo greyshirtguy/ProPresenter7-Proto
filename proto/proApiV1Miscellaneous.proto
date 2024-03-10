@@ -14,7 +14,7 @@ message API_v1_Miscellaneous_Request {
 
   oneof Request {
     .rv.data.API_v1_Miscellaneous_Request.FindMyMouse find_my_mouse = 1;
-  };
+  }
 }
 
 message API_v1_Miscellaneous_Response {
@@ -24,5 +24,5 @@ message API_v1_Miscellaneous_Response {
 
   oneof Response {
     .rv.data.API_v1_Miscellaneous_Response.FindMyMouse find_my_mouse = 1;
-  };
+  }
 }

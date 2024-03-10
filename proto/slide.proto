@@ -101,7 +101,7 @@ message Slide {
           .rv.data.Slide.Element.DataLink.Ticker.TextType text_type = 1;
           .rv.data.Slide.Element.DataLink.Ticker.RSSType rss_type = 2;
           .rv.data.Slide.Element.DataLink.Ticker.FileType file_type = 3;
-        };
+        }
       }
 
       message AlternateElementText {
@@ -254,7 +254,7 @@ message Slide {
             .rv.data.Slide.Element.DataLink.VisibilityLink.Condition.CaptureSessionVisibility capture_session_visibility = 4;
             .rv.data.Slide.Element.DataLink.VisibilityLink.Condition.VideoInputVisibility video_input_visibility = 5;
             .rv.data.Slide.Element.DataLink.VisibilityLink.Condition.AudioCountdownVisibility audio_countdown_visibility = 6;
-          };
+          }
         }
 
         enum VisibilityCriterion {
@@ -370,7 +370,7 @@ message Slide {
         oneof TextType {
           .rv.data.Slide.Element.DataLink.CaptureStatusText.StatusText status_text = 1;
           .rv.data.Slide.Element.DataLink.CaptureStatusText.ElapsedTime elapsed_time = 2;
-        };
+        }
       }
 
       message CaptureStatusColor {
@@ -420,7 +420,7 @@ message Slide {
         oneof TextType {
           .rv.data.Slide.Element.DataLink.PlaybackMarkerText.Name name = 2;
           .rv.data.Slide.Element.DataLink.PlaybackMarkerText.Time time = 3;
-        };
+        }
       }
 
       message ChordProChart {
@@ -482,7 +482,7 @@ message Slide {
         .rv.data.Slide.Element.DataLink.PlaybackMarkerIdentifier playback_marker_color = 32;
         .rv.data.Slide.Element.DataLink.TimecodeText timecode_text = 33;
         .rv.data.Slide.Element.DataLink.TimecodeStatus timecode_status = 34;
-      };
+      }
     }
 
     message TextScroller {

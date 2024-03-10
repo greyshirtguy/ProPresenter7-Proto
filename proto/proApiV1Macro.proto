@@ -87,7 +87,7 @@ message API_v1_Macro_Request {
     .rv.data.API_v1_Macro_Request.DeleteMacroCollection delete_macro_collection = 10;
     .rv.data.API_v1_Macro_Request.MacroIcon macro_icon = 11;
     .rv.data.API_v1_Macro_Request.PutMacroIcon put_macro_icon = 12;
-  };
+  }
 }
 
 message API_v1_Macro_Response {
@@ -154,5 +154,5 @@ message API_v1_Macro_Response {
     .rv.data.API_v1_Macro_Response.DeleteMacroCollection delete_macro_collection = 10;
     .rv.data.API_v1_Macro_Response.MacroIcon macro_icon = 11;
     .rv.data.API_v1_Macro_Response.PutMacroIcon put_macro_icon = 12;
-  };
+  }
 }

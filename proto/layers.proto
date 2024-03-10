@@ -58,14 +58,14 @@ message Layer {
         .rv.data.Layer.Blending.Matte.Alpha alpha = 1;
         .rv.data.Layer.Blending.Matte.Luma luma = 2;
         .rv.data.Layer.Blending.Matte.White white = 4;
-      };
+      }
       reserved 3 to 4;
     }
 
     oneof BlendingType {
       .rv.data.Layer.Blending.Standard standard = 1;
       .rv.data.Layer.Blending.Matte matte = 2;
-    };
+    }
   }
 
   enum BlendMode {

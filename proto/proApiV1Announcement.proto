@@ -50,7 +50,7 @@ message API_v1_Announcement_Request {
     .rv.data.API_v1_Announcement_Request.ActiveNextTrigger active_next_trigger = 7;
     .rv.data.API_v1_Announcement_Request.ActivePreviousTrigger active_previous_trigger = 8;
     .rv.data.API_v1_Announcement_Request.ActiveIndexTrigger active_index_trigger = 9;
-  };
+  }
 }
 
 message API_v1_Announcement_Response {
@@ -96,5 +96,5 @@ message API_v1_Announcement_Response {
     .rv.data.API_v1_Announcement_Response.ActiveNextTrigger active_next_trigger = 7;
     .rv.data.API_v1_Announcement_Response.ActivePreviousTrigger active_previous_trigger = 8;
     .rv.data.API_v1_Announcement_Response.ActiveIndexTrigger active_index_trigger = 9;
-  };
+  }
 }

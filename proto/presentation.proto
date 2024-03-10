@@ -80,7 +80,7 @@ message Presentation {
       oneof trigger_info {
         .rv.data.UUID cue_id = 2;
         .rv.data.Action action = 4;
-      };
+      }
     }
     reserved 2 to 3;
     reserved 3 to 4;
@@ -121,7 +121,7 @@ message Presentation {
 
   oneof SlideShow {
     double slide_show_duration = 20;
-  };
+  }
   reserved 16 to 17;
   reserved "social_media";
 }

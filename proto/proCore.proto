@@ -85,7 +85,7 @@ message NetworkIdentifier {
     oneof Component {
       int32 index = 1;
       string name = 2;
-    };
+    }
   }
 }
 
@@ -247,7 +247,7 @@ message ControlTransport {
     .rv.data.ControlTransport.SetAudioFadeType set_audio_fade = 26;
     .rv.data.ControlTransport.SetAudioPropertiesType set_audio_properties = 27;
     .rv.data.ControlTransport.SetAlphaTypeControlType set_alpha_type = 28;
-  };
+  }
 }
 
 message AudioInputSettings {
@@ -308,7 +308,7 @@ message NetworkTriggerDataItem {
   oneof Type {
     .rv.data.Action action = 1;
     .rv.data.Cue cue = 2;
-  };
+  }
 }
 
 message SlideElementTextRenderInfo {
@@ -322,7 +322,7 @@ message SlideElementTextRenderInfo {
       .rv.data.Graphics.Text.CutOutFill cut_out_fill = 2;
       .rv.data.Graphics.Text.MediaFill media_fill = 3;
       .rv.data.Graphics.BackgroundEffect background_effect = 4;
-    };
+    }
   }
 
   enum LayerType {
@@ -358,7 +358,7 @@ message CaptureActionRequest {
     .rv.data.CaptureActionRequest.StartResi start_resi = 1;
     .rv.data.CaptureActionRequest.StopCapture stop_capture = 2;
     .rv.data.CaptureActionRequest.Error error = 3;
-  };
+  }
 }
 
 message CaptureActionResponse {
@@ -379,7 +379,7 @@ message CaptureActionResponse {
     .rv.data.CaptureActionResponse.StartResi start_resi = 1;
     .rv.data.CaptureActionResponse.StopCapture stop_capture = 2;
     .rv.data.CaptureActionResponse.CancelCaptureAction cancel_capture_action = 3;
-  };
+  }
 }
 
 message MacroIcons {
@@ -430,7 +430,7 @@ message SendData {
     .rv.data.GenericEvent debug_trigger_data_dump = 31;
     .rv.data.PlaylistDocument library_playlist_doc = 32;
     .rv.data.UUID audio_playlist_focus_uuid = 33;
-  };
+  }
 }
 
 message TimerRuntimeState {
@@ -476,7 +476,7 @@ message SendDataResponse {
     .rv.data.CoreDataStateDump test_state_dump = 7;
     .rv.data.UUID audio_playlist_focus_uuid = 8;
     .rv.data.UUID audio_playlist_item_triggered_uuid = 9;
-  };
+  }
 }
 
 message TriggerTransferRenderState {

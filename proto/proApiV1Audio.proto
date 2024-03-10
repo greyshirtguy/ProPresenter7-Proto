@@ -52,7 +52,7 @@ message API_v1_Audio_Request {
     .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_active_id_trigger = 18;
     .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_next_trigger = 19;
     .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_previous_trigger = 20;
-  };
+  }
 }
 
 message API_v1_Audio_Response {
@@ -103,5 +103,5 @@ message API_v1_Audio_Response {
     .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_id_trigger = 18;
     .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_next_trigger = 19;
     .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_previous_trigger = 20;
-  };
+  }
 }

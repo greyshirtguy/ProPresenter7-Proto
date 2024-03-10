@@ -18,5 +18,5 @@ message WHMStore {
   oneof Event {
     .rv.analytics.WHMStore.ViewStore view_store = 1;
     .rv.analytics.WHMStore.Download download = 2;
-  };
+  }
 }

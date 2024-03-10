@@ -67,7 +67,7 @@ message Recording {
         .rv.data.Recording.Stream.DiskDestination disk = 1;
         .rv.data.Recording.Stream.RTMPDestination rtmp = 2;
         .rv.data.Recording.Stream.Destination.Resi resi = 3;
-      };
+      }
     }
 
     enum Container {
@@ -108,6 +108,6 @@ message Recording {
 
     oneof Source {
       .rv.data.Recording.Stream.OutputScreenSource output_screen = 2;
-    };
+    }
   }
 }

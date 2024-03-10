@@ -114,7 +114,7 @@ message Startup {
       .rv.analytics.Startup.ScreenConfiguration.Mirrored mirrored = 4;
       .rv.analytics.Startup.ScreenConfiguration.EdgeBlend edge_blend = 5;
       .rv.analytics.Startup.ScreenConfiguration.Grouped grouped = 6;
-    };
+    }
   }
 
   message Preferences {
@@ -331,5 +331,5 @@ message Startup {
     .rv.analytics.MultiTracks.Startup multitracks = 16;
     .rv.analytics.Startup.NetworkLink network_link = 17;
     .rv.analytics.Startup.Capture capture = 18;
-  };
+  }
 }

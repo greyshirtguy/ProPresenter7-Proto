@@ -105,7 +105,7 @@ message API_v1_Presentation_Request {
       .rv.data.API_v1_Presentation_Request.EmptyMessage previous = 2;
       .rv.data.API_v1_Presentation_Request.EmptyMessage active = 3;
       string uuid = 4;
-    };
+    }
   }
 
   message TriggerMessage {
@@ -114,7 +114,7 @@ message API_v1_Presentation_Request {
       .rv.data.API_v1_Presentation_Request.EmptyMessage focused = 1;
       .rv.data.API_v1_Presentation_Request.EmptyMessage active = 2;
       .google.protobuf.StringValue uuid = 3;
-    };
+    }
 
     oneof Cue {
       .rv.data.API_v1_Presentation_Request.EmptyMessage first = 4;
@@ -122,7 +122,7 @@ message API_v1_Presentation_Request {
       .rv.data.API_v1_Presentation_Request.EmptyMessage previous = 6;
       .google.protobuf.UInt32Value index = 7;
       .google.protobuf.StringValue group = 8;
-    };
+    }
   }
 
   oneof Request {
@@ -141,7 +141,7 @@ message API_v1_Presentation_Request {
     .rv.data.API_v1_Presentation_Request.Thumbnail thumbnail = 13;
     .rv.data.API_v1_Presentation_Request.FocusMessage focus = 14;
     .rv.data.API_v1_Presentation_Request.TriggerMessage trigger = 15;
-  };
+  }
 }
 
 message API_v1_Presentation_Response {
@@ -223,5 +223,5 @@ message API_v1_Presentation_Response {
     .rv.data.API_v1_Presentation_Response.Focused focused = 15;
     .rv.data.API_v1_Presentation_Response.EmptyMessage focus = 16;
     .rv.data.API_v1_Presentation_Response.EmptyMessage trigger = 17;
-  };
+  }
 }

@@ -44,7 +44,7 @@ message Graphics {
 
     oneof Mask {
       .rv.data.Graphics.Text.LineFillMask text_line_mask = 14;
-    };
+    }
   }
 
   message Rect {
@@ -121,7 +121,7 @@ message Graphics {
         .rv.data.Graphics.Path.Shape.Polygon polygon = 3;
         .rv.data.Graphics.Path.Shape.Star star = 4;
         .rv.data.Graphics.Path.Shape.Arrow arrow = 5;
-      };
+      }
     }
   }
 
@@ -133,7 +133,7 @@ message Graphics {
       .rv.data.Graphics.Gradient gradient = 2;
       .rv.data.Media media = 3;
       .rv.data.Graphics.BackgroundEffect backgroundEffect = 5;
-    };
+    }
   }
 
   message BackgroundEffect {
@@ -149,7 +149,7 @@ message Graphics {
     oneof EffectType {
       .rv.data.Graphics.BackgroundEffect.BackgroundEffectBlur backgroundBlur = 2;
       .rv.data.Graphics.BackgroundEffect.BackgroundEffectInvert backgroundInvert = 3;
-    };
+    }
     reserved 1 to 2;
     reserved "layer";
   }
@@ -360,7 +360,7 @@ message Graphics {
           .rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
           .rv.data.Graphics.Text.MediaFill media_fill = 9;
           .rv.data.Graphics.BackgroundEffect background_effect = 10;
-        };
+        }
       }
 
       enum Capitalization {
@@ -385,7 +385,7 @@ message Graphics {
         .rv.data.Graphics.Text.CutOutFill cut_out_fill = 16;
         .rv.data.Graphics.Text.MediaFill media_fill = 17;
         .rv.data.Graphics.BackgroundEffect background_effect = 18;
-      };
+      }
     }
 
     enum VerticalAlignment {
@@ -622,5 +622,5 @@ message Media {
     .rv.data.Media.VideoTypeProperties video = 6;
     .rv.data.Media.LiveVideoTypeProperties live_video = 7;
     .rv.data.Media.WebContentTypeProperties web_content = 8;
-  };
+  }
 }

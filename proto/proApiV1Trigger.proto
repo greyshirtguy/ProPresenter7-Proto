@@ -64,7 +64,7 @@ message API_v1_Trigger_Request {
     .rv.data.API_v1_Trigger_Request.MediaPrevious media_previous = 10;
     .rv.data.API_v1_Trigger_Request.AudioNext audio_next = 11;
     .rv.data.API_v1_Trigger_Request.AudioPrevious audio_previous = 12;
-  };
+  }
 }
 
 message API_v1_Trigger_Response {
@@ -118,5 +118,5 @@ message API_v1_Trigger_Response {
     .rv.data.API_v1_Trigger_Response.MediaPrevious media_previous = 10;
     .rv.data.API_v1_Trigger_Response.AudioNext audio_next = 11;
     .rv.data.API_v1_Trigger_Response.AudioPrevious audio_previous = 12;
-  };
+  }
 }

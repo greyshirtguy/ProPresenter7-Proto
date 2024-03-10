@@ -57,12 +57,12 @@ message URL {
   oneof Storage {
     string absolute_string = 1;
     string relative_path = 2;
-  };
+  }
 
   oneof RelativeFilePath {
     .rv.data.URL.LocalRelativePath local = 4;
     .rv.data.URL.ExternalRelativePath external = 5;
-  };
+  }
 }
 
 message URLs {

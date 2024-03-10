@@ -27,5 +27,5 @@ message Import {
   oneof Component {
     .rv.analytics.Import.SongSelect song_select = 1;
     .rv.analytics.MultiTracks.Import multitracks = 2;
-  };
+  }
 }

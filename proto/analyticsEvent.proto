@@ -38,5 +38,5 @@ message Event {
     .rv.analytics.WHMStore whm_store = 12;
     .rv.analytics.ProContent proContent = 13;
     .rv.analytics.Capture capture = 14;
-  };
+  }
 }

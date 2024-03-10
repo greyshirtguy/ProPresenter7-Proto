@@ -61,7 +61,7 @@ message NetworkAPI_v1 {
       .rv.data.API_v1_Trigger_Request trigger_request = 22;
       .rv.data.API_v1_Video_Inputs_Request video_inputs_request = 23;
       .rv.data.API_v1_Announcement_Request announcement_request = 24;
-    };
+    }
 
     oneof Response {
       .rv.data.API_v1_Audio_Response audio_response = 101;
@@ -89,14 +89,14 @@ message NetworkAPI_v1 {
       .rv.data.API_v1_Video_Inputs_Response video_inputs_response = 123;
       .rv.data.API_v1_Announcement_Response announcement_response = 124;
       .rv.data.API_v1_Error_Response error_response = 200;
-    };
+    }
 
     oneof StreamingUpdateIdentifier {
       string update_identifier = 201;
-    };
+    }
   }
 
   oneof Command {
     .rv.data.NetworkAPI_v1.Action action = 1;
-  };
+  }
 }

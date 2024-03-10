@@ -124,7 +124,7 @@ message API_v1_Playlist_Request {
     .rv.data.API_v1_Playlist_Request.IdMessage id_updates = 28;
     .rv.data.API_v1_Playlist_Request.Thumbnail active_presentation_thumbnail = 29;
     .rv.data.API_v1_Playlist_Request.Thumbnail active_announcement_thumbnail = 30;
-  };
+  }
 }
 
 message API_v1_Playlist_Response {
@@ -197,5 +197,5 @@ message API_v1_Playlist_Response {
     .rv.data.API_v1_Playlist_Response.EmptyMessage id_updates = 28;
     .rv.data.API_v1_Playlist_Response.Thumbnail active_presentation_thumbnail = 29;
     .rv.data.API_v1_Playlist_Response.Thumbnail active_announcement_thumbnail = 30;
-  };
+  }
 }

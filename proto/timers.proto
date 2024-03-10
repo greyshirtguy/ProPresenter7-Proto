@@ -79,7 +79,7 @@ message Timer {
       .rv.data.Timer.Configuration.TimerTypeCountdown countdown = 1;
       .rv.data.Timer.Configuration.TimerTypeCountdownToTime countdown_to_time = 2;
       .rv.data.Timer.Configuration.TimerTypeElapsedTime elapsed_time = 3;
-    };
+    }
   }
   reserved 3 to 4;
   reserved 4 to 5;

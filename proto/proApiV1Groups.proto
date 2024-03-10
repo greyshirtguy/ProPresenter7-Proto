@@ -21,7 +21,7 @@ message API_v1_Groups_Request {
   oneof Request {
     .rv.data.API_v1_Groups_Request.GroupsRequest groups_request = 1;
     .rv.data.API_v1_Groups_Request.TriggerGroup trigger_group = 2;
-  };
+  }
 }
 
 message API_v1_Groups_Response {
@@ -41,5 +41,5 @@ message API_v1_Groups_Response {
   oneof Response {
     .rv.data.API_v1_Groups_Response.GroupsRequest groups = 1;
     .rv.data.API_v1_Groups_Response.TriggerGroup trigger_group = 2;
-  };
+  }
 }

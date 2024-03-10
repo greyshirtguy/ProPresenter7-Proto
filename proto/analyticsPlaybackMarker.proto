@@ -20,5 +20,5 @@ message PlaybackMarker {
 
   oneof Event {
     .rv.analytics.PlaybackMarker.CreateMarker create = 1;
-  };
+  }
 }

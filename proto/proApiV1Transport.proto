@@ -66,7 +66,7 @@ message API_v1_Transport_Request {
     .rv.data.API_v1_Transport_Request.GetAutoAdvance get_auto_advance = 8;
     .rv.data.API_v1_Transport_Request.DeleteAutoAdvance delete_auto_advance = 9;
     .rv.data.API_v1_Transport_Request.GetCurrentMedia get_current_media = 10;
-  };
+  }
 }
 
 message API_v1_Transport_Response {
@@ -120,5 +120,5 @@ message API_v1_Transport_Response {
     .rv.data.API_v1_Transport_Response.GetAutoAdvance get_auto_advance = 8;
     .rv.data.API_v1_Transport_Response.DeleteAutoAdvance delete_auto_advance = 9;
     .rv.data.API_v1_Transport_Response.GetCurrentMedia get_current_media = 10;
-  };
+  }
 }

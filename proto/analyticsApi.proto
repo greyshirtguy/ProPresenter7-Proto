@@ -14,5 +14,5 @@ message API {
 
   oneof APIType {
     .rv.analytics.API.MessageReceived message_received = 1;
-  };
+  }
 }

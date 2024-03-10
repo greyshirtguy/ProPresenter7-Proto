@@ -73,7 +73,7 @@ message Effect {
       .rv.data.Effect.EffectVariable.EffectColor color = 5;
       .rv.data.Effect.EffectVariable.EffectDirection direction = 6;
       .rv.data.Effect.EffectVariable.EffectDouble double = 7;
-    };
+    }
   }
 
   message Preset {

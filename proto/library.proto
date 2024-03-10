@@ -22,7 +22,7 @@ message Library {
   oneof ChildType {
     .rv.data.Library.LibraryArray libraryChildren = 2;
     .rv.data.Library.LibraryItems libraryItems = 3;
-  };
+  }
 }
 
 message LibraryItem {

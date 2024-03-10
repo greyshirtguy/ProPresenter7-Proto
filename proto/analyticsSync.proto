@@ -26,5 +26,5 @@ message Sync {
 
   oneof SyncType {
     .rv.analytics.Sync.Local local = 1;
-  };
+  }
 }

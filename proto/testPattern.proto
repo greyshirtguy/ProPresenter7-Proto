@@ -47,7 +47,7 @@ message TestPattern {
     .rv.data.TestPattern.BlendGrid blend_grid = 2;
     .rv.data.TestPattern.CustomColor custom_color = 3;
     .rv.data.TestPattern.IntensityColor intensity = 4;
-  };
+  }
 }
 
 message TestPatternDefinition {
@@ -116,7 +116,7 @@ message TestPatternDefinition {
       .rv.data.TestPatternDefinition.StringProperty string_property = 7;
       .rv.data.TestPatternDefinition.FontProperty font_property = 8;
       .rv.data.TestPatternDefinition.SelectorProperty selector_property = 9;
-    };
+    }
   }
 }
 
@@ -217,7 +217,7 @@ message TestPatternDocument {
         .rv.data.TestPatternDocument.TestPatternData.StringProperty string_property = 6;
         .rv.data.TestPatternDocument.TestPatternData.FontProperty font_property = 7;
         .rv.data.TestPatternDocument.TestPatternData.SelectorProperty selector_property = 8;
-      };
+      }
     }
   }
 }

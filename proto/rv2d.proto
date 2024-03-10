@@ -46,5 +46,5 @@ message TextLayer {
     .rv.data.Media media = 2;
     .rv.data.Graphics.Text.CutOutFill cut_out = 3;
     .rv.data.Graphics.BackgroundEffect background_effect = 4;
-  };
+  }
 }

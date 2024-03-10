@@ -26,7 +26,7 @@ message Request {
     .registration.core.ActivateLink activate_link = 15;
     .registration.core.UpdateToken update_token = 16;
     .registration.core.OldTokenData old_token_data = 17;
-  };
+  }
 }
 
 message Callback {
@@ -52,7 +52,7 @@ message Callback {
     .registration.core.ReadOldToken read_old_token = 18;
     .registration.core.Token token = 19;
     .registration.core.VerificationComplete verification_complete = 20;
-  };
+  }
 }
 
 message Register {
@@ -293,7 +293,7 @@ message Bible {
 
   oneof additional {
     .registration.core.SupplementalInformation info = 9;
-  };
+  }
 }
 
 message PurchasedBible {

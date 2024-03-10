@@ -74,7 +74,7 @@ message Preferences {
           .rv.data.Preferences.Import.Image.Duration.None none = 1;
           .rv.data.Preferences.Import.Image.Duration.Time time = 2;
           .rv.data.Preferences.Import.Image.Duration.Random random = 3;
-        };
+        }
       }
     }
 

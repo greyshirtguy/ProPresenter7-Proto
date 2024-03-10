@@ -112,7 +112,7 @@ message OutputDisplay {
 
   oneof HardwareOptions {
     .rv.data.OutputDisplay.Blackmagic blackmagic = 11;
-  };
+  }
 }
 
 message EdgeBlend {

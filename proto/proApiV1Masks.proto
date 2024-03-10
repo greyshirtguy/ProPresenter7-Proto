@@ -26,7 +26,7 @@ message API_v1_Masks_Request {
     .rv.data.API_v1_Masks_Request.Masks masks = 1;
     .rv.data.API_v1_Masks_Request.GetMask get_mask = 2;
     .rv.data.API_v1_Masks_Request.GetThumbnail get_thumbnail = 3;
-  };
+  }
 }
 
 message API_v1_Masks_Response {
@@ -47,5 +47,5 @@ message API_v1_Masks_Response {
     .rv.data.API_v1_Masks_Response.Masks masks = 1;
     .rv.data.API_v1_Masks_Response.GetMask get_mask = 2;
     .rv.data.API_v1_Masks_Response.GetThumbnail get_thumbnail = 3;
-  };
+  }
 }

@@ -81,7 +81,7 @@ message API_v1_Clear_Request {
     .rv.data.API_v1_Clear_Request.DeleteGroup delete_group = 7;
     .rv.data.API_v1_Clear_Request.TriggerGroup trigger_group = 8;
     .rv.data.API_v1_Clear_Request.GetGroups get_groups = 9;
-  };
+  }
 }
 
 message API_v1_Clear_Response {
@@ -129,5 +129,5 @@ message API_v1_Clear_Response {
     .rv.data.API_v1_Clear_Response.GetGroups get_groups = 7;
     .rv.data.API_v1_Clear_Response.GetGroupIcon get_group_icon = 8;
     .rv.data.API_v1_Clear_Response.PutGroupIcon put_group_icon = 9;
-  };
+  }
 }

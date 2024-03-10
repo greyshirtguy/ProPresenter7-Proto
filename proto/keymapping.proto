@@ -40,7 +40,7 @@ message KeyMapping {
     .rv.data.CollectionElementType macro_identifier = 104;
     .rv.data.CollectionElementType prop_identifier = 105;
     .rv.data.CollectionElementType timer_identifier = 106;
-  };
+  }
 }
 
 message KeyMappingDocument {

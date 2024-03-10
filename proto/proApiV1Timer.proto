@@ -58,7 +58,7 @@ message API_v1_Timer {
     .rv.data.API_v1_Timer.API_v1_Timer_Countdown countdown = 3;
     .rv.data.API_v1_Timer.API_v1_Timer_CountdownToTime count_down_to_time = 4;
     .rv.data.API_v1_Timer.API_v1_Timer_Elapsed elapsed = 5;
-  };
+  }
 }
 
 message API_v1_Timer_Request {
@@ -129,7 +129,7 @@ message API_v1_Timer_Request {
     .rv.data.API_v1_Timer_Request.TimerIncrement timer_increment = 10;
     .rv.data.API_v1_Timer_Request.SystemTime system_time = 11;
     .rv.data.API_v1_Timer_Request.VideoCountdown video_countdown = 12;
-  };
+  }
 }
 
 message API_v1_Timer_Response {
@@ -191,5 +191,5 @@ message API_v1_Timer_Response {
     .rv.data.API_v1_Timer_Response.TimerIncrement timer_increment = 10;
     .rv.data.API_v1_Timer_Response.SystemTime system_time = 11;
     .rv.data.API_v1_Timer_Response.VideoCountdown video_countdown = 12;
-  };
+  }
 }

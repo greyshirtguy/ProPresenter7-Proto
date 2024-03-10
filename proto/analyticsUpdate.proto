@@ -21,5 +21,5 @@ message Update {
 
   oneof Action {
     .rv.analytics.Update.Downgrade downgrade = 1;
-  };
+  }
 }

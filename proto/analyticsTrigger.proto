@@ -88,12 +88,12 @@ message Trigger {
         .rv.analytics.Trigger.Cue.Slide.ScrollingTextElement scrolling_text_element = 2;
         .rv.analytics.Trigger.Cue.Slide.RSSFeedElement rss_feed_element = 3;
         .rv.analytics.Trigger.Cue.Slide.FileFeedElement file_feed_element = 4;
-      };
+      }
     }
 
     oneof Component {
       .rv.analytics.Trigger.Cue.Slide slide = 1;
-    };
+    }
   }
 
   message Action {
@@ -230,7 +230,7 @@ message Trigger {
       .rv.analytics.Trigger.Action.ClearGroup clear_group = 13;
       .rv.analytics.Trigger.Action.CaptureStart capture_start = 14;
       .rv.analytics.Trigger.Action.CaptureStop capture_stop = 15;
-    };
+    }
   }
 
   message MediaBin {
@@ -269,5 +269,5 @@ message Trigger {
     .rv.analytics.Trigger.MediaBin media_bin = 3;
     .rv.analytics.Trigger.AudioBin audio_bin = 4;
     .rv.analytics.Trigger.TestPattern test_pattern = 5;
-  };
+  }
 }

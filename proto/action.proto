@@ -147,7 +147,7 @@ message Action {
       .rv.data.Action.MediaType.Video video = 7;
       .rv.data.Action.MediaType.Audio audio = 8;
       .rv.data.Action.MediaType.LiveVideo live_video = 9;
-    };
+    }
     reserved 13 to 14;
   }
 
@@ -156,7 +156,7 @@ message Action {
     oneof Slide {
       .rv.data.PresentationSlide presentation = 2;
       .rv.data.PropSlide prop = 3;
-    };
+    }
     reserved 1 to 2;
     reserved "template";
   }
@@ -227,7 +227,7 @@ message Action {
       .rv.data.Action.TransportControlType.Play play = 1;
       .rv.data.Action.TransportControlType.Pause pause = 2;
       .rv.data.Action.TransportControlType.JumpToTime jumpToTime = 3;
-    };
+    }
   }
 
   message StageLayoutType {
@@ -331,7 +331,7 @@ message Action {
       .rv.data.Action.CommunicationType.GlobalCacheCommand global_cache_command = 6;
       .rv.data.Action.CommunicationType.GVG100Command gvg100_command = 7;
       .rv.data.Action.CommunicationType.SonyBVSCommand sony_BVS_command = 8;
-    };
+    }
   }
 
   message MultiScreenType {
@@ -379,7 +379,7 @@ message Action {
     oneof CaptureAction {
       .rv.data.Action.CaptureType.CaptureStart start = 1;
       .rv.data.Action.CaptureType.CaptureStop stop = 2;
-    };
+    }
   }
 
   enum ContentDestination {
@@ -450,7 +450,7 @@ message Action {
     .rv.data.Action.ClearGroupType clear_group = 41;
     .rv.data.Action.TransportControlType transport_control = 42;
     .rv.data.Action.CaptureType capture = 43;
-  };
+  }
   reserved 31 to 32;
   reserved "social_media";
 }

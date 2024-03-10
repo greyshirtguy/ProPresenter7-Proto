@@ -43,5 +43,5 @@ message ProPresenterScreen {
     .rv.data.ProPresenterScreen.SingleArrangement arrangement_single = 3;
     .rv.data.ProPresenterScreen.CombinedArrangement arrangement_combined = 4;
     .rv.data.ProPresenterScreen.EdgeBlendArrangement arrangement_edge_blend = 5;
-  };
+  }
 }

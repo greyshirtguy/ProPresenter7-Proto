@@ -61,7 +61,7 @@ message API_v1_Link_Request {
     oneof AddType {
       .rv.data.API_v1_GroupDefinition group_definition = 1;
       .rv.data.API_v1_GroupMember member_details = 2;
-    };
+    }
   }
 
   message RemoveMember {
@@ -73,7 +73,7 @@ message API_v1_Link_Request {
     .rv.data.API_v1_Link_Request.Status status = 2;
     .rv.data.API_v1_Link_Request.AddMember add_member = 3;
     .rv.data.API_v1_Link_Request.RemoveMember remove_member = 4;
-  };
+  }
 }
 
 message API_v1_Link_Response {
@@ -106,7 +106,7 @@ message API_v1_Link_Response {
       .rv.data.API_v1_GroupDefinition group_definition = 1;
       .rv.data.API_v1_Link_Response.AddMember.RemoteMachineAccepts accept = 2;
       .rv.data.API_v1_Link_Response.AddMember.RemoteMachineDecline decline = 3;
-    };
+    }
   }
 
   message RemoveMember {
@@ -117,5 +117,5 @@ message API_v1_Link_Response {
     .rv.data.API_v1_Link_Response.Status status = 2;
     .rv.data.API_v1_Link_Response.AddMember add_member = 3;
     .rv.data.API_v1_Link_Response.RemoveMember remove_member = 4;
-  };
+  }
 }

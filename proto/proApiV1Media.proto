@@ -41,7 +41,7 @@ message API_v1_Media_Request {
       .rv.data.API_v1_Media_Request.EmptyMessage previous = 2;
       .rv.data.API_v1_Media_Request.EmptyMessage active = 3;
       .google.protobuf.StringValue id = 4;
-    };
+    }
   }
 
   message TriggerMessage {
@@ -50,14 +50,14 @@ message API_v1_Media_Request {
       .rv.data.API_v1_Media_Request.EmptyMessage focused = 1;
       .rv.data.API_v1_Media_Request.EmptyMessage active = 2;
       .google.protobuf.StringValue playlist_id = 3;
-    };
+    }
 
     oneof Item {
       .rv.data.API_v1_Media_Request.EmptyMessage start = 4;
       .rv.data.API_v1_Media_Request.EmptyMessage next = 5;
       .rv.data.API_v1_Media_Request.EmptyMessage previous = 6;
       .google.protobuf.StringValue media_id = 7;
-    };
+    }
   }
 
   oneof Request {
@@ -69,7 +69,7 @@ message API_v1_Media_Request {
     .rv.data.API_v1_Media_Request.EmptyMessage playlist_active = 6;
     .rv.data.API_v1_Media_Request.FocusMessage focus = 7;
     .rv.data.API_v1_Media_Request.TriggerMessage trigger = 8;
-  };
+  }
 }
 
 message API_v1_Media_Response {
@@ -113,5 +113,5 @@ message API_v1_Media_Response {
     .rv.data.API_v1_Media_Response.GetActivePlaylist playlist_active = 6;
     .rv.data.API_v1_Media_Response.EmptyMessage focus = 7;
     .rv.data.API_v1_Media_Response.EmptyMessage trigger = 8;
-  };
+  }
 }

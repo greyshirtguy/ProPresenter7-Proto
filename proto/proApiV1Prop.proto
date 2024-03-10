@@ -46,7 +46,7 @@ message API_v1_Prop_Request {
     .rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 4;
     .rv.data.API_v1_Prop_Request.ClearProp clear_prop = 5;
     .rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 6;
-  };
+  }
 }
 
 message API_v1_Prop_Response {
@@ -79,5 +79,5 @@ message API_v1_Prop_Response {
     .rv.data.API_v1_Prop_Response.TriggerProp trigger_prop = 4;
     .rv.data.API_v1_Prop_Response.ClearProp clear_prop = 5;
     .rv.data.API_v1_Prop_Response.GetThumbnail get_thumbnail = 6;
-  };
+  }
 }

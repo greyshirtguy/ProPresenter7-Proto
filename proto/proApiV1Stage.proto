@@ -72,7 +72,7 @@ message API_v1_Stage_Request {
     .rv.data.API_v1_Stage_Request.GetLayouts get_layouts = 9;
     .rv.data.API_v1_Stage_Request.DeleteLayout delete_layout = 10;
     .rv.data.API_v1_Stage_Request.GetLayoutThumbnail get_layout_thumbnail = 11;
-  };
+  }
 }
 
 message API_v1_Stage_Response {
@@ -132,5 +132,5 @@ message API_v1_Stage_Response {
     .rv.data.API_v1_Stage_Response.GetLayouts get_layouts = 9;
     .rv.data.API_v1_Stage_Response.DeleteLayout delete_layout = 10;
     .rv.data.API_v1_Stage_Response.GetLayoutThumbnail get_layout_thumbnail = 11;
-  };
+  }
 }

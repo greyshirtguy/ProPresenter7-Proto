@@ -101,7 +101,7 @@ message MacrosDocument {
 
       oneof ItemType {
         .rv.data.UUID macro_id = 1;
-      };
+      }
     }
   }
 }

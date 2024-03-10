@@ -19,7 +19,7 @@ message ProApiIn {
     .rv.data.ProLink.HandlerIn handler_in = 1;
     .rv.data.NetworkAPI network_api = 2;
     .rv.data.NetworkAPI_v1 network_api_v1 = 3;
-  };
+  }
 }
 
 message ProApiOut {
@@ -29,7 +29,7 @@ message ProApiOut {
     .rv.data.ProLink.ClientAction client_action = 2;
     .rv.data.NetworkAPI network_api = 3;
     .rv.data.NetworkAPI_v1 network_api_v1 = 4;
-  };
+  }
 }
 
 message ProApiNetworkConfiguration {
@@ -87,7 +87,7 @@ message ProLink {
 
       oneof Response {
         .rv.data.ProLink.GroupDefinition group_definition = 1;
-      };
+      }
     }
 
     message TowerAddMemberRequest {
@@ -95,7 +95,7 @@ message ProLink {
       oneof Request {
         .rv.data.ProLink.GroupDefinition group_definition = 1;
         .rv.data.ProLink.GroupDefinition.Member joining_member = 2;
-      };
+      }
     }
 
     message TowerRemoveMemberRequest {
@@ -116,7 +116,7 @@ message ProLink {
         .rv.data.ProLink.GroupDefinition group_definition = 1;
         .rv.data.ProLink.TowerMessage.TowerAddMemberResponse.Accept accept = 2;
         .rv.data.ProLink.TowerMessage.TowerAddMemberResponse.DeclineReason decline_reason = 3;
-      };
+      }
     }
 
     message TowerHeartbeatRequest {
@@ -170,7 +170,7 @@ message ProLink {
       .rv.data.ProLink.ClientAction.RemoveConnection remove_connection = 2;
       .rv.data.ProLink.ClientAction.CancelAction cancel_action = 3;
       .rv.data.ProLink.ClientAction.RenderTime render_time = 4;
-    };
+    }
   }
 
   message HandlerIn {
@@ -240,13 +240,13 @@ message ProLink {
           .rv.data.ProLink.HandlerIn.AddConnectionResult.Failure.AlreadyInGroup already_in_group = 7;
           .rv.data.ProLink.HandlerIn.AddConnectionResult.Failure.CouldNotAdd could_not_add = 8;
           .rv.data.ProLink.HandlerIn.AddConnectionResult.Failure.CouldNotJoin could_not_join = 9;
-        };
+        }
       }
 
       oneof Result {
         .rv.data.ProLink.HandlerIn.AddConnectionResult.Success success = 1;
         .rv.data.ProLink.HandlerIn.AddConnectionResult.Failure failure = 2;
-      };
+      }
     }
 
     message MemberStatusChange {
@@ -295,7 +295,7 @@ message ProLink {
       .rv.data.ProLink.HandlerIn.ConfigurationRequest configuration_request = 10;
       .rv.data.ProLink.ZeroConfig.NetworkEnvironment zeroconfig_network_environment_change = 11;
       .rv.data.ProLink.HandlerIn.LogRequest log_request = 12;
-    };
+    }
   }
 
   message HandlerOut {
@@ -325,7 +325,7 @@ message ProLink {
       .rv.data.ProLink.HandlerOut.GroupJoinPassword group_join_password = 4;
       .rv.data.ProLink.HandlerOut.ProPresenterInfo propresenter_info = 5;
       .rv.data.ProApiNetworkConfiguration configuration = 6;
-    };
+    }
   }
 }
 
@@ -356,7 +356,7 @@ message NetworkAPI {
       .rv.data.NetworkAPI.GroupJoin join = 2;
       .rv.data.NetworkAPI.GroupKick kick = 3;
       .rv.data.NetworkAPI.GroupStatus status = 4;
-    };
+    }
   }
 
   message GroupResponse {
@@ -372,7 +372,7 @@ message NetworkAPI {
     oneof Response {
       .rv.data.NetworkAPI.GroupResponse.Success success = 1;
       .rv.data.NetworkAPI.GroupResponse.Status status = 2;
-    };
+    }
   }
 
   message GroupStatus {
@@ -418,7 +418,7 @@ message NetworkAPI {
       oneof ClearInfo {
         .rv.data.NetworkAPI.Action.API_Clear.Layer layer = 1;
         .rv.data.NetworkAPI.IndexOrNameIdentifier group_identifier = 2;
-      };
+      }
     }
 
     message API_TwoStepTrigger {
@@ -438,7 +438,7 @@ message NetworkAPI {
         .rv.data.NetworkAPI.Action.API_Trigger.Audio audio = 7;
         .rv.data.NetworkAPI.Action.API_Prop.TriggerProp prop = 8;
         .rv.data.NetworkAPI.Action.API_Message.TriggerMessage message = 9;
-      };
+      }
     }
 
     message API_PrerollComplete {
@@ -464,7 +464,7 @@ message NetworkAPI {
         oneof PresentationSource {
           .rv.data.NetworkAPI.Action.API_Trigger.Presentation.PlaylistPresentation playlist_index_path = 2;
           .rv.data.NetworkAPI.Action.API_Trigger.Presentation.LibraryPresentation library_index_path = 3;
-        };
+        }
         reserved 1 to 2;
       }
 
@@ -485,7 +485,7 @@ message NetworkAPI {
         .rv.data.NetworkAPI.Action.API_Trigger.Media media = 2;
         .rv.data.NetworkAPI.Action.API_Trigger.VideoInput video_input = 3;
         .rv.data.NetworkAPI.Action.API_Trigger.Audio audio = 4;
-      };
+      }
     }
 
     message API_Transport {
@@ -522,7 +522,7 @@ message NetworkAPI {
         .rv.data.NetworkAPI.Action.API_Transport.SkipBackward skip_backward = 4;
         .rv.data.NetworkAPI.Action.API_Transport.SkipForward skip_forward = 5;
         .rv.data.NetworkAPI.Action.API_Transport.GoToEnd go_to_end = 6;
-      };
+      }
     }
 
     message API_Prop {
@@ -538,7 +538,7 @@ message NetworkAPI {
       oneof PropAction {
         .rv.data.NetworkAPI.Action.API_Prop.TriggerProp trigger = 1;
         .rv.data.NetworkAPI.Action.API_Prop.ClearProp clear = 2;
-      };
+      }
     }
 
     message API_Timer {
@@ -565,7 +565,7 @@ message NetworkAPI {
         .rv.data.NetworkAPI.Action.API_Timer.StopTimer stop = 2;
         .rv.data.NetworkAPI.Action.API_Timer.ResetTimer reset = 3;
         .rv.data.NetworkAPI.Action.API_Timer.ConfigureTimer configure = 4;
-      };
+      }
     }
 
     message API_Message {
@@ -582,7 +582,7 @@ message NetworkAPI {
       oneof MessageAction {
         .rv.data.NetworkAPI.Action.API_Message.TriggerMessage trigger = 1;
         .rv.data.NetworkAPI.Action.API_Message.ClearMessage clear = 2;
-      };
+      }
     }
 
     message API_Macro {
@@ -616,13 +616,13 @@ message NetworkAPI {
           .rv.data.NetworkAPI.Action.API_Stage.StageMessage.ShowMessage show_message = 1;
           .rv.data.NetworkAPI.Action.API_Stage.StageMessage.ClearMessage clear_message = 2;
           .rv.data.NetworkAPI.Action.API_Stage.StageMessage.HideMessage hide_message = 3;
-        };
+        }
       }
 
       oneof StageAction {
         .rv.data.NetworkAPI.Action.API_Stage.StageLayouts layouts = 1;
         .rv.data.NetworkAPI.Action.API_Stage.StageMessage message = 2;
-      };
+      }
     }
 
     message StatusRequest {
@@ -650,7 +650,7 @@ message NetworkAPI {
       .rv.data.NetworkAPI.Action.API_StatusResponse status_response = 11;
       .rv.data.NetworkAPI.Action.API_TwoStepTrigger two_step_trigger = 12;
       .rv.data.NetworkAPI.Action.API_PrerollComplete preroll_complete = 13;
-    };
+    }
   }
 
   message IndexOrNameIdentifier {
@@ -658,7 +658,7 @@ message NetworkAPI {
     oneof Component {
       int32 index = 1;
       string name = 2;
-    };
+    }
   }
 
   message IndexOrNameIdentifierPair {
@@ -671,5 +671,5 @@ message NetworkAPI {
     .rv.data.NetworkAPI.ServerState server_state = 2;
     .rv.data.NetworkAPI.GroupChange group_change = 5;
     .rv.data.NetworkAPI.GroupResponse group_response = 6;
-  };
+  }
 }

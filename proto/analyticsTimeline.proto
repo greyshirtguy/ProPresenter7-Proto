@@ -43,5 +43,5 @@ message Timeline {
     .rv.analytics.Timeline.TriggerCue trigger_cue = 1;
     .rv.analytics.Timeline.Action action = 2;
     .rv.analytics.Timeline.RecordCue record_cue = 3;
-  };
+  }
 }

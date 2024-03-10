@@ -45,7 +45,7 @@ message Capture {
       .rv.analytics.Capture.Start.RTMP rtmp = 1;
       .rv.analytics.Capture.Start.Disk disk = 2;
       .rv.analytics.Capture.Start.Resi resi = 3;
-    };
+    }
   }
 
   enum Codec {
@@ -81,5 +81,5 @@ message Capture {
 
   oneof Event {
     .rv.analytics.Capture.Start start = 1;
-  };
+  }
 }

@@ -15,5 +15,5 @@ message Background {
   oneof Fill {
     .rv.data.Color color = 1;
     .rv.data.Graphics.Gradient gradient = 2;
-  };
+  }
 }

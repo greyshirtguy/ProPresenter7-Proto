@@ -22,7 +22,7 @@ message DMXProfiles {
 
       oneof startingChannel_oneof {
         uint32 startingChannel = 2;
-      };
+      }
     }
 
     message ChannelMapping {
@@ -35,7 +35,7 @@ message DMXProfiles {
 
       oneof layerIndex_oneof {
         uint32 layerIndex = 2;
-      };
+      }
     }
 
     enum ProfileType {

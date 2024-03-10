@@ -74,12 +74,12 @@ message Playlist {
   oneof ChildrenType {
     .rv.data.Playlist.PlaylistArray playlists = 12;
     .rv.data.Playlist.PlaylistItems items = 13;
-  };
+  }
 
   oneof LinkData {
     .rv.data.Playlist.FolderDirectory smart_directory = 14;
     .rv.data.PlanningCenterPlan pco_plan = 15;
-  };
+  }
 }
 
 message PlaylistItem {
@@ -115,5 +115,5 @@ message PlaylistItem {
     .rv.data.Cue cue = 5;
     .rv.data.PlaylistItem.PlanningCenter planning_center = 6;
     .rv.data.PlaylistItem.Placeholder placeholder = 8;
-  };
+  }
 }

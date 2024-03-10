@@ -63,5 +63,5 @@ message Create {
     .rv.analytics.Create.Playlist playlist = 2;
     .rv.analytics.Create.Presentation presentation = 3;
     .rv.analytics.Create.TemplatePlaylist template_playlist = 4;
-  };
+  }
 }

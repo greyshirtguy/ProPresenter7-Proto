@@ -147,5 +147,5 @@ message TriggerMediaInformation {
     .rv.analytics.TriggerMediaInformation.Image image = 3;
     .rv.analytics.TriggerMediaInformation.Audio audio = 4;
     .rv.analytics.TriggerMediaInformation.LiveVideo live_video = 5;
-  };
+  }
 }

@@ -20,7 +20,7 @@ message API_v1_Video_Inputs_Request {
   oneof Request {
     .rv.data.API_v1_Video_Inputs_Request.GetAll get_all = 1;
     .rv.data.API_v1_Video_Inputs_Request.Trigger trigger = 2;
-  };
+  }
 }
 
 message API_v1_Video_Inputs_Response {
@@ -35,5 +35,5 @@ message API_v1_Video_Inputs_Response {
   oneof Request {
     .rv.data.API_v1_Video_Inputs_Response.GetAll get_all = 1;
     .rv.data.API_v1_Video_Inputs_Response.Trigger trigger = 2;
-  };
+  }
 }
