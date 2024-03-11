@@ -175,11 +175,40 @@ foreach (var p in fds)
             {
                 options.Add("deprecated", deprecated ? "true" : "false");
             }
+            if (field is { Options.Targets: { Count: > 0 } targets })
+            {
+                foreach (var target in targets)
+                {
+                    options.Add("targets", target switch
+                    {
+                        FieldOptions.Types.OptionTargetType.TargetTypeUnknown => "TARGET_TYPE_UNKNOWN",
+                        FieldOptions.Types.OptionTargetType.TargetTypeFile => "TARGET_TYPE_FILE",
+                        FieldOptions.Types.OptionTargetType.TargetTypeExtensionRange => "TARGET_TYPE_EXTENSIONRANGE",
+                        FieldOptions.Types.OptionTargetType.TargetTypeMessage => "TARGET_TYPE_MESSAGE",
+                        FieldOptions.Types.OptionTargetType.TargetTypeField => "TARGET_TYPE_FIELD",
+                        FieldOptions.Types.OptionTargetType.TargetTypeOneof => "TARGET_TYPE_ONEOF",
+                        FieldOptions.Types.OptionTargetType.TargetTypeEnum => "TARGET_TYPE_ENUM",
+                        FieldOptions.Types.OptionTargetType.TargetTypeEnumEntry => "TARGET_TYPE_ENUMENTRY",
+                        FieldOptions.Types.OptionTargetType.TargetTypeService => "TARGET_TYPE_SERVICE",
+                        FieldOptions.Types.OptionTargetType.TargetTypeMethod => "TARGET_TYPE_METHOD",
+                        _ => throw new UnreachableException()
+                    });
+                }
+            }
+            if (field is { HasDefaultValue: true, DefaultValue: { } d })
+            {
+                options.Add("default_value", field.Type switch
+                {
+                    FieldDescriptorProto.Types.Type.String => JsonSerializer.Serialize(d),
+                    FieldDescriptorProto.Types.Type.Bytes => $"\"{d}\"",
+                    _ => d
+                });
+            }
             if (field is { HasJsonName: true, JsonName: { } json })
             {
                 options["json_name"] = JsonSerializer.Serialize(json);
             }
-            // TODO: default value
+            // TODO: other options
             if (options.Count != 0)
             {
                 writer.Write(" [");
