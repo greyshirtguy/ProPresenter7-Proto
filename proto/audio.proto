@@ -55,9 +55,9 @@ message Audio {
 
     message OutputChannel {
       uint32 index = 1;
-      deprecated bool muted = 2;
-      deprecated bool solo = 3;
-      deprecated bool test_tone = 4;
+      bool muted = 2 [deprecated = true];
+      bool solo = 3 [deprecated = true];
+      bool test_tone = 4 [deprecated = true];
     }
   }
 

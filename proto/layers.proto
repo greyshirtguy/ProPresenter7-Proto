@@ -17,8 +17,8 @@ message Layer {
   .rv.data.Color color = 3;
   bool muted = 4;
   bool hidden = 5;
-  deprecated .rv.data.Layer.BlendMode blend_mode = 6;
-  deprecated double opacity = 7;
+  .rv.data.Layer.BlendMode blend_mode = 6 [deprecated = true];
+  double opacity = 7 [deprecated = true];
   .rv.data.UUID selected_target_set_uuid = 8;
   .rv.data.UUID effects_preset_uuid = 9;
   double effects_build_duration = 10;

@@ -20,8 +20,8 @@ message Screen {
   bool corner_pinning_enabled = 7;
   .rv.data.Graphics.Rect subscreen_unit_rect = 8;
   double rotation = 9;
-  deprecated double gamma = 10;
-  deprecated double black_level = 11;
+  double gamma = 10 [deprecated = true];
+  double black_level = 11 [deprecated = true];
   uint32 blended_edges = 12;
   .rv.data.CornerValues corner_values = 13;
   .rv.data.OutputDisplay output_display = 14;
@@ -117,11 +117,11 @@ message OutputDisplay {
 
 message EdgeBlend {
   .rv.data.UUID uuid = 1;
-  deprecated double radius = 2;
-  deprecated double intensity = 3;
-  deprecated .rv.data.EdgeBlend.Mode mode = 4;
-  deprecated .rv.data.EdgeBlend.Screen first_screen = 5;
-  deprecated .rv.data.EdgeBlend.Screen second_screen = 6;
+  double radius = 2 [deprecated = true];
+  double intensity = 3 [deprecated = true];
+  .rv.data.EdgeBlend.Mode mode = 4 [deprecated = true];
+  .rv.data.EdgeBlend.Screen first_screen = 5 [deprecated = true];
+  .rv.data.EdgeBlend.Screen second_screen = 6 [deprecated = true];
   .rv.data.EdgeBlend.Screen left_screen = 7;
   .rv.data.EdgeBlend.Screen right_screen = 8;
   .rv.data.EdgeBlend.Screen top_screen = 9;
@@ -129,9 +129,9 @@ message EdgeBlend {
 
   message Screen {
     .rv.data.UUID uuid = 1;
-    deprecated .rv.data.EdgeBlend.Screen.Edge edge = 2;
+    .rv.data.EdgeBlend.Screen.Edge edge = 2 [deprecated = true];
     double gamma = 3;
-    deprecated double black_level = 4;
+    double black_level = 4 [deprecated = true];
     .rv.data.EdgeBlend.Mode mode = 5;
     double radius = 6;
     double intensity = 7;

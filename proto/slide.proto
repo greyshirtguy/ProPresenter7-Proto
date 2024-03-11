@@ -107,8 +107,8 @@ message Slide {
       message AlternateElementText {
         .rv.data.UUID other_element_uuid = 1;
         string other_element_name = 2;
-        deprecated uint32 text_transform_options = 3;
-        deprecated .rv.data.Slide.Element.DataLink.AlternateElementText.TextTransformOption text_transform = 4;
+        uint32 text_transform_options = 3 [deprecated = true];
+        .rv.data.Slide.Element.DataLink.AlternateElementText.TextTransformOption text_transform = 4 [deprecated = true];
 
         enum TextTransformOption {
           TEXT_TRANSFORM_OPTION_NONE = 0;
@@ -269,7 +269,7 @@ message Slide {
         .rv.data.Slide.Element.DataLink.SlideText.TextSourceOption source_option = 2;
         bool preserve_notes_format = 3;
         string name_to_match = 4;
-        deprecated .rv.data.Slide.Element.DataLink.AlternateElementText.TextTransformOption element_text_transform = 5;
+        .rv.data.Slide.Element.DataLink.AlternateElementText.TextTransformOption element_text_transform = 5 [deprecated = true];
 
         enum TextSourceOption {
           TEXT_SOURCE_OPTION_TEXT = 0;
@@ -449,7 +449,7 @@ message Slide {
       }
 
       oneof PropertyType {
-        deprecated .rv.data.Slide.Element.DataLink.Ticker ticker = 1;
+        .rv.data.Slide.Element.DataLink.Ticker ticker = 1 [deprecated = true];
         .rv.data.Slide.Element.DataLink.AlternateElementText alternate_text = 2;
         .rv.data.Slide.Element.DataLink.TimerText timer_text = 3;
         .rv.data.Slide.Element.DataLink.ClockText clock_text = 4;
@@ -477,7 +477,7 @@ message Slide {
         .rv.data.Slide.Element.DataLink.SlideLabelColor slide_Label_Color = 26;
         .rv.data.Slide.Element.DataLink.RSSFeed rss_feed = 27;
         .rv.data.Slide.Element.DataLink.FileFeed file_feed = 28;
-        deprecated .rv.data.Slide.Element.DataLink.ChordProChart chord_pro_chart = 29;
+        .rv.data.Slide.Element.DataLink.ChordProChart chord_pro_chart = 29 [deprecated = true];
         .rv.data.Slide.Element.DataLink.PlaybackMarkerText playback_marker_text = 30;
         .rv.data.Slide.Element.DataLink.PlaybackMarkerIdentifier playback_marker_color = 32;
         .rv.data.Slide.Element.DataLink.TimecodeText timecode_text = 33;

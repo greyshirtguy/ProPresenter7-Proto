@@ -65,7 +65,7 @@ message Action {
   }
 
   message BlendModeType {
-    deprecated .rv.data.Layer.BlendMode blend_mode = 1;
+    .rv.data.Layer.BlendMode blend_mode = 1 [deprecated = true];
     .rv.data.Layer.Blending blend = 2;
   }
 
@@ -96,18 +96,18 @@ message Action {
     }
 
     message Video {
-      deprecated .rv.data.Action.MediaType.PlaybackBehavior playback_behavior = 1;
-      deprecated .rv.data.Action.MediaType.EndBehavior end_behavior = 2;
-      deprecated double loop_time = 3;
-      deprecated uint32 times_to_loop = 4;
-      deprecated bool soft_loop = 5;
-      deprecated double soft_loop_duration = 6;
+      .rv.data.Action.MediaType.PlaybackBehavior playback_behavior = 1 [deprecated = true];
+      .rv.data.Action.MediaType.EndBehavior end_behavior = 2 [deprecated = true];
+      double loop_time = 3 [deprecated = true];
+      uint32 times_to_loop = 4 [deprecated = true];
+      bool soft_loop = 5 [deprecated = true];
+      double soft_loop_duration = 6 [deprecated = true];
     }
 
     message Audio {
-      deprecated .rv.data.Action.MediaType.PlaybackBehavior playback_behavior = 1;
-      deprecated double loop_time = 2;
-      deprecated uint32 times_to_loop = 3;
+      .rv.data.Action.MediaType.PlaybackBehavior playback_behavior = 1 [deprecated = true];
+      double loop_time = 2 [deprecated = true];
+      uint32 times_to_loop = 3 [deprecated = true];
       .rv.data.Action.MediaType.Audio.MediaActionAudioType audio_type = 4;
 
       enum MediaActionAudioType {
@@ -437,10 +437,10 @@ message Action {
     .rv.data.Action.ClearType clear = 26;
     .rv.data.Action.StageLayoutType stage = 27;
     .rv.data.Action.PropType prop = 28;
-    deprecated .rv.data.Action.MaskType mask = 29;
+    .rv.data.Action.MaskType mask = 29 [deprecated = true];
     .rv.data.Action.MessageType message = 30;
     .rv.data.Action.CommunicationType communication = 32;
-    deprecated .rv.data.Action.MultiScreenType multi_screen = 33;
+    .rv.data.Action.MultiScreenType multi_screen = 33 [deprecated = true];
     .rv.data.Action.DocumentType presentation_document = 34;
     .rv.data.Action.ExternalPresentationType external_presentation = 36;
     .rv.data.Action.AudienceLookType audience_look = 37;

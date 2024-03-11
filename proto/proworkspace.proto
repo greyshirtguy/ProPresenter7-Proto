@@ -22,7 +22,7 @@ message ProPresenterWorkspace {
   repeated .rv.data.ProMask masks = 4;
   repeated .rv.data.VideoInput videoInputs = 5;
   repeated .rv.data.Stage.ScreenAssignment stage_layout_mappings = 6;
-  deprecated .rv.data.Audio.SettingsDocument audio_settings = 7;
+  .rv.data.Audio.SettingsDocument audio_settings = 7 [deprecated = true];
   string selected_library_name = 8;
   .rv.data.Recording.SettingsDocument record_settings = 9;
   .rv.data.DigitalAudio.Setup digital_audio_setup = 10;

@@ -10,6 +10,7 @@ using Google.Protobuf.Reflection;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 var libPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Renewed Vision", "ProPresenter");
 
@@ -119,10 +120,6 @@ foreach (var p in fds)
         foreach (var field in fs)
         {
             writer.Write(new string(' ', level * 2));
-            if (field is { Options: { HasDeprecated: true, Deprecated: true } })
-            {
-                writer.Write("deprecated ");
-            }
             if (field.HasLabel)
             {
                 if (field.Label switch
@@ -169,7 +166,26 @@ foreach (var p in fds)
                 writer.Write("= ");
                 writer.Write(field.Number);
             }
-            // TODO: default value and JSON name
+            Dictionary<string, string> options = [];
+            if (field is { Options: { HasPacked: true, Packed: { } packed } })
+            {
+                options.Add("packed", packed ? "true" : "false");
+            }
+            if (field is { Options: { HasDeprecated: true, Deprecated: { } deprecated } })
+            {
+                options.Add("deprecated", deprecated ? "true" : "false");
+            }
+            if (field is { HasJsonName: true, JsonName: { } json })
+            {
+                options["json_name"] = JsonSerializer.Serialize(json);
+            }
+            // TODO: default value
+            if (options.Count != 0)
+            {
+                writer.Write(" [");
+                writer.Write(string.Join(", ", options.Select(p => $"{p.Key} = {p.Value}")));
+                writer.Write(']');
+            }
             writer.Write(";\n");
         }
     }

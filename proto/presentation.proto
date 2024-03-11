@@ -38,7 +38,7 @@ message Presentation {
   .rv.data.Transition transition = 18;
   .rv.data.Action.ContentDestination content_destination = 19;
   .rv.data.Presentation.MultiTracksLicensing multi_tracks_licensing = 21;
-  deprecated string music_key = 22;
+  string music_key = 22 [deprecated = true];
   .rv.data.Presentation.Music music = 23;
 
   message CCLI {
@@ -113,8 +113,8 @@ message Presentation {
   }
 
   message Music {
-    deprecated string original_music_key = 1;
-    deprecated string user_music_key = 2;
+    string original_music_key = 1 [deprecated = true];
+    string user_music_key = 2 [deprecated = true];
     .rv.data.MusicKeyScale original = 3;
     .rv.data.MusicKeyScale user = 4;
   }
