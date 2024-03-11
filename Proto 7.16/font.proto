@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message Font {
+  string name = 1;
+  double size = 2;
+  bool italic = 4;
+  bool bold = 8;
+  string family = 9;
+  string face = 10;
+
+}

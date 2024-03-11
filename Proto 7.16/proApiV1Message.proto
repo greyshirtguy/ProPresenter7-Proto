@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "proApiV1Identifier.proto";
+import "proApiV1Timer.proto";
+
+message API_v1_Message {
+  rv.data.API_v1_Identifier id = 1;
+  string message = 2;
+  repeated rv.data.API_v1_Message.API_v1_MessageToken tokens = 3;
+  rv.data.API_v1_Identifier theme = 4;
+  bool visible_on_network = 5;
+
+  message API_v1_MessageToken {
+    string name = 1;
+    oneof TokenType {
+      rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 2;
+      rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 3;
+      rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 4;
+    }
+
+
+    message API_v1_TextToken {
+      string text = 1;
+
+    }
+    message API_v1_TimerToken {
+      rv.data.API_v1_Identifier id = 1;
+      bool allows_overrun = 2;
+      rv.data.API_v1_TimerFormat format = 6;
+      oneof TimerConfiguration {
+        rv.data.API_v1_Timer.API_v1_Timer_Countdown countdown = 3;
+        rv.data.API_v1_Timer.API_v1_Timer_CountdownToTime count_down_to_time = 4;
+        rv.data.API_v1_Timer.API_v1_Timer_Elapsed elapsed = 5;
+      }
+
+
+    }
+    message API_v1_ClockToken {
+      enum API_v1_ClockTokenFormat {
+        none = 0;
+        short = 1;
+        medium = 2;
+        long = 3;
+        full = 4;
+      }
+      API_v1_ClockTokenFormat date = 1;
+      API_v1_ClockTokenFormat time = 2;
+      bool is_24_hours = 3;
+
+    }
+  }
+}
+message API_v1_Message_Request {
+  oneof Request {
+    rv.data.API_v1_Message_Request.Messages messages = 1;
+    rv.data.API_v1_Message_Request.CreateMessage create_message = 2;
+    rv.data.API_v1_Message_Request.GetMessage get_message = 3;
+    rv.data.API_v1_Message_Request.PutMessage put_message = 4;
+    rv.data.API_v1_Message_Request.DeleteMessage delete_message = 5;
+    rv.data.API_v1_Message_Request.TriggerMessage trigger_message = 6;
+    rv.data.API_v1_Message_Request.ClearMessage clear_message = 7;
+  }
+
+
+  message Messages {
+
+  }
+  message CreateMessage {
+    rv.data.API_v1_Message message = 1;
+
+  }
+  message GetMessage {
+    string id = 1;
+
+  }
+  message PutMessage {
+    string id = 1;
+    rv.data.API_v1_Message message = 2;
+
+  }
+  message DeleteMessage {
+    string id = 1;
+
+  }
+  message TriggerMessage {
+    string id = 1;
+    repeated rv.data.API_v1_Message.API_v1_MessageToken tokens = 2;
+
+  }
+  message ClearMessage {
+    string id = 1;
+
+  }
+}
+message API_v1_Message_Response {
+  oneof Response {
+    rv.data.API_v1_Message_Response.Messages messages = 1;
+    rv.data.API_v1_Message_Response.CreateMessage create_message = 2;
+    rv.data.API_v1_Message_Response.GetMessage get_message = 3;
+    rv.data.API_v1_Message_Response.PutMessage put_message = 4;
+    rv.data.API_v1_Message_Response.DeleteMessage delete_message = 5;
+    rv.data.API_v1_Message_Response.TriggerMessage trigger_message = 6;
+    rv.data.API_v1_Message_Response.ClearMessage clear_message = 7;
+  }
+
+
+  message Messages {
+    repeated rv.data.API_v1_Message messages = 1;
+
+  }
+  message CreateMessage {
+    rv.data.API_v1_Message message = 1;
+
+  }
+  message GetMessage {
+    rv.data.API_v1_Message message = 1;
+
+  }
+  message PutMessage {
+    rv.data.API_v1_Message message = 1;
+
+  }
+  message DeleteMessage {
+
+  }
+  message TriggerMessage {
+
+  }
+  message ClearMessage {
+
+  }
+}

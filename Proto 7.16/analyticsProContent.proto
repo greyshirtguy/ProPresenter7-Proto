@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message ProContent {
+  oneof Event {
+    rv.analytics.ProContent.ViewMediaBin media_bin = 1;
+    rv.analytics.ProContent.Download download = 2;
+  }
+
+
+  message ViewMediaBin {
+
+  }
+  message Download {
+    bool is_retry = 1;
+
+  }
+}

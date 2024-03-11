@@ -5,7 +5,7 @@ package rv.data;
 import "basicTypes.proto";
 import "messages.proto";
 import "timers.proto";
-import "timestamp.proto";
+import "rvtimestamp.proto";
 import "proApiV1.proto";
 
 message ProApiIn {

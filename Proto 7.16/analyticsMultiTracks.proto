@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message MultiTracks {
+
+  message Account {
+    enum Status {
+      STATUS_DISABLED = 0;
+      STATUS_CANCELLED = 1;
+      STATUS_ACTIVE = 2;
+    }
+    Status chart_pro = 1;
+    Status propresenter_addon = 2;
+
+  }
+  message Startup {
+    rv.analytics.MultiTracks.Account account = 1;
+
+  }
+  message Import {
+    rv.analytics.MultiTracks.Account account = 1;
+    bool charts_automation = 2;
+    int32 lines = 3;
+
+  }
+}

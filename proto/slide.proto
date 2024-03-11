@@ -91,6 +91,10 @@ message Slide {
         rv.data.Slide.Element.DataLink.RSSFeed rss_feed = 27;
         rv.data.Slide.Element.DataLink.FileFeed file_feed = 28;
         rv.data.Slide.Element.DataLink.ChordProChart chord_pro_chart = 29;
+        rv.data.Slide.Element.DataLink.PlaybackMarkerText playback_marker_text = 30;
+        rv.data.Slide.Element.DataLink.PlaybackMarkerIdentifier playback_marker_color = 32;
+        rv.data.Slide.Element.DataLink.TimecodeText timecode_text = 33;
+        rv.data.Slide.Element.DataLink.TimecodeStatus timecode_status = 34;
       }
 
 
@@ -432,7 +436,48 @@ message Slide {
         SlideCountSourceType slideCountSourceType = 1;
 
       }
+      message PlaybackMarkerIdentifier {
+        enum Destination {
+          PLAYBACK_MARKER_DESTINATION_PRESENTATION = 0;
+          PLAYBACK_MARKER_DESTINATION_ANNOUNCEMENT = 1;
+          PLAYBACK_MARKER_DESTINATION_AUDIO = 2;
+        }
+        Destination destination = 1;
+        enum Type {
+          PLAYBACK_MARKER_IDENTIFIER_FIRST = 0;
+          PLAYBACK_MARKER_IDENTIFIER_PREVIOUS = 1;
+          PLAYBACK_MARKER_IDENTIFIER_NEXT = 2;
+          PLAYBACK_MARKER_IDENTIFIER_LAST = 3;
+          PLAYBACK_MARKER_IDENTIFIER_NAME = 4;
+        }
+        Type type = 2;
+        string name = 3;
+
+      }
+      message PlaybackMarkerText {
+        rv.data.Slide.Element.DataLink.PlaybackMarkerIdentifier identifier = 1;
+        bool should_use_marker_color = 4;
+        oneof TextType {
+          rv.data.Slide.Element.DataLink.PlaybackMarkerText.Name name = 2;
+          rv.data.Slide.Element.DataLink.PlaybackMarkerText.Time time = 3;
+        }
+
+
+        message Name {
+
+        }
+        message Time {
+          rv.data.Timer.Format format = 1;
+
+        }
+      }
       message ChordProChart {
+
+      }
+      message TimecodeText {
+
+      }
+      message TimecodeStatus {
 
       }
     }

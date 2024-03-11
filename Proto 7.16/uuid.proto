@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message UUID {
+  string string = 1;
+
+}

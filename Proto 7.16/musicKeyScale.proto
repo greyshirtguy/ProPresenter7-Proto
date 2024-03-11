@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message MusicKeyScale {
+  enum MusicKey {
+    MUSIC_KEY_A_FLAT = 0;
+    MUSIC_KEY_A = 1;
+    MUSIC_KEY_A_SHARP = 2;
+    MUSIC_KEY_B_FLAT = 3;
+    MUSIC_KEY_B = 4;
+    MUSIC_KEY_B_SHARP = 5;
+    MUSIC_KEY_C_FLAT = 6;
+    MUSIC_KEY_C = 7;
+    MUSIC_KEY_C_SHARP = 8;
+    MUSIC_KEY_D_FLAT = 9;
+    MUSIC_KEY_D = 10;
+    MUSIC_KEY_D_SHARP = 11;
+    MUSIC_KEY_E_FLAT = 12;
+    MUSIC_KEY_E = 13;
+    MUSIC_KEY_E_SHARP = 14;
+    MUSIC_KEY_F_FLAT = 15;
+    MUSIC_KEY_F = 16;
+    MUSIC_KEY_F_SHARP = 17;
+    MUSIC_KEY_G_FLAT = 18;
+    MUSIC_KEY_G = 19;
+    MUSIC_KEY_G_SHARP = 20;
+  }
+  MusicKey music_key = 1;
+  enum MusicScale {
+    MUSIC_SCALE_MAJOR = 0;
+    MUSIC_SCALE_MINOR = 1;
+  }
+  MusicScale music_scale = 2;
+
+}

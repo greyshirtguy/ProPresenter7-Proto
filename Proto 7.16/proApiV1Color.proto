@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message API_v1_Color {
+  double red = 1;
+  double green = 2;
+  double blue = 3;
+  double alpha = 4;
+
+}

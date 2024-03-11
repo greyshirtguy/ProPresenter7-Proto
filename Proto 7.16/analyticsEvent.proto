@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+import "analyticsApi.proto";
+import "analyticsCapture.proto";
+import "analyticsCreate.proto";
+import "analyticsImport.proto";
+import "analyticsPlaybackMarker.proto";
+import "analyticsProContent.proto";
+import "analyticsStartup.proto";
+import "analyticsSync.proto";
+import "analyticsTimecode.proto";
+import "analyticsTimeline.proto";
+import "analyticsTrigger.proto";
+import "analyticsUI.proto";
+import "analyticsUpdate.proto";
+import "analyticsWHMStore.proto";
+
+message Event {
+  oneof Interaction {
+    rv.analytics.UI ui = 1;
+    rv.analytics.Startup startup = 2;
+    rv.analytics.Trigger trigger = 3;
+    rv.analytics.Create create = 4;
+    rv.analytics.Import import = 5;
+    rv.analytics.Timeline timeline = 6;
+    rv.analytics.Sync sync = 7;
+    rv.analytics.API api = 8;
+    rv.analytics.Timecode timecode = 9;
+    rv.analytics.PlaybackMarker playback_marker = 10;
+    rv.analytics.Update update = 11;
+    rv.analytics.WHMStore whm_store = 12;
+    rv.analytics.ProContent proContent = 13;
+    rv.analytics.Capture capture = 14;
+  }
+
+
+}

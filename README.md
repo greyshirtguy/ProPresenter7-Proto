@@ -9,7 +9,9 @@ When ProPresenter7 first came out I was a bit surprised to find that the files w
 Instead, ProPresenter 7 uses Google "Protocol Buffers" to encode data stored in documents and various configuration files.  
 (See https://developers.google.com/protocol-buffers for more information.)
 
-Even though the new files encoded with protocol buffers are not human readable, one of the nice things about using protocol buffers is how easy it is to auto-generate code that to work with the files once you have the data structure (messages) defined in human-readable .proto files.  If you have the .proto files, you have everything you need to create, read and update the data files.
+Even though the new files encoded with protocol buffers are not human readable, one of the nice things about using protocol buffers is how easy it is to auto-generate code that to work with the files once you have the data structure (messages) defined in human-readable .proto files.  
+
+**✅ If you have the .proto files, you have everything you need to create, read and update the data files.**
 
 That's what you will find in this repository - a set of unofficial .proto files, *that I have reverse-engineered*, which you can use to *auto-generate code* that will enable you to read, create and modify ProPresenter 7 data files including:  
 
@@ -30,9 +32,9 @@ __They are NOT created, endorsed or supported by the makers of ProPresenter: Ren
 
 In addition to the "usual disclaimers" that should obviously apply, please note the following:
 * _If you don't understand what you are doing with these files or you don't have a proven backup and recovery process, you may end up destroying your ProPresenter documents and configuration with no way to recover what you have lost._
-* __Do NOT contact Renewed Vision for support!__
+* __⚠️ Do NOT contact Renewed Vision for support!__
 * _Who knows what else could go wrong if you don't understand how to correctly use these files - You might destroy the computer itself, and all other computers on your network (maybe even the Pastor's Macbook). It's possible you might even be responsible for the destruction of millions of other computers around the world and cause the building you are in to burn down. All kidding aside - be careful when changing ProPresenter files - mistakes can crash/break the application_  
-* __Do NOT contact Renewed Vision for support!__
+* __⚠️ Do NOT contact Renewed Vision for support!__
   
   
 ### Well that should cover it.  

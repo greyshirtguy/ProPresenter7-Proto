@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message URL {
+  enum Platform {
+    PLATFORM_UNKNOWN = 0;
+    PLATFORM_MACOS = 1;
+    PLATFORM_WIN32 = 2;
+    PLATFORM_WEB = 3;
+  }
+  Platform platform = 3;
+  oneof Storage {
+    string absolute_string = 1;
+    string relative_path = 2;
+  }
+
+  oneof RelativeFilePath {
+    rv.data.URL.LocalRelativePath local = 4;
+    rv.data.URL.ExternalRelativePath external = 5;
+  }
+
+
+  message LocalRelativePath {
+    enum Root {
+      ROOT_UNKNOWN = 0;
+      ROOT_BOOT_VOLUME = 1;
+      ROOT_USER_HOME = 2;
+      ROOT_USER_DOCUMENTS = 3;
+      ROOT_USER_DOWNLOADS = 4;
+      ROOT_USER_MUSIC = 5;
+      ROOT_USER_PICTURES = 6;
+      ROOT_USER_VIDEOS = 7;
+      ROOT_USER_DESKTOP = 11;
+      ROOT_USER_APP_SUPPORT = 8;
+      ROOT_SHARED = 9;
+      ROOT_SHOW = 10;
+      ROOT_CURRENT_RESOURCE = 12;
+    }
+    Root root = 1;
+    string path = 2;
+
+  }
+  message ExternalRelativePath {
+    rv.data.URL.ExternalRelativePath.MacOSExternalVolume macos = 1;
+    rv.data.URL.ExternalRelativePath.Win32ExternalVolume win32 = 2;
+    string path = 3;
+
+    message MacOSExternalVolume {
+      string volume_name = 1;
+
+    }
+    message Win32ExternalVolume {
+      string drive_letter = 1;
+      string volume_name = 2;
+      bool network_share = 3;
+
+    }
+  }
+}
+message URLs {
+  repeated rv.data.URL urls = 1;
+
+}

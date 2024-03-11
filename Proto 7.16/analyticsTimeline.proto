@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message Timeline {
+  oneof Event {
+    rv.analytics.Timeline.TriggerCue trigger_cue = 1;
+    rv.analytics.Timeline.Action action = 2;
+    rv.analytics.Timeline.RecordCue record_cue = 3;
+  }
+
+
+  message TriggerCue {
+    enum TriggerType {
+      TRIGGER_TYPE_SLIDE = 0;
+      TRIGGER_TYPE_MEDIA = 1;
+      TRIGGER_TYPE_AUDIO = 2;
+      TRIGGER_TYPE_ACTION = 3;
+    }
+    TriggerType trigger_type = 1;
+    enum TimingSource {
+      TIMING_SOURCE_INTERNAL = 0;
+      TIMING_SOURCE_SMPTE = 1;
+    }
+    TimingSource timing_source = 2;
+
+  }
+  message Action {
+    enum ActionType {
+      ACTION_TYPE_PLAY = 0;
+      ACTION_TYPE_STOP = 1;
+      ACTION_TYPE_RESET = 2;
+    }
+    ActionType action_type = 1;
+
+  }
+  message RecordCue {
+
+  }
+}

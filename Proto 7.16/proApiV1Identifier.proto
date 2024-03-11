@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message API_v1_Identifier {
+  string uuid = 1;
+  string name = 2;
+  uint32 index = 3;
+
+}

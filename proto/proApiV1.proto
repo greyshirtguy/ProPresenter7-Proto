@@ -766,6 +766,11 @@ message NetworkAPI_v1 {
       rv.data.UUID uuid = 1;
       uint32 cue_index = 2;
       int32 quality = 3;
+      enum API_v1_ContentType {
+        PNG = 0;
+        JPEG = 1;
+      }
+      API_v1_ContentType content_type = 4;
 
     }
     message EmptyMessage {
@@ -1896,6 +1901,11 @@ message NetworkAPI_v1 {
     }
     message Thumbnail {
       bytes data = 1;
+      enum API_v1_ContentType {
+        PNG = 0;
+        JPEG = 1;
+      }
+      API_v1_ContentType content_type = 2;
 
     }
     message Focused {

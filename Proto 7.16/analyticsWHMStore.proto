@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message WHMStore {
+  oneof Event {
+    rv.analytics.WHMStore.ViewStore view_store = 1;
+    rv.analytics.WHMStore.Download download = 2;
+  }
+
+
+  message ViewStore {
+
+  }
+  message Download {
+
+  }
+}

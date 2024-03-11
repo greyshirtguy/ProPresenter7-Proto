@@ -1,0 +1,145 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message TriggerMediaInformation {
+  enum SourceType {
+    SOURCE_TYPE_LOCAL = 0;
+    SOURCE_TYPE_PROCONTENT = 1;
+  }
+  SourceType source_type = 1;
+  oneof MediaType {
+    rv.analytics.TriggerMediaInformation.Video video = 2;
+    rv.analytics.TriggerMediaInformation.Image image = 3;
+    rv.analytics.TriggerMediaInformation.Audio audio = 4;
+    rv.analytics.TriggerMediaInformation.LiveVideo live_video = 5;
+  }
+
+
+  message Transition {
+    bool is_default = 1;
+    string name = 2;
+
+  }
+  message VisualMedia {
+    enum Behavior {
+      BEHAVIOR_BACKGROUND = 0;
+      BEHAVIOR_FOREGROUND = 1;
+      BEHAVIOR_VIDEO_INPUT = 2;
+    }
+    Behavior behavior = 1;
+    enum ScaleMode {
+      SCALE_MODE_FIT = 0;
+      SCALE_MODE_FILL = 1;
+      SCALE_MODE_STRETCH = 2;
+      SCALE_MODE_BLUR = 3;
+    }
+    ScaleMode scale_mode = 2;
+    enum FlipMode {
+      FLIP_MODE_NONE = 0;
+      FLIP_MODE_HORIZONTAL = 1;
+      FLIP_MODE_VERTICAL = 2;
+      FLIP_MODE_BOTH = 3;
+    }
+    FlipMode flip_mode = 3;
+    enum NativeRotation {
+      NATIVE_ROTATION_STANDARD = 0;
+      NATIVE_ROTATION_90 = 90;
+      NATIVE_ROTATION_180 = 180;
+      NATIVE_ROTATION_270 = 270;
+    }
+    NativeRotation native_rotation = 4;
+    rv.analytics.TriggerMediaInformation.VisualMedia.Size resolution = 5;
+    uint32 enabled_effects_count = 6;
+    bool has_effect_preset = 7;
+    rv.analytics.TriggerMediaInformation.Transition transition = 8;
+
+    message Size {
+      uint32 width = 1;
+      uint32 height = 2;
+
+    }
+  }
+  message Transport {
+    enum DurationRange {
+      DURATION_UNDER_10S = 0;
+      DURATION_10S_TO_30S = 1;
+      DURATION_30S_TO_60S = 2;
+      DURATION_1M_TO_5M = 3;
+      DURATION_5M_TO_10M = 4;
+      DURATION_10M_TO_30M = 5;
+      DURATION_30M_TO_60M = 6;
+      DURATION_1H_TO_2H = 7;
+      DURATION_OVER_2H = 8;
+    }
+    DurationRange source_duration_range = 1;
+    bool has_audio_ramp_in = 2;
+    bool has_audio_ramp_out = 3;
+    bool has_in_point = 4;
+    bool has_out_point = 5;
+    double play_rate = 6;
+    uint32 playback_marker_count = 7;
+
+  }
+  message Video {
+    rv.analytics.TriggerMediaInformation.VisualMedia visual_media = 7;
+    enum PlaybackBehavior {
+      PLAYBACK_BEHAVIOR_STOP = 0;
+      PLAYBACK_BEHAVIOR_LOOP = 1;
+      PLAYBACK_BEHAVIOR_LOOP_FOR_PLAY_COUNT = 2;
+      PLAYBACK_BEHAVIOR_LOOP_FOR_TIME = 3;
+    }
+    PlaybackBehavior playback_behavior = 8;
+    enum CompletionTarget {
+      COMPLETION_TARGET_NONE = 0;
+      COMPLETION_TARGET_NEXT = 1;
+      COMPLETION_TARGET_RANDOM = 2;
+      COMPLETION_TARGET_CUE = 3;
+      COMPLETION_TARGET_FIRST = 4;
+    }
+    CompletionTarget completion_target = 9;
+    bool soft_loop_enabled = 10;
+    double soft_loop_duration = 11;
+    double frame_rate = 12;
+    uint32 audio_channel_count = 13;
+    rv.analytics.TriggerMediaInformation.Transport transport = 14;
+
+  }
+  message Audio {
+    enum Behavior {
+      BEHAVIOR_TUNE = 0;
+      BEHAVIOR_SOUND = 1;
+    }
+    Behavior behavior = 1;
+    enum PlaybackBehavior {
+      PLAYBACK_BEHAVIOR_STOP = 0;
+      PLAYBACK_BEHAVIOR_LOOP = 1;
+      PLAYBACK_BEHAVIOR_NEXT = 2;
+    }
+    PlaybackBehavior playback_behavior = 2;
+    rv.analytics.TriggerMediaInformation.Transition transition = 3;
+    uint32 audio_channel_count = 4;
+    rv.analytics.TriggerMediaInformation.Transport transport = 5;
+
+  }
+  message Image {
+    rv.analytics.TriggerMediaInformation.VisualMedia visual_media = 1;
+    rv.analytics.TriggerMediaInformation.Transition transition = 2;
+    enum CompletionTarget {
+      COMPLETION_TARGET_NONE = 0;
+      COMPLETION_TARGET_NEXT = 1;
+      COMPLETION_TARGET_RANDOM = 2;
+      COMPLETION_TARGET_CUE = 3;
+      COMPLETION_TARGET_FIRST = 4;
+    }
+    CompletionTarget completion_target = 3;
+
+  }
+  message LiveVideo {
+    rv.analytics.TriggerMediaInformation.VisualMedia visual_media = 1;
+    double frame_rate = 2;
+    uint32 audio_channel_count = 3;
+
+  }
+}

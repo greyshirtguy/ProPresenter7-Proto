@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "version.proto";
+
+message ApplicationInfo {
+  enum Platform {
+    PLATFORM_UNDEFINED = 0;
+    PLATFORM_MACOS = 1;
+    PLATFORM_WINDOWS = 2;
+  }
+  Platform platform = 1;
+  rv.data.Version platform_version = 2;
+  enum Application {
+    APPLICATION_UNDEFINED = 0;
+    APPLICATION_PROPRESENTER = 1;
+    APPLICATION_PVP = 2;
+    APPLICATION_PROVIDEOSERVER = 3;
+    APPLICATION_SCOREBOARD = 4;
+  }
+  Application application = 3;
+  rv.data.Version application_version = 4;
+
+}

@@ -1,0 +1,1077 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+
+message UI {
+  oneof Component {
+    rv.analytics.UI.QuickSearch quick_search = 1;
+    rv.analytics.UI.Toolbar toolbar = 2;
+    rv.analytics.UI.MainView main_view = 3;
+    rv.analytics.UI.Looks looks = 4;
+    rv.analytics.UI.ScreenConfiguration screen_configuration = 5;
+    rv.analytics.UI.LowerRight lower_right = 6;
+    rv.analytics.UI.TextInspector text_inspector = 7;
+    rv.analytics.UI.Show show = 8;
+    rv.analytics.UI.InAppStore in_app_store = 9;
+    rv.analytics.UI.Editor editor = 10;
+    rv.analytics.UI.WhatsNew whats_new = 11;
+    rv.analytics.UI.ClearGroups clear_groups = 12;
+    rv.analytics.UI.PreviewArea preview_area = 13;
+    rv.analytics.UI.Placeholder placeholder = 14;
+    rv.analytics.UI.PlanningCenterLive planning_center_live = 15;
+    rv.analytics.UI.NetworkGroup network_group = 16;
+    rv.analytics.UI.CCLI ccli = 17;
+    rv.analytics.UI.Capture capture = 18;
+    rv.analytics.UI.WelcomeToProPresenter welcomeToProPresenter = 19;
+    rv.analytics.UI.TestPattern test_pattern = 20;
+    rv.analytics.UI.Preferences preferences = 21;
+  }
+
+
+  message QuickSearch {
+    oneof Component {
+      rv.analytics.UI.QuickSearch.Shown shown = 1;
+      rv.analytics.UI.QuickSearch.Search search = 2;
+      rv.analytics.UI.QuickSearch.OpenItems open_items = 3;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_APPLICATION_MENU = 1;
+        SOURCE_TOOLBAR = 2;
+        SOURCE_UNLINKED_HEADER = 3;
+      }
+      Source source = 1;
+
+    }
+    message Search {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_LIBRARY = 1;
+        SOURCE_SONG_SELECT = 2;
+        SOURCE_MULTI_TRACKS = 3;
+      }
+      Source source = 1;
+
+    }
+    message OpenItems {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_LIBRARY = 1;
+        SOURCE_SONG_SELECT = 2;
+        SOURCE_MULTI_TRACKS = 3;
+      }
+      Source source = 1;
+      enum Style {
+        STYLE_UNKNOWN = 0;
+        STYLE_RETURN_KEY = 1;
+        STYLE_COMMAND_RETURN_KEY = 2;
+        STYLE_DRAG_DROP = 3;
+      }
+      Style style = 2;
+      int32 count = 3;
+
+    }
+  }
+  message Toolbar {
+    oneof Component {
+      rv.analytics.UI.Toolbar.TextStyle text_style = 1;
+      rv.analytics.UI.Toolbar.Theme theme = 2;
+    }
+
+
+    message TextStyle {
+      oneof Component {
+        rv.analytics.UI.Toolbar.TextStyle.Shown shown = 1;
+        rv.analytics.UI.Toolbar.TextStyle.Change change = 2;
+      }
+
+
+      message Shown {
+
+      }
+      message Change {
+        enum Property {
+          PROPERTY_UNKNOWN = 0;
+          PROPERTY_FONT_TYPEFACE = 1;
+          PROPERTY_FONT_WEIGHT = 2;
+          PROPERTY_FONT_CAPITALIZATION = 3;
+          PROPERTY_FONT_SIZE = 4;
+          PROPERTY_FONT_COLOR = 5;
+          PROPERTY_HORIZONTAL_ALIGNMENT = 6;
+          PROPERTY_VERTICAL_ALIGNMENT = 7;
+          PROPERTY_STROKE_ENABLE = 8;
+          PROPERTY_STROKE_WIDTH = 9;
+          PROPERTY_STROKE_COLOR = 10;
+          PROPERTY_SHADOW_ENABLE = 11;
+          PROPERTY_SHADOW_BLUR = 12;
+          PROPERTY_SHADOW_OPACITY = 13;
+          PROPERTY_SHADOW_COLOR = 14;
+          PROPERTY_SHADOW_ANGLE = 15;
+          PROPERTY_SHADOW_OFFSET = 16;
+        }
+        Property property = 1;
+        enum Target {
+          TARGET_UNKNOWN = 0;
+          TARGET_SLIDE_SELECTION = 1;
+          TARGET_PRESENTATION_SELECTION = 2;
+        }
+        Target target = 2;
+
+      }
+    }
+    message Theme {
+      oneof Component {
+        rv.analytics.UI.Toolbar.Theme.Shown shown = 1;
+        rv.analytics.UI.Toolbar.Theme.Applied applied = 2;
+      }
+
+
+      message Shown {
+
+      }
+      message Applied {
+        enum Target {
+          TARGET_UNKNOWN = 0;
+          TARGET_SLIDE_SELECTION = 1;
+          TARGET_PRESENTATION_SELECTION = 2;
+        }
+        Target target = 1;
+
+      }
+    }
+  }
+  message MainView {
+    oneof Component {
+      rv.analytics.UI.MainView.Show show = 1;
+      rv.analytics.UI.MainView.PresentationEditor presentation_editor = 2;
+      rv.analytics.UI.MainView.ReflowEditor reflow_editor = 3;
+      rv.analytics.UI.MainView.Bible bible = 4;
+      rv.analytics.UI.MainView.StageEditor stage_editor = 5;
+      rv.analytics.UI.MainView.ThemeEditor theme_editor = 6;
+      rv.analytics.UI.MainView.CopyrightEditor copyright_editor = 7;
+      rv.analytics.UI.MainView.PropsEditor props_editor = 8;
+      rv.analytics.UI.MainView.MaskEditor mask_editor = 9;
+    }
+
+
+    message Show {
+      oneof Component {
+        rv.analytics.UI.MainView.Show.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_APPLICATION_MENU = 2;
+        }
+        Source source = 1;
+
+      }
+    }
+    message PresentationEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.PresentationEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_APPLICATION_MENU = 2;
+          SOURCE_CONTEXT_MENU = 3;
+        }
+        Source source = 1;
+
+      }
+    }
+    message ReflowEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.ReflowEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_APPLICATION_MENU = 2;
+          SOURCE_LIBRARY_CONTEXT_MENU = 3;
+        }
+        Source source = 1;
+
+      }
+    }
+    message Bible {
+      oneof Component {
+        rv.analytics.UI.MainView.Bible.Shown shown = 1;
+        rv.analytics.UI.MainView.Bible.Trigger trigger = 2;
+        rv.analytics.UI.MainView.Bible.GenerateSlides generate_slides = 3;
+        rv.analytics.UI.MainView.Bible.GenerateNext generate_next = 4;
+        rv.analytics.UI.MainView.Bible.GeneratePrevious generate_previous = 5;
+        rv.analytics.UI.MainView.Bible.SaveSlides save_slides = 6;
+        rv.analytics.UI.MainView.Bible.Lookup lookup = 7;
+        rv.analytics.UI.MainView.Bible.BibleCount install = 8;
+        rv.analytics.UI.MainView.Bible.BibleCount remove = 9;
+        rv.analytics.UI.MainView.Bible.BibleCount startup = 10;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_APPLICATION_MENU = 2;
+        }
+        Source source = 1;
+
+      }
+      message Trigger {
+        enum Location {
+          LOCATION_UNKNOWN = 0;
+          LOCATION_PRESENTATION = 1;
+          LOCATION_BIBLE_MODULE = 2;
+        }
+        Location location = 1;
+
+      }
+      message GenerateSlides {
+        int32 translation_count = 1;
+        int32 slide_count = 2;
+        enum TextBoxLocation {
+          TEXT_BOX_LOCATION_UNKNOWN = 0;
+          TEXT_BOX_LOCATION_NONE = 1;
+          TEXT_BOX_LOCATION_TEXT_BOX = 2;
+          TEXT_BOX_LOCATION_WITH_VERSE = 3;
+        }
+        TextBoxLocation verse_location = 3;
+        TextBoxLocation reference_location = 4;
+        bool show_verse_numbers = 5;
+        bool break_new_verse = 6;
+        bool display_translation = 7;
+        bool preserve_font_color = 8;
+        enum ReferenceType {
+          REFERENCE_TYPE_UNKNOWN = 0;
+          REFERENCE_TYPE_PASSAGE_NONE = 1;
+          REFERENCE_TYPE_PASSAGE_EACH = 2;
+          REFERENCE_TYPE_PASSAGE_LAST = 3;
+          REFERENCE_TYPE_VERSE = 4;
+        }
+        ReferenceType reference_style = 9;
+
+      }
+      message GenerateNext {
+        enum Location {
+          LOCATION_UNKNOWN = 0;
+          LOCATION_PRESENTATION = 1;
+          LOCATION_BIBLE_MODULE = 2;
+        }
+        Location location = 1;
+
+      }
+      message GeneratePrevious {
+        enum Location {
+          LOCATION_UNKNOWN = 0;
+          LOCATION_PRESENTATION = 1;
+          LOCATION_BIBLE_MODULE = 2;
+        }
+        Location location = 2;
+
+      }
+      message SaveSlides {
+        enum SlideDestination {
+          SLIDE_DESTINATION_UNKNOWN = 0;
+          SLIDE_DESTINATION_SAVE_TO_LIBRARY = 1;
+          SLIDE_DESTINATION_SAVE_TO_PLAYLIST = 2;
+          SLIDE_DESTINATION_COPY_TO_PRESENTATION = 3;
+        }
+        SlideDestination destination = 1;
+
+      }
+      message Lookup {
+        enum LookupLocation {
+          LOOKUP_LOCATION_UNKNOWN = 0;
+          LOOKUP_LOCATION_TEXT_REFERENCE = 1;
+          LOOKUP_LOCATION_MENU_BOOK = 2;
+          LOOKUP_LOCATION_MENU_CHAPTER = 3;
+          LOOKUP_LOCATION_MENU_VERSE = 4;
+          LOOKUP_LOCATION_TEXT_SEARCH_CHAPTER = 5;
+          LOOKUP_LOCATION_TEXT_SEARCH_VERSE = 6;
+        }
+        LookupLocation location = 1;
+
+      }
+      message BibleCount {
+        int32 free_installed_count = 1;
+        int32 purchased_installed_count = 2;
+
+      }
+    }
+    message StageEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.StageEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_APPLICATION_MENU = 2;
+          SOURCE_LOWER_RIGHT = 3;
+        }
+        Source source = 1;
+
+      }
+    }
+    message ThemeEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.ThemeEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_THEME_CONTEXT_MENU = 2;
+        }
+        Source source = 1;
+
+      }
+    }
+    message CopyrightEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.CopyrightEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_PREFERENCE = 2;
+        }
+        Source source = 1;
+
+      }
+    }
+    message PropsEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.PropsEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_LOWER_RIGHT = 2;
+        }
+        Source source = 1;
+
+      }
+    }
+    message MaskEditor {
+      oneof Component {
+        rv.analytics.UI.MainView.MaskEditor.Shown shown = 1;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_TOOLBAR = 1;
+          SOURCE_LOOKS_WINDOW = 2;
+        }
+        Source source = 1;
+
+      }
+    }
+  }
+  message Looks {
+    oneof Component {
+      rv.analytics.UI.Looks.Shown shown = 1;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_APPLICATION_MENU = 1;
+        SOURCE_PRESENTATION_VIEW = 2;
+      }
+      Source source = 1;
+
+    }
+  }
+  message ScreenConfiguration {
+    oneof Component {
+      rv.analytics.UI.ScreenConfiguration.Shown shown = 1;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_APPLICATION_MENU = 1;
+        SOURCE_STAGE = 2;
+      }
+      Source source = 1;
+
+    }
+  }
+  message LowerRight {
+    oneof Component {
+      rv.analytics.UI.LowerRight.Timers timers = 1;
+      rv.analytics.UI.LowerRight.Messages messages = 2;
+      rv.analytics.UI.LowerRight.Props props = 3;
+      rv.analytics.UI.LowerRight.Stage stage = 4;
+      rv.analytics.UI.LowerRight.AudioBin audio_bin = 5;
+      rv.analytics.UI.LowerRight.Macros macros = 6;
+    }
+
+
+    message Timers {
+      oneof Component {
+        rv.analytics.UI.LowerRight.Timers.Shown shown = 1;
+        rv.analytics.UI.LowerRight.Timers.Collapse collapse = 2;
+        rv.analytics.UI.LowerRight.Timers.Edit edit = 3;
+        rv.analytics.UI.LowerRight.Timers.State state = 4;
+        rv.analytics.UI.LowerRight.Timers.Create create = 5;
+        rv.analytics.UI.LowerRight.Timers.Delete delete = 6;
+      }
+
+
+      message Shown {
+
+      }
+      message Collapse {
+        enum State {
+          STATE_UNKNOWN = 0;
+          STATE_COLLAPSED = 1;
+          STATE_EXPANDED = 2;
+        }
+        State state = 1;
+
+      }
+      message Edit {
+        enum Field {
+          FIELD_UNKNOWN = 0;
+          FIELD_TYPE = 1;
+          FIELD_VALUE = 2;
+          FIELD_OVERRUN = 3;
+          FIELD_NAME = 4;
+        }
+        Field field = 1;
+
+      }
+      message State {
+        enum State {
+          STATE_UNKNOWN = 0;
+          STATE_START = 1;
+          STATE_STOP = 2;
+          STATE_RESET = 3;
+        }
+        State state = 1;
+
+      }
+      message Create {
+
+      }
+      message Delete {
+
+      }
+    }
+    message Messages {
+      oneof Component {
+        rv.analytics.UI.LowerRight.Messages.Shown shown = 1;
+        rv.analytics.UI.LowerRight.Messages.Edit edit = 2;
+        rv.analytics.UI.LowerRight.Messages.State state = 3;
+        rv.analytics.UI.LowerRight.Messages.Create create = 4;
+        rv.analytics.UI.LowerRight.Messages.Delete delete = 5;
+      }
+
+
+      message Shown {
+
+      }
+      message Edit {
+        enum Action {
+          ACTION_UNKNOWN = 0;
+          ACTION_ADD_TEXT_TOKEN = 1;
+          ACTION_ADD_TIMER_TOKEN = 2;
+          ACTION_ADD_CUSTOM_TOKEN = 3;
+          ACTION_SET_THEME = 4;
+          ACTION_SET_TEXT = 5;
+          ACTION_SET_WEB_NOTIFICATION = 6;
+          ACTION_SET_DISMISS_BEHAVIOR = 7;
+        }
+        Action action = 1;
+
+      }
+      message State {
+        enum State {
+          STATE_UNKNOWN = 0;
+          STATE_SHOW = 1;
+          STATE_CLEAR = 2;
+        }
+        State state = 1;
+
+      }
+      message Create {
+
+      }
+      message Delete {
+
+      }
+    }
+    message Props {
+      oneof Component {
+        rv.analytics.UI.LowerRight.Props.Shown shown = 1;
+        rv.analytics.UI.LowerRight.Props.Transition transition = 2;
+        rv.analytics.UI.LowerRight.Props.State state = 3;
+        rv.analytics.UI.LowerRight.Props.Create create = 4;
+        rv.analytics.UI.LowerRight.Props.Delete delete = 5;
+      }
+
+
+      message Shown {
+
+      }
+      message Transition {
+
+      }
+      message State {
+        enum State {
+          STATE_UNKNOWN = 0;
+          STATE_SHOW = 1;
+          STATE_CLEAR = 2;
+        }
+        State state = 1;
+
+      }
+      message Create {
+
+      }
+      message Delete {
+
+      }
+    }
+    message Stage {
+      oneof Component {
+        rv.analytics.UI.LowerRight.Stage.Shown shown = 1;
+        rv.analytics.UI.LowerRight.Stage.ChangeLayout change_layout = 2;
+        rv.analytics.UI.LowerRight.Stage.MessageState message_state = 3;
+        rv.analytics.UI.LowerRight.Stage.ConfigureScreens configure_screens = 4;
+        rv.analytics.UI.LowerRight.Stage.EditLayouts edit_layouts = 5;
+      }
+
+
+      message Shown {
+
+      }
+      message ChangeLayout {
+
+      }
+      message MessageState {
+        enum State {
+          STATE_UNKNOWN = 0;
+          STATE_SHOW = 1;
+          STATE_CLEAR = 2;
+        }
+        State state = 1;
+
+      }
+      message ConfigureScreens {
+
+      }
+      message EditLayouts {
+
+      }
+    }
+    message AudioBin {
+
+    }
+    message Macros {
+      oneof Component {
+        rv.analytics.UI.LowerRight.Macros.Shown shown = 1;
+        rv.analytics.UI.LowerRight.Macros.Trigger trigger = 2;
+        rv.analytics.UI.LowerRight.Macros.Create create = 3;
+        rv.analytics.UI.LowerRight.Macros.Delete delete = 4;
+      }
+
+
+      message Shown {
+
+      }
+      message Trigger {
+
+      }
+      message Create {
+
+      }
+      message Delete {
+
+      }
+    }
+  }
+  message TextInspector {
+    oneof Component {
+      rv.analytics.UI.TextInspector.Shown shown = 1;
+      rv.analytics.UI.TextInspector.Foreground foreground = 2;
+      rv.analytics.UI.TextInspector.UnderlineColor underline_color = 3;
+      rv.analytics.UI.TextInspector.BackgroundColor background_color = 4;
+      rv.analytics.UI.TextInspector.ScrollingText scrolling_text = 5;
+      rv.analytics.UI.TextInspector.LineTransform line_transform = 6;
+    }
+
+
+    message Shown {
+
+    }
+    message Foreground {
+      enum FillType {
+        FILL_TYPE_UNKNOWN = 0;
+        FILL_TYPE_SOLID = 1;
+        FILL_TYPE_GRADIENT = 2;
+      }
+      FillType fill_type = 1;
+      enum SelectionMode {
+        SELECTION_MODE_UNKNOWN = 0;
+        SELECTION_MODE_OBJECT = 1;
+        SELECTION_MODE_RANGE = 2;
+      }
+      SelectionMode selection_mode = 2;
+
+    }
+    message UnderlineColor {
+      bool is_enabled = 1;
+      enum SelectionMode {
+        SELECTION_MODE_UNKNOWN = 0;
+        SELECTION_MODE_OBJECT = 1;
+        SELECTION_MODE_RANGE = 2;
+      }
+      SelectionMode selection_mode = 2;
+
+    }
+    message BackgroundColor {
+      enum ColorType {
+        COLOR_TYPE_UNKNOWN = 0;
+        COLOR_TYPE_CLEAR = 1;
+        COLOR_TYPE_OTHER = 2;
+      }
+      ColorType color_type = 1;
+      enum SelectionMode {
+        SELECTION_MODE_UNKNOWN = 0;
+        SELECTION_MODE_OBJECT = 1;
+        SELECTION_MODE_RANGE = 2;
+      }
+      SelectionMode selection_mode = 2;
+
+    }
+    message ScrollingText {
+      oneof Component {
+        rv.analytics.UI.TextInspector.ScrollingText.Enable enable = 1;
+      }
+
+
+      message Enable {
+        bool enabled = 1;
+
+      }
+    }
+    message LineTransform {
+      enum TransformType {
+        TRANSFORM_TYPE_UNKNOWN = 0;
+        TRANSFORM_TYPE_NONE = 1;
+        TRANSFORM_TYPE_REMOVE_LINE_RETURNS = 2;
+        TRANSFORM_TYPE_REPLACE_LINE_RETURNS = 3;
+        TRANSFORM_TYPE_ONE_WORD_PER_LINE = 4;
+        TRANSFORM_TYPE_ONE_CHARACTER_PER_LINE = 5;
+      }
+      TransformType transform_type = 1;
+
+    }
+  }
+  message Show {
+    oneof Component {
+      rv.analytics.UI.Show.SlideLabel slide_label = 1;
+    }
+
+
+    message SlideLabel {
+      oneof Component {
+        rv.analytics.UI.Show.SlideLabel.Shown shown = 1;
+        rv.analytics.UI.Show.SlideLabel.Change change = 2;
+      }
+
+
+      message Shown {
+
+      }
+      message Change {
+        int32 number_of_slides = 1;
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_CONTEXT_MENU = 1;
+          SOURCE_POPOVER = 2;
+        }
+        Source source = 2;
+
+      }
+    }
+  }
+  message InAppStore {
+    oneof Component {
+      rv.analytics.UI.InAppStore.Trial trial = 1;
+    }
+
+
+    message Trial {
+      oneof Component {
+        rv.analytics.UI.InAppStore.Trial.Shown shown = 1;
+        rv.analytics.UI.InAppStore.Trial.Complete complete = 2;
+      }
+
+
+      message Shown {
+
+      }
+      message Complete {
+        enum Result {
+          RESULT_UNKNOWN = 0;
+          RESULT_SUCCESS = 1;
+          RESULT_EARLY_EXIT = 2;
+        }
+        Result result = 1;
+
+      }
+    }
+  }
+  message Editor {
+    oneof Component {
+      rv.analytics.UI.Editor.Overlay overlay = 1;
+    }
+
+
+    message Overlay {
+      oneof Component {
+        rv.analytics.UI.Editor.Overlay.Shown shown = 1;
+        rv.analytics.UI.Editor.Overlay.Closed closed = 2;
+      }
+
+
+      message Shown {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_DOUBLE_CLICK = 1;
+          SOURCE_CONTEXTUAL_MENU = 2;
+          SOURCE_PLUS_BUTTON_MENU = 3;
+        }
+        Source source = 1;
+
+      }
+      message Closed {
+        enum Source {
+          SOURCE_UNKNOWN = 0;
+          SOURCE_CLICK_OFF_ELEMENT = 1;
+          SOURCE_ESCAPE_KEY = 2;
+          SOURCE_CLOSE_BUTTON = 3;
+        }
+        Source source = 1;
+
+      }
+    }
+  }
+  message WhatsNew {
+    oneof Component {
+      rv.analytics.UI.WhatsNew.Viewed viewed = 1;
+    }
+
+
+    message Viewed {
+      string version = 1;
+      string resource_name = 2;
+      int32 view_time = 3;
+
+    }
+  }
+  message ClearGroups {
+    oneof Component {
+      rv.analytics.UI.ClearGroups.Shown shown = 1;
+      rv.analytics.UI.ClearGroups.Create create = 2;
+      rv.analytics.UI.ClearGroups.Delete delete = 3;
+      rv.analytics.UI.ClearGroups.Group group = 4;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_APPLICATION_MENU = 1;
+        SOURCE_PREVIEW_MENU = 2;
+        SOURCE_ACTION_MENU = 3;
+      }
+      Source source = 1;
+
+    }
+    message Create {
+
+    }
+    message Delete {
+
+    }
+    message Group {
+      oneof Component {
+        rv.analytics.UI.ClearGroups.Group.ChangeVisibility change_visibility = 1;
+        rv.analytics.UI.ClearGroups.Group.ChangeIcon change_icon = 2;
+      }
+
+
+      message ChangeVisibility {
+        enum Visibility {
+          VISIBILITY_UNKNOWN = 0;
+          VISIBILITY_SHOWN = 1;
+          VISIBILITY_HIDDEN = 2;
+        }
+        Visibility visibility = 1;
+
+      }
+      message ChangeIcon {
+        enum IconType {
+          ICON_TYPE_UNKNOWN = 0;
+          ICON_TYPE_DEFAULT = 1;
+          ICON_TYPE_CUSTOM = 2;
+        }
+        IconType icon_type = 1;
+        bool is_tinted = 2;
+
+      }
+    }
+  }
+  message PreviewArea {
+    oneof Component {
+      rv.analytics.UI.PreviewArea.ClearGroups clear_groups = 1;
+    }
+
+
+    message ClearGroups {
+      oneof Component {
+        rv.analytics.UI.PreviewArea.ClearGroups.Trigger trigger = 1;
+        rv.analytics.UI.PreviewArea.ClearGroups.Changed changed = 2;
+      }
+
+
+      message Trigger {
+
+      }
+      message Changed {
+        int32 count = 1;
+
+      }
+    }
+  }
+  message Placeholder {
+    oneof Component {
+      rv.analytics.UI.Placeholder.Link link = 1;
+      rv.analytics.UI.Placeholder.Unlink unlink = 2;
+    }
+
+
+    message Link {
+      enum Type {
+        TYPE_UNKNOWN = 0;
+        TYPE_PRESENTATION = 1;
+        TYPE_MEDIA = 2;
+        TYPE_EXTERNAL_PRESENTATION = 3;
+      }
+      Type link_type = 1;
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_QUICK_SEARCH = 1;
+        SOURCE_IMPORT_BUTTON = 2;
+        SOURCE_CREATE_BUTTON = 3;
+        SOURCE_DRAG_DROP = 4;
+        SOURCE_AUTOMATIC = 5;
+      }
+      Source link_source = 2;
+
+    }
+    message Unlink {
+
+    }
+  }
+  message PlanningCenterLive {
+    oneof Component {
+      rv.analytics.UI.PlanningCenterLive.Shown shown = 1;
+    }
+
+
+    message Shown {
+      enum WindowType {
+        WINDOW_TYPE_UNKNOWN = 0;
+        WINDOW_TYPE_DOCKED = 1;
+        WINDOW_TYPE_FLOATING = 2;
+      }
+      WindowType window_type = 1;
+
+    }
+  }
+  message NetworkGroup {
+    oneof Component {
+      rv.analytics.UI.NetworkGroup.Create create = 1;
+      rv.analytics.UI.NetworkGroup.Add add = 2;
+      rv.analytics.UI.NetworkGroup.Join join = 3;
+      rv.analytics.UI.NetworkGroup.Invite invite = 4;
+      rv.analytics.UI.NetworkGroup.Leave leave = 5;
+      rv.analytics.UI.NetworkGroup.Remove remove = 6;
+    }
+
+
+    message Create {
+
+    }
+    message Add {
+
+    }
+    message Join {
+
+    }
+    message Invite {
+      bool did_accept = 1;
+
+    }
+    message Leave {
+
+    }
+    message Remove {
+
+    }
+  }
+  message CCLI {
+    rv.analytics.UI.CCLI.Report report = 1;
+
+    message Report {
+      oneof Component {
+        rv.analytics.UI.CCLI.Report.Shown shown = 1;
+        rv.analytics.UI.CCLI.Report.Reset reset = 2;
+        rv.analytics.UI.CCLI.Report.Export export = 3;
+      }
+
+
+      message Shown {
+
+      }
+      message Reset {
+
+      }
+      message Export {
+
+      }
+    }
+  }
+  message Capture {
+    oneof Component {
+      rv.analytics.UI.Capture.Shown shown = 1;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_UNKNOWN = 0;
+        SOURCE_TOOLBAR = 1;
+        SOURCE_ACTION_POPOVER = 2;
+        SOURCE_ACTION_CONTEXTUAL_MENU = 3;
+        SOURCE_CALENDAR = 4;
+        SOURCE_PREFERENCES_RESI = 5;
+        SOURCE_MAIN_MENU = 6;
+      }
+      Source source = 1;
+
+    }
+  }
+  message WelcomeToProPresenter {
+    oneof Component {
+      rv.analytics.UI.WelcomeToProPresenter.Shown shown = 1;
+      rv.analytics.UI.WelcomeToProPresenter.Migration migration = 2;
+      rv.analytics.UI.WelcomeToProPresenter.ScreenConfigurationHelp screen_configuration_help = 3;
+      rv.analytics.UI.WelcomeToProPresenter.DownloadSampleContent download_sample_content = 4;
+      rv.analytics.UI.WelcomeToProPresenter.UserGroup user_group = 5;
+      rv.analytics.UI.WelcomeToProPresenter.Tutorials tutorials = 6;
+      rv.analytics.UI.WelcomeToProPresenter.KnowledgeBase knowledge_base = 7;
+      rv.analytics.UI.WelcomeToProPresenter.Blog blog = 8;
+      rv.analytics.UI.WelcomeToProPresenter.Instagram instagram = 9;
+      rv.analytics.UI.WelcomeToProPresenter.Facebook facebook = 10;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_FIRST_LAUNCH = 0;
+        SOURCE_APPLICATION_MENU = 1;
+      }
+      Source source = 1;
+
+    }
+    message Migration {
+
+    }
+    message ScreenConfigurationHelp {
+
+    }
+    message DownloadSampleContent {
+
+    }
+    message UserGroup {
+
+    }
+    message Tutorials {
+
+    }
+    message KnowledgeBase {
+
+    }
+    message Blog {
+
+    }
+    message Instagram {
+
+    }
+    message Facebook {
+
+    }
+  }
+  message TestPattern {
+    oneof Component {
+      rv.analytics.UI.TestPattern.Shown shown = 1;
+    }
+
+
+    message Shown {
+      enum Source {
+        SOURCE_APPLICATION_MENU = 0;
+        SOURCE_SCREEN_CONFIGURATION = 1;
+      }
+      Source source = 1;
+
+    }
+  }
+  message Preferences {
+    oneof Component {
+      rv.analytics.UI.Preferences.CustomLogo custom_logo = 1;
+    }
+
+
+    message CustomLogo {
+      bool has_logo = 1;
+
+    }
+  }
+}

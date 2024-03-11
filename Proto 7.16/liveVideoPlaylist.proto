@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "action.proto";
+import "uuid.proto";
+
+message LiveVideoPlaylist {
+  repeated rv.data.Action actions = 1;
+  rv.data.UUID targeted_layer_UUID = 2;
+  rv.data.UUID uuid = 3;
+
+}

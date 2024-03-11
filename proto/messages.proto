@@ -3,7 +3,7 @@ syntax = "proto3";
 package rv.data;
 
 import "basicTypes.proto";
-import "template.proto";
+import "templateIdentification.proto";
 import "timers.proto";
 
 message Message {
@@ -11,7 +11,7 @@ message Message {
   string title = 2;
   double time_to_remove = 3;
   bool visible_on_network = 4;
-  rv.data.Template.Identification template = 6;
+  rv.data.TemplateIdentification template = 6;
   enum ClearType {
     CLEAR_TYPE_MANUAL = 0;
     CLEAR_TYPE_AFTER_TIME = 1;

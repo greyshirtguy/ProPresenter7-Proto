@@ -1,0 +1,276 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+import "analyticsTriggerMedia.proto";
+
+message Trigger {
+  oneof Component {
+    rv.analytics.Trigger.Cue cue = 1;
+    rv.analytics.Trigger.Action action = 2;
+    rv.analytics.Trigger.MediaBin media_bin = 3;
+    rv.analytics.Trigger.AudioBin audio_bin = 4;
+    rv.analytics.Trigger.TestPattern test_pattern = 5;
+  }
+
+
+  message Cue {
+    oneof Component {
+      rv.analytics.Trigger.Cue.Slide slide = 1;
+    }
+
+
+    message Slide {
+      oneof Component {
+        rv.analytics.Trigger.Cue.Slide.Trigger trigger = 1;
+        rv.analytics.Trigger.Cue.Slide.ScrollingTextElement scrolling_text_element = 2;
+        rv.analytics.Trigger.Cue.Slide.RSSFeedElement rss_feed_element = 3;
+        rv.analytics.Trigger.Cue.Slide.FileFeedElement file_feed_element = 4;
+      }
+
+
+      message Trigger {
+        int32 object_count = 1;
+        int32 scrolling_object_count = 2;
+        int32 background_fx_object_count = 3;
+        int32 action_count = 4;
+        bool has_text_fx = 5;
+        int32 media_text_fill_object_count = 6;
+        int32 cut_out_text_fill_object_count = 7;
+        int32 background_blur_text_fill_object_count = 8;
+        int32 background_invert_text_fill_object_count = 9;
+
+      }
+      message ScrollingTextElement {
+        enum Direction {
+          DIRECTION_UNKNOWN = 0;
+          DIRECTION_LEFT = 1;
+          DIRECTION_RIGHT = 2;
+          DIRECTION_UP = 3;
+          DIRECTION_DOWN = 4;
+        }
+        Direction direction = 1;
+        enum StartPosition {
+          START_POSITION_UNKNOWN = 0;
+          START_POSITION_AUTOMATIC = 1;
+          START_POSITION_OFF_SCREEN = 2;
+        }
+        StartPosition start_position = 2;
+        bool is_repeat_enabled = 3;
+        enum Speed {
+          SPEED_UNKNOWN = 0;
+          SPEED_VERY_SLOW = 1;
+          SPEED_SLOW = 2;
+          SPEED_MEDIUM = 3;
+          SPEED_FAST = 4;
+          SPEED_VERY_FAST = 5;
+        }
+        Speed speed = 4;
+        enum DestinationLayer {
+          DESTINATION_LAYER_UNKNOWN = 0;
+          DESTINATION_LAYER_ANNOUNCEMENT = 1;
+          DESTINATION_LAYER_PRESENTATION = 2;
+          DESTINATION_LAYER_STAGE = 3;
+          DESTINATION_LAYER_PROPS = 4;
+          DESTINATION_LAYER_MESSAGES = 5;
+          DESTINATION_LAYER_MASK = 6;
+        }
+        DestinationLayer destination_layer = 5;
+
+      }
+      message RSSFeedElement {
+        enum Content {
+          CONTENT_UNKNOWN = 0;
+          CONTENT_TITLE = 1;
+          CONTENT_TITLE_AND_DESCRIPTION = 2;
+        }
+        Content content = 1;
+        bool is_delimiter_enabled = 2;
+        enum DestinationLayer {
+          DESTINATION_LAYER_UNKNOWN = 0;
+          DESTINATION_LAYER_ANNOUNCEMENT = 1;
+          DESTINATION_LAYER_PRESENTATION = 2;
+          DESTINATION_LAYER_STAGE = 3;
+          DESTINATION_LAYER_PROPS = 4;
+          DESTINATION_LAYER_MESSAGES = 5;
+          DESTINATION_LAYER_MASK = 6;
+        }
+        DestinationLayer destination_layer = 3;
+
+      }
+      message FileFeedElement {
+        enum DestinationLayer {
+          DESTINATION_LAYER_UNKNOWN = 0;
+          DESTINATION_LAYER_ANNOUNCEMENT = 1;
+          DESTINATION_LAYER_PRESENTATION = 2;
+          DESTINATION_LAYER_STAGE = 3;
+          DESTINATION_LAYER_PROPS = 4;
+          DESTINATION_LAYER_MESSAGES = 5;
+          DESTINATION_LAYER_MASK = 6;
+        }
+        DestinationLayer destination_layer = 1;
+
+      }
+    }
+  }
+  message Action {
+    oneof Component {
+      rv.analytics.Trigger.Action.ClearLayer clear = 1;
+      rv.analytics.TriggerMediaInformation media = 2;
+      rv.analytics.Trigger.Action.MediaBinPlaylist media_bin_playlist = 3;
+      rv.analytics.Trigger.Action.AudioBinPlaylist audio_bin_playlist = 4;
+      rv.analytics.Trigger.Action.Stage stage = 5;
+      rv.analytics.Trigger.Action.Timer timer = 6;
+      rv.analytics.Trigger.Action.Prop prop = 7;
+      rv.analytics.Trigger.Action.Look look = 8;
+      rv.analytics.Trigger.Action.Message message = 9;
+      rv.analytics.Trigger.Action.Communications communications = 10;
+      rv.analytics.Trigger.Action.SlideDestination slide_destination = 11;
+      rv.analytics.Trigger.Action.Macro macro = 12;
+      rv.analytics.Trigger.Action.ClearGroup clear_group = 13;
+      rv.analytics.Trigger.Action.CaptureStart capture_start = 14;
+      rv.analytics.Trigger.Action.CaptureStop capture_stop = 15;
+    }
+
+
+    message ClearLayer {
+      enum ClearLayerType {
+        CLEAR_LAYER_TYPE_UNKNOWN = 0;
+        CLEAR_LAYER_TYPE_AUDIO = 1;
+        CLEAR_LAYER_TYPE_MESSAGES = 2;
+        CLEAR_LAYER_TYPE_PROPS = 3;
+        CLEAR_LAYER_TYPE_ANNOUNCEMENTS = 4;
+        CLEAR_LAYER_TYPE_SLIDE = 5;
+        CLEAR_LAYER_TYPE_MEDIA = 6;
+        CLEAR_LAYER_TYPE_VIDEO_INPUT = 7;
+        CLEAR_LAYER_TYPE_CLEAR_TO_LOGO = 8;
+        CLEAR_LAYER_TYPE_CLEAR_GROUP = 9;
+      }
+      ClearLayerType type = 1;
+
+    }
+    message MediaBinPlaylist {
+
+    }
+    message AudioBinPlaylist {
+
+    }
+    message Stage {
+      int32 layout_change_count = 1;
+      int32 total_stage_screens = 2;
+
+    }
+    message SlideDestination {
+      enum ChangeSlideDestination {
+        CHANGE_SLIDE_DESTINATION_UNKNOWN = 0;
+        CHANGE_SLIDE_DESTINATION_NO_CHANGE = 1;
+        CHANGE_SLIDE_DESTINATION_STAGE_ONLY = 2;
+        CHANGE_SLIDE_DESTINATION_STAGE_AUDIENCE = 3;
+      }
+      ChangeSlideDestination change_slide_destination = 1;
+
+    }
+    message Timer {
+      enum Type {
+        TYPE_UNKNOWN = 0;
+        TYPE_START_SET_CONFIGURATION = 1;
+        TYPE_START = 2;
+        TYPE_STOP = 3;
+        TYPE_RESET = 4;
+        TYPE_STOP_SET_CONFIGURATION = 5;
+        TYPE_INCREMENT = 6;
+      }
+      Type type = 1;
+
+    }
+    message Prop {
+      string transition = 1;
+
+    }
+    message Look {
+      int32 total_screen_count = 1;
+      enum Setting {
+        SETTING_NONE = 0;
+        SETTING_SOME = 1;
+        SETTING_ALL = 2;
+      }
+      Setting mask = 2;
+      Setting messages = 3;
+      Setting props = 4;
+      Setting announcements = 5;
+      Setting presentation_theme = 6;
+      Setting slide = 7;
+      Setting media = 8;
+      Setting video_input = 9;
+
+    }
+    message Message {
+      int32 token_count = 1;
+      int32 text_token_count = 2;
+      int32 timer_token_count = 3;
+      int32 clock_token_count = 4;
+      int32 showing_count = 5;
+
+    }
+    message Communications {
+
+    }
+    message Macro {
+      int32 action_count = 1;
+      int32 cue_action_count = 2;
+      int32 total_action_count = 3;
+
+    }
+    message ClearGroup {
+      bool layer_audio = 1;
+      bool layer_messages = 2;
+      bool layer_props = 3;
+      bool layer_announcement = 4;
+      bool layer_slide = 5;
+      bool layer_media = 6;
+      bool layer_video_input = 7;
+
+    }
+    message CaptureStart {
+      enum PresetType {
+        PRESET_TYPE_UNKNOWN = 0;
+        PRESET_TYPE_ACTIVE_SETTINGS = 1;
+        PRESET_TYPE_CAPTURE_PRESET = 2;
+      }
+      PresetType preset_type = 1;
+
+    }
+    message CaptureStop {
+      bool confirm_before_stopping = 1;
+
+    }
+  }
+  message MediaBin {
+
+  }
+  message AudioBin {
+
+  }
+  message TestPattern {
+    enum TestPatternType {
+      TEST_PATTERN_TYPE_AUDIO_VIDEO_SYNC = 0;
+      TEST_PATTERN_TYPE_BLEND_GRID = 1;
+      TEST_PATTERN_TYPE_COLOR_BARS = 2;
+      TEST_PATTERN_TYPE_CUSTOM_COLORS = 3;
+      TEST_PATTERN_TYPE_FOCUS = 4;
+      TEST_PATTERN_TYPE_GRAY_SCALE = 5;
+      TEST_PATTERN_TYPE_LINES = 6;
+      TEST_PATTERN_TYPE_LOGO_BOUNCE = 7;
+      TEST_PATTERN_TYPE_RADAR = 8;
+      TEST_PATTERN_TYPE_TEXT = 9;
+    }
+    TestPatternType test_pattern_type = 1;
+    enum LogoType {
+      LOGO_TYPE_NONE = 0;
+      LOGO_TYPE_PROPRESENTER = 1;
+      LOGO_TYPE_CUSTOM = 2;
+    }
+    LogoType logo = 2;
+
+  }
+}

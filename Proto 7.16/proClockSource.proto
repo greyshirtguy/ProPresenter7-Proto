@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+message ProClockSource {
+  string uuid = 1;
+  string name = 2;
+  bool connected = 3;
+  bool active = 4;
+  enum Type {
+    TYPE_UNKOWN = 0;
+    TYPE_INPUT = 1;
+    TYPE_OUTPUT = 2;
+  }
+  Type type = 5;
+
+}

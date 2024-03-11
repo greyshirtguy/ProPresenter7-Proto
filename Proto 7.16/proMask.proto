@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package rv.data;
+
+import "slide.proto";
+
+message ProMask {
+  rv.data.Slide base_slide = 1;
+  string name = 2;
+
+}
+message MaskCollection {
+  repeated rv.data.ProMask collection = 1;
+
+}

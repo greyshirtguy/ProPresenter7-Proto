@@ -5,7 +5,7 @@ package rv.data;
 import "action.proto";
 import "basicTypes.proto";
 import "cue.proto";
-import "timestamp.proto";
+import "rvtimestamp.proto";
 import "background.proto";
 import "effects.proto";
 import "groups.proto";
@@ -77,13 +77,14 @@ message Presentation {
     rv.data.Action audio_action = 8;
     bool timecode_enable = 9;
     double timecode_offset = 10;
+    repeated rv.data.Presentation.Timeline.Cue cues_v2 = 11;
 
     message Cue {
       double trigger_time = 1;
       string name = 3;
       oneof trigger_info {
         rv.data.UUID cue_id = 2;
-        rv.data.Action media_action = 4;
+        rv.data.Action action = 4;
       }
 
 
