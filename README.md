@@ -4,7 +4,6 @@ This is a set of ***unoffical and unsupported*** .proto files that define the me
 
 ## Reverse engineering of `Pro.SerializationInterop.dll` by reflection
 ```cs
-using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Google.Protobuf.Reflection;
 using System.Diagnostics;
@@ -13,29 +12,13 @@ using System.Text;
 using System.Text.Json;
 
 var libPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Renewed Vision", "ProPresenter");
-
-var protobuf = Assembly.LoadFrom(Path.Join(libPath, "Google.Protobuf.dll"));
-var fd = protobuf.GetType("Google.Protobuf.Reflection.FileDescriptor")!;
-var bs = protobuf.GetType("Google.Protobuf.ByteString")!;
-var n = fd.GetProperty("Name", typeof(string))!;
-var sd = fd.GetProperty("SerializedData", bs)!;
-var tba = bs.GetMethod("ToByteArray")!;
-
 var interop = Assembly.LoadFrom(Path.Join(libPath, "Pro.SerializationInterop.dll"));
 var fds = (
     from type in interop.GetExportedTypes()
-    let descriptor = type.GetProperty("Descriptor", fd)
+    let descriptor = type.GetProperty("Descriptor", typeof(FileDescriptor))
     where descriptor != null
-    select (byte[])tba.Invoke(sd.GetValue(descriptor.GetValue(null)), null)!
-).Select(d =>
-{
-    FileDescriptorProto p = new();
-    {
-        using CodedInputStream s = new(d);
-        s.ReadRawMessage(p);
-    }
-    return p;
-});
+    select ((FileDescriptor)descriptor.GetValue(null)!).ToProto()
+);
 foreach (var p in fds)
 {
     FileInfo fi = new(p.Name);
