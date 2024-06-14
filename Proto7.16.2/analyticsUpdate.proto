@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package rv.analytics;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics";
+option swift_prefix = "Analytics_";
+
+message Update {
+  message Downgrade {
+    enum FromVersionType {
+      FROM_VERSION_TYPE_UNKNOWN = 0;
+      FROM_VERSION_TYPE_BETA = 1;
+      FROM_VERSION_TYPE_RELEASE = 2;
+    }
+
+    .rv.analytics.Update.Downgrade.FromVersionType from_version_type = 1;
+  }
+
+  oneof Action {
+    .rv.analytics.Update.Downgrade downgrade = 1;
+  }
+}
+

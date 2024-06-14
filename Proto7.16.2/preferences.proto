@@ -1,0 +1,195 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "action.proto";
+import "cue.proto";
+import "graphicsData.proto";
+import "groups.proto";
+import "labels.proto";
+import "proClockSource.proto";
+import "url.proto";
+
+message Preferences {
+  message General {
+    bool house_of_worship_integrations = 1;
+    bool crash_reports = 2;
+    bool analytics = 3;
+    string logo_path = 4;
+    string language = 5;
+  }
+
+  message Screens {
+    bool enable_at_launch = 1;
+    bool show_performance_stats = 2;
+    bool ignore_background_colors = 3;
+    .rv.data.ProClockSource clock_source = 4;
+    bool show_keynote_and_powerpoint = 5;
+    bool disable_blackmagic_sync_groups = 6;
+    bool use_directx_rendering = 7;
+  }
+
+  message Import {
+    message Image {
+      message Duration {
+        message None {
+        }
+
+        message Time {
+          double time = 1;
+        }
+
+        message Random {
+          double minimum_time = 1;
+          double maximum_time = 2;
+        }
+
+        oneof DurationType {
+          .rv.data.Preferences.Import.Image.Duration.None none = 1;
+          .rv.data.Preferences.Import.Image.Duration.Time time = 2;
+          .rv.data.Preferences.Import.Image.Duration.Random random = 3;
+        }
+      }
+
+      .rv.data.Action.LayerType layer_type = 1;
+      .rv.data.Preferences.Import.Image.Duration duration = 2;
+      .rv.data.Cue.CompletionTargetType next_behavior = 3;
+    }
+
+    message Video {
+      .rv.data.Action.LayerType layer_type = 1;
+      .rv.data.Media.TransportProperties.PlaybackBehavior playback_behavior = 2;
+      .rv.data.Media.VideoProperties.EndBehavior end_behavior = 3;
+      .rv.data.Cue.CompletionTargetType next_behavior = 4;
+    }
+
+    message Audio {
+      .rv.data.Media.TransportProperties.PlaybackBehavior playback_behavior = 1;
+      .rv.data.Cue.CompletionTargetType next_behavior = 2;
+    }
+
+    .rv.data.Media.ScaleBehavior foreground_scaling = 1;
+    bool foreground_is_blurred = 6;
+    .rv.data.Media.ScaleBehavior background_scaling = 2;
+    bool background_is_blurred = 7;
+    .rv.data.Preferences.Import.Image image = 3;
+    .rv.data.Preferences.Import.Video video = 4;
+    .rv.data.Preferences.Import.Audio audio = 5;
+  }
+
+  message Groups {
+    .rv.data.ProGroupsDocument groups = 1;
+    .rv.data.ProLabelsDocument labels = 2;
+  }
+
+  message Network {
+    message Network {
+      bool enable = 1;
+      string name = 2;
+      uint32 port = 3;
+    }
+
+    message Remotes {
+      message ProRemote {
+        bool enable = 1;
+        bool enable_controller = 2;
+        string controller_password = 3;
+        bool enable_observer = 4;
+        string observer_password = 5;
+      }
+
+      message StageApp {
+        bool enable = 1;
+        string password = 2;
+      }
+
+      .rv.data.Preferences.Network.Remotes.ProRemote pro_remote = 1;
+      .rv.data.Preferences.Network.Remotes.StageApp stage_app = 2;
+    }
+
+    message Link {
+      bool enable = 1;
+      string link_group = 2;
+    }
+
+    .rv.data.Preferences.Network.Network network = 1;
+    .rv.data.Preferences.Network.Remotes remotes = 2;
+    .rv.data.Preferences.Network.Link link = 3;
+  }
+
+  message Sync {
+    enum SyncDirection {
+      SYNC_DOWN = 0;
+      SYNC_UP = 1;
+    }
+
+    string repository = 1;
+    bool include_libraries = 2;
+    bool include_media = 3;
+    bool include_playlists = 4;
+    bool include_themes = 5;
+    bool include_support_files = 6;
+    .rv.data.Preferences.Sync.SyncDirection direction = 7;
+    bool replace_destination_files = 8;
+  }
+
+  message Advanced {
+    message NDIDiscovery {
+      bool show_local_sources = 1;
+      string receive_groups = 2;
+      string additional_search_ips = 3;
+    }
+
+    message SearchPaths {
+      message Path {
+        bool enable = 1;
+        string name = 2;
+        string path = 3;
+        .rv.data.URL.LocalRelativePath.Root url_root = 4;
+      }
+
+      bool automatically_relink = 1;
+      repeated .rv.data.Preferences.Advanced.SearchPaths.Path paths = 2;
+    }
+
+    enum AudioForegroundMediaBehavior {
+      IGNORE_FOREGROUND_MEDIA = 0;
+      CLEAR_FOR_ALL_MEDIA = 1;
+      CLEAR_IF_AUDIO = 2;
+      PAUSE_FOR_ALL_MEDIA = 3;
+      PAUSE_IF_AUDIO = 4;
+    }
+
+    bool suppress_auto_start = 1;
+    .rv.data.Preferences.Advanced.AudioForegroundMediaBehavior presentation_audio_behavior = 2;
+    .rv.data.Preferences.Advanced.AudioForegroundMediaBehavior announcements_audio_behavior = 3;
+    .rv.data.Preferences.Advanced.NDIDiscovery ndi_discovery = 4;
+    string support_files_path = 5;
+    bool manage_media_automatically = 6;
+    .rv.data.Preferences.Advanced.SearchPaths search_paths = 7;
+  }
+
+  message Updates {
+    enum Channel {
+      production = 0;
+      beta = 1;
+    }
+
+    bool notify_when_available = 1;
+    .rv.data.Preferences.Updates.Channel update_channel = 2;
+  }
+
+  .rv.data.Preferences.General general = 1;
+  .rv.data.Preferences.Screens screens = 2;
+  .rv.data.Preferences.Import import = 3;
+  .rv.data.Preferences.Groups groups = 4;
+  .rv.data.Preferences.Network network = 5;
+  .rv.data.Preferences.Sync sync = 6;
+  .rv.data.Preferences.Advanced advanced = 7;
+  .rv.data.Preferences.Updates updates = 8;
+}
+

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "graphicsData.proto";
+
+message IdentificationOverlay {
+  message Output {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
+    string name = 5;
+    double frame_rate = 6;
+  }
+
+  string screen_name = 3;
+  repeated .rv.data.IdentificationOverlay.Output outputs = 1;
+}
+
+message LayerIdentificationOverlay {
+  enum Layer {
+    LAYER_VIDEO_INPUT = 0;
+    LAYER_MEDIA = 1;
+    LAYER_PRESENTATION = 2;
+    LAYER_ANNOUNCEMENTS = 3;
+    LAYER_PROPS = 4;
+    LAYER_MESSAGES = 5;
+  }
+
+  .rv.data.LayerIdentificationOverlay.Layer layer = 1;
+  string layer_name = 2;
+}
+
+message TextLayer {
+  message Composite {
+  }
+
+  oneof LayerType {
+    .rv.data.TextLayer.Composite composite = 1;
+    .rv.data.Media media = 2;
+    .rv.data.Graphics.Text.CutOutFill cut_out = 3;
+    .rv.data.Graphics.BackgroundEffect background_effect = 4;
+  }
+}
+

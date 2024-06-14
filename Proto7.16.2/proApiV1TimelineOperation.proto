@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+enum API_v1_TimelineOperation {
+  play = 0;
+  pause = 1;
+  rewind = 2;
+}
+

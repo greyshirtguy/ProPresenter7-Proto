@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+import "proApiV1MediaPlaylistItem.proto";
+import "proApiV1Playlist.proto";
+
+message API_v1_Audio_Request {
+  message Playlists {
+  }
+
+  message Playlist {
+    string id = 1;
+    uint32 start = 2;
+  }
+
+  message PlaylistUpdates {
+    string id = 1;
+  }
+
+  message EmptyMessage {
+  }
+
+  message IdentifierMessage {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Audio_Request.Playlists playlists = 1;
+    .rv.data.API_v1_Audio_Request.Playlist playlist = 2;
+    .rv.data.API_v1_Audio_Request.PlaylistUpdates playlist_updates = 3;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_focused = 4;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_active = 5;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_next_focus = 6;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_previous_focus = 7;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_active_focus = 8;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_focus = 9;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_focused_trigger = 10;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_active_trigger = 11;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_trigger = 12;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_focused_next_trigger = 13;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_focused_previous_trigger = 14;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_focused_id_trigger = 15;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_active_next_trigger = 16;
+    .rv.data.API_v1_Audio_Request.EmptyMessage playlist_active_previous_trigger = 17;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_active_id_trigger = 18;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_next_trigger = 19;
+    .rv.data.API_v1_Audio_Request.IdentifierMessage playlist_id_previous_trigger = 20;
+  }
+}
+
+message API_v1_Audio_Response {
+  message Playlists {
+    repeated .rv.data.API_v1_Playlist playlists = 1;
+  }
+
+  message Playlist {
+    .rv.data.API_v1_Identifier id = 1;
+    repeated .rv.data.API_v1_MediaPlaylistItem items = 2;
+  }
+
+  message PlaylistUpdate {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message EmptyMessage {
+  }
+
+  message FocusedPlaylist {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message ActivePlaylist {
+    .rv.data.API_v1_Identifier playlist = 1;
+    .rv.data.API_v1_Identifier item = 2;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Audio_Response.Playlists playlists = 1;
+    .rv.data.API_v1_Audio_Response.Playlist playlist = 2;
+    .rv.data.API_v1_Audio_Response.PlaylistUpdate update = 3;
+    .rv.data.API_v1_Audio_Response.FocusedPlaylist playlist_focused = 4;
+    .rv.data.API_v1_Audio_Response.ActivePlaylist playlist_active = 5;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_next_focus = 6;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_previous_focus = 7;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_focus = 8;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_focus = 9;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_focused_trigger = 10;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_trigger = 11;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_trigger = 12;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_focused_next_trigger = 13;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_focused_previous_trigger = 14;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_focused_id_trigger = 15;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_next_trigger = 16;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_previous_trigger = 17;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_active_id_trigger = 18;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_next_trigger = 19;
+    .rv.data.API_v1_Audio_Response.EmptyMessage playlist_id_previous_trigger = 20;
+  }
+}
+

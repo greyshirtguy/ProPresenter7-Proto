@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Color.proto";
+import "proApiV1Identifier.proto";
+
+message API_v1_Groups_Request {
+  message GroupsRequest {
+  }
+
+  message TriggerGroup {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Groups_Request.GroupsRequest groups_request = 1;
+    .rv.data.API_v1_Groups_Request.TriggerGroup trigger_group = 2;
+  }
+}
+
+message API_v1_Groups_Response {
+  message GroupsRequest {
+    message Group {
+      .rv.data.API_v1_Identifier id = 1;
+      .rv.data.API_v1_Color color = 2;
+    }
+
+    repeated .rv.data.API_v1_Groups_Response.GroupsRequest.Group groups = 1;
+  }
+
+  message TriggerGroup {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Groups_Response.GroupsRequest groups = 1;
+    .rv.data.API_v1_Groups_Response.TriggerGroup trigger_group = 2;
+  }
+}
+

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_MediaPlaylistItem {
+  enum API_v1_MediaPlaylistItemType {
+    audio = 0;
+    image = 1;
+    video = 2;
+  }
+
+  .rv.data.API_v1_Identifier id = 1;
+  .rv.data.API_v1_MediaPlaylistItem.API_v1_MediaPlaylistItemType type = 2;
+  string artist = 3;
+  uint32 duration = 4;
+}
+

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "alphaType.proto";
+import "color.proto";
+import "digitalAudio.proto";
+import "graphicsData.proto";
+import "url.proto";
+import "uuid.proto";
+
+message VideoInput {
+  message SettingsDocument {
+    repeated .rv.data.VideoInput inputs = 1;
+  }
+
+  enum AudioDeviceType {
+    AUDIO_DEVICE_TYPE_DEFAULT = 0;
+    AUDIO_DEVICE_TYPE_NONE = 1;
+    AUDIO_DEVICE_TYPE_ALTERNATE = 2;
+  }
+
+  .rv.data.UUID uuid = 1;
+  string user_description = 2;
+  .rv.data.Media.VideoDevice video_input_device = 3;
+  .rv.data.Color display_color = 4;
+  .rv.data.URL thumbnail_path = 5;
+  .rv.data.VideoInput.AudioDeviceType audio_type = 8;
+  .rv.data.AlphaType alpha_type = 9;
+  oneof AltAudioSource {
+    .rv.data.DigitalAudio.Device audio_device = 6;
+    .rv.data.Media.VideoDevice video_device = 7;
+  }
+}
+
+message AudioInput {
+  message BehaviorMode {
+    message On {
+    }
+
+    message Off {
+    }
+
+    message AutoOff {
+    }
+
+    message AutoOn {
+      repeated uint32 linked_video_inputs = 1;
+    }
+
+    oneof Mode {
+      .rv.data.AudioInput.BehaviorMode.On on = 1;
+      .rv.data.AudioInput.BehaviorMode.Off off = 2;
+      .rv.data.AudioInput.BehaviorMode.AutoOn auto_on = 3;
+      .rv.data.AudioInput.BehaviorMode.AutoOff auto_off = 4;
+    }
+  }
+
+  .rv.data.UUID uuid = 1;
+  string user_description = 2;
+  .rv.data.AudioInput.BehaviorMode behavior_mode = 5;
+  oneof Source {
+    .rv.data.DigitalAudio.Device audio_device = 3;
+    .rv.data.Media.VideoDevice video_device = 4;
+  }
+}
+

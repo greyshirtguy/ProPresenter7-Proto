@@ -1,0 +1,200 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "google/protobuf/wrappers.proto";
+import "proApiV1Color.proto";
+import "proApiV1ContentType.proto";
+import "proApiV1Identifier.proto";
+import "proApiV1PresentationPlaylistItem.proto";
+
+message API_v1_Playlist {
+  enum API_v1_PlaylistType {
+    group = 0;
+    playlist = 1;
+  }
+
+  .rv.data.API_v1_Identifier id = 1;
+  .rv.data.API_v1_Playlist.API_v1_PlaylistType type = 2;
+  repeated .rv.data.API_v1_Playlist children = 3;
+}
+
+message API_v1_PlaylistAndItem {
+  .rv.data.API_v1_Identifier playlist = 1;
+  .rv.data.API_v1_Identifier item = 2;
+}
+
+message API_v1_PlaylistItem {
+  enum API_v1_PlaylistItemType {
+    presentation = 0;
+    placeholder = 1;
+    header = 2;
+    media = 3;
+    audio = 4;
+    livevideo = 5;
+  }
+
+  .rv.data.API_v1_Identifier id = 1;
+  .rv.data.API_v1_PlaylistItem.API_v1_PlaylistItemType type = 2;
+  bool is_hidden = 3;
+  bool is_pco = 4;
+  .rv.data.API_v1_Color header_color = 5;
+  .google.protobuf.UInt32Value duration = 6;
+  .rv.data.API_v1_PlaylistPresentationItem presentation_info = 7;
+}
+
+message API_v1_Playlist_Request {
+  message Playlists {
+  }
+
+  message CreatePlaylist {
+    string name = 1;
+    .rv.data.API_v1_Playlist.API_v1_PlaylistType type = 2;
+  }
+
+  message GetActivePlaylist {
+  }
+
+  message GetPlaylist {
+    string id = 1;
+  }
+
+  message PutPlaylist {
+    string id = 1;
+    repeated .rv.data.API_v1_PlaylistItem items = 2;
+  }
+
+  message PostPlaylist {
+    string id = 1;
+    string name = 2;
+    .rv.data.API_v1_Playlist.API_v1_PlaylistType type = 3;
+  }
+
+  message Thumbnail {
+    uint32 index = 1;
+    uint32 cue_index = 2;
+    int32 quality = 3;
+    .rv.data.API_v1_ContentType content_type = 4;
+  }
+
+  message EmptyMessage {
+  }
+
+  message IdMessage {
+    string id = 1;
+  }
+
+  message IndexMessage {
+    uint32 index = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Playlist_Request.Playlists playlists = 1;
+    .rv.data.API_v1_Playlist_Request.CreatePlaylist create_playlist = 2;
+    .rv.data.API_v1_Playlist_Request.GetPlaylist get_playlist = 3;
+    .rv.data.API_v1_Playlist_Request.PutPlaylist put_playlist = 4;
+    .rv.data.API_v1_Playlist_Request.PostPlaylist post_playlist = 5;
+    .rv.data.API_v1_Playlist_Request.GetActivePlaylist get_active_playlist = 6;
+    .rv.data.API_v1_Playlist_Request.GetActivePlaylist focused = 7;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage next_focus = 8;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage previous_focus = 9;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_presentation_focus = 10;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_announcement_focus = 11;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage focused_trigger = 12;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_presentation_trigger = 13;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_announcement_trigger = 14;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage focused_next_trigger = 15;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage focused_previous_trigger = 16;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_presentation_next_trigger = 17;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_announcement_next_trigger = 18;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_presentation_previous_trigger = 19;
+    .rv.data.API_v1_Playlist_Request.EmptyMessage active_announcement_previous_trigger = 20;
+    .rv.data.API_v1_Playlist_Request.IdMessage id_focus = 21;
+    .rv.data.API_v1_Playlist_Request.IdMessage id_trigger = 22;
+    .rv.data.API_v1_Playlist_Request.IdMessage id_next_trigger = 23;
+    .rv.data.API_v1_Playlist_Request.IdMessage id_previous_trigger = 24;
+    .rv.data.API_v1_Playlist_Request.IndexMessage focused_index_trigger = 25;
+    .rv.data.API_v1_Playlist_Request.IndexMessage active_presentation_index_trigger = 26;
+    .rv.data.API_v1_Playlist_Request.IndexMessage active_announcement_index_trigger = 27;
+    .rv.data.API_v1_Playlist_Request.IdMessage id_updates = 28;
+    .rv.data.API_v1_Playlist_Request.Thumbnail active_presentation_thumbnail = 29;
+    .rv.data.API_v1_Playlist_Request.Thumbnail active_announcement_thumbnail = 30;
+  }
+}
+
+message API_v1_Playlist_Response {
+  message Playlists {
+    repeated .rv.data.API_v1_Playlist playlists = 1;
+  }
+
+  message CreatePlaylist {
+    .rv.data.API_v1_Playlist playlist = 1;
+  }
+
+  message GetActivePlaylist {
+    .rv.data.API_v1_PlaylistAndItem presentation = 1;
+    .rv.data.API_v1_PlaylistAndItem announcements = 2;
+  }
+
+  message GetPlaylist {
+    .rv.data.API_v1_Identifier id = 1;
+    repeated .rv.data.API_v1_PlaylistItem items = 2;
+  }
+
+  message PutPlaylist {
+  }
+
+  message PostPlaylist {
+    .rv.data.API_v1_Playlist playlist = 1;
+  }
+
+  message GetFocusedPlaylist {
+    .rv.data.API_v1_PlaylistAndItem playlist = 1;
+  }
+
+  message Thumbnail {
+    bytes data = 1;
+    .rv.data.API_v1_ContentType content_type = 2;
+  }
+
+  message EmptyMessage {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Playlist_Response.Playlists playlists = 1;
+    .rv.data.API_v1_Playlist_Response.CreatePlaylist create_playlist = 2;
+    .rv.data.API_v1_Playlist_Response.GetPlaylist get_playlist = 3;
+    .rv.data.API_v1_Playlist_Response.PutPlaylist put_playlist = 4;
+    .rv.data.API_v1_Playlist_Response.PostPlaylist post_playlist = 5;
+    .rv.data.API_v1_Playlist_Response.GetActivePlaylist get_active_playlist = 6;
+    .rv.data.API_v1_Playlist_Response.GetFocusedPlaylist focused = 7;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage next_focus = 8;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage previous_focus = 9;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_presentation_focus = 10;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_announcement_focus = 11;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage focused_trigger = 12;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_presentation_trigger = 13;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_announcement_trigger = 14;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage focused_next_trigger = 15;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage focused_previous_trigger = 16;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_presentation_next_trigger = 17;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_announcement_next_trigger = 18;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_presentation_previous_trigger = 19;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_announcement_previous_trigger = 20;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage id_focus = 21;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage id_trigger = 22;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage id_next_trigger = 23;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage id_previous_trigger = 24;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage focused_index_trigger = 25;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_presentation_index_trigger = 26;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage active_announcement_index_trigger = 27;
+    .rv.data.API_v1_Playlist_Response.EmptyMessage id_updates = 28;
+    .rv.data.API_v1_Playlist_Response.Thumbnail active_presentation_thumbnail = 29;
+    .rv.data.API_v1_Playlist_Response.Thumbnail active_announcement_thumbnail = 30;
+  }
+}
+

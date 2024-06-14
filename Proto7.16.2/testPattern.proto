@@ -1,0 +1,227 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "color.proto";
+import "font.proto";
+import "uuid.proto";
+import "url.proto";
+
+message TestPattern {
+  message BlendGrid {
+    bool draw_grid = 1;
+    bool draw_circles = 2;
+    bool draw_lines = 3;
+    bool invert_colors = 4;
+    double grid_spacing = 5;
+  }
+
+  message CustomColor {
+    .rv.data.Color color = 1;
+  }
+
+  message IntensityColor {
+    double intensity = 1;
+  }
+
+  enum Type {
+    TYPE_UNKNOWN = 0;
+    TYPE_BLEND_GRID = 1;
+    TYPE_COLOR_BARS = 2;
+    TYPE_FOCUS = 3;
+    TYPE_GRAY_SCALE = 4;
+    TYPE_BLACK_COLOR = 5;
+    TYPE_WHITE_COLOR = 6;
+    TYPE_CUSTOM_COLOR = 7;
+    TYPE_TEXT = 8;
+    TYPE_VIDEO_SYNC = 9;
+  }
+
+  .rv.data.TestPattern.Type type = 1;
+  oneof PatternProperties {
+    .rv.data.TestPattern.BlendGrid blend_grid = 2;
+    .rv.data.TestPattern.CustomColor custom_color = 3;
+    .rv.data.TestPattern.IntensityColor intensity = 4;
+  }
+}
+
+message TestPatternDefinition {
+  message ColorProperty {
+    .rv.data.Color value = 1;
+    bool allow_alpha = 2;
+    repeated .rv.data.Color default_colors = 3;
+  }
+
+  message DoubleProperty {
+    enum ViewType {
+      VIEW_TYPE_STEPPER = 0;
+      VIEW_TYPE_SLIDER = 1;
+      VIEW_TYPE_SPEED_SLIDER = 2;
+    }
+
+    double value = 1;
+    double min = 2;
+    double max = 3;
+    double step = 4;
+    string units = 5;
+    .rv.data.TestPatternDefinition.DoubleProperty.ViewType viewType = 6;
+  }
+
+  message IntProperty {
+    int32 value = 1;
+    int32 min = 2;
+    int32 max = 3;
+    string units = 5;
+  }
+
+  message BoolProperty {
+    bool value = 1;
+    repeated .rv.data.TestPatternDefinition.Property dependent_properties = 2;
+  }
+
+  message StringProperty {
+    string value = 1;
+    int32 min_chars = 2;
+    int32 max_chars = 3;
+  }
+
+  message FontProperty {
+    .rv.data.Font font = 1;
+  }
+
+  message SelectorProperty {
+    int32 selected_index = 1;
+    repeated string value_localization_keys = 2;
+  }
+
+  message Property {
+    string name_localization_key = 1;
+    oneof PropertyType {
+      .rv.data.TestPatternDefinition.ColorProperty color_property = 3;
+      .rv.data.TestPatternDefinition.DoubleProperty double_property = 4;
+      .rv.data.TestPatternDefinition.IntProperty int_property = 5;
+      .rv.data.TestPatternDefinition.BoolProperty bool_property = 6;
+      .rv.data.TestPatternDefinition.StringProperty string_property = 7;
+      .rv.data.TestPatternDefinition.FontProperty font_property = 8;
+      .rv.data.TestPatternDefinition.SelectorProperty selector_property = 9;
+    }
+  }
+
+  .rv.data.UUID uuid = 1;
+  string name_localization_key = 2;
+  repeated .rv.data.TestPatternDefinition.Property properties = 3;
+  bool show_delay_settings = 4;
+  bool is_default = 5;
+}
+
+message TestPatternRenderSettings {
+  reserved 2;
+  message Output {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
+    string name = 5;
+    double frame_rate = 6;
+  }
+
+  .rv.data.TestPatternDefinition pattern = 1;
+  string screen_name = 3;
+  repeated .rv.data.TestPatternRenderSettings.Output outputs = 4;
+  .rv.data.LogoType logo_type = 5;
+  string logo_file = 6;
+  int32 render_width = 7;
+  int32 render_height = 8;
+  bool enable_audio = 9;
+}
+
+message TestPatternState {
+  enum DisplayLocation {
+    DISPLAY_LOCATION_ALL_SCREENS = 0;
+    DISPLAY_LOCATION_AUDIENCE_SCREENS = 1;
+    DISPLAY_LOCATION_STAGE_SCREENS = 2;
+    DISPLAY_LOCATION_SPECIFIC_SCREEN = 3;
+  }
+
+  .rv.data.TestPatternDefinition pattern = 1;
+  bool show_pattern = 2;
+  .rv.data.TestPatternState.DisplayLocation display_location = 3;
+  .rv.data.UUID specific_screen = 4;
+  bool identify_screens = 5;
+  .rv.data.LogoType logo_type = 6;
+  .rv.data.URL user_logo_location = 7;
+}
+
+message TestPatternDocument {
+  message TestPatternStateData {
+    .rv.data.UUID test_pattern_id = 1;
+    string test_pattern_name_localization_key = 2;
+    .rv.data.TestPatternState.DisplayLocation display_location = 3;
+    .rv.data.UUID specific_screen = 4;
+    bool identify_screens = 5;
+    .rv.data.LogoType logo_type = 6;
+    .rv.data.URL user_logo_location = 7;
+  }
+
+  message TestPatternData {
+    message ColorProperty {
+      .rv.data.Color value = 1;
+    }
+
+    message DoubleProperty {
+      double value = 1;
+    }
+
+    message IntProperty {
+      int32 value = 1;
+    }
+
+    message BoolProperty {
+      bool value = 1;
+      repeated .rv.data.TestPatternDocument.TestPatternData.Property dependent_properties = 2;
+    }
+
+    message StringProperty {
+      string value = 1;
+    }
+
+    message FontProperty {
+      .rv.data.Font value = 1;
+    }
+
+    message SelectorProperty {
+      int32 value = 1;
+    }
+
+    message Property {
+      string name_localization_key = 1;
+      oneof PropertyType {
+        .rv.data.TestPatternDocument.TestPatternData.ColorProperty color_property = 2;
+        .rv.data.TestPatternDocument.TestPatternData.DoubleProperty double_property = 3;
+        .rv.data.TestPatternDocument.TestPatternData.IntProperty int_property = 4;
+        .rv.data.TestPatternDocument.TestPatternData.BoolProperty bool_property = 5;
+        .rv.data.TestPatternDocument.TestPatternData.StringProperty string_property = 6;
+        .rv.data.TestPatternDocument.TestPatternData.FontProperty font_property = 7;
+        .rv.data.TestPatternDocument.TestPatternData.SelectorProperty selector_property = 8;
+      }
+    }
+
+    .rv.data.UUID uuid = 1;
+    string name_localization_key = 2;
+    repeated .rv.data.TestPatternDocument.TestPatternData.Property properties = 3;
+  }
+
+  .rv.data.TestPatternDocument.TestPatternStateData state = 1;
+  repeated .rv.data.TestPatternDocument.TestPatternData patterns = 2;
+}
+
+enum LogoType {
+  LOGO_TYPE_NONE = 0;
+  LOGO_TYPE_PROPRESENTER = 1;
+  LOGO_TYPE_USER = 2;
+}
+

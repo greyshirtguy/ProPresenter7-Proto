@@ -1,0 +1,207 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_TimerFormat {
+  enum API_v1_TimerUnitDisplayFormat {
+    none = 0;
+    short = 1;
+    long = 2;
+    remove_short = 3;
+    remove_long = 4;
+  }
+
+  .rv.data.API_v1_TimerFormat.API_v1_TimerUnitDisplayFormat hour = 6;
+  .rv.data.API_v1_TimerFormat.API_v1_TimerUnitDisplayFormat minute = 7;
+  .rv.data.API_v1_TimerFormat.API_v1_TimerUnitDisplayFormat second = 8;
+  .rv.data.API_v1_TimerFormat.API_v1_TimerUnitDisplayFormat millisecond = 9;
+}
+
+message API_v1_TimerValue {
+  .rv.data.API_v1_Identifier id = 1;
+  string time = 2;
+  .rv.data.API_v1_TimerState state = 3;
+}
+
+message API_v1_Timer {
+  message API_v1_Timer_Countdown {
+    int32 duration = 1;
+  }
+
+  message API_v1_Timer_CountdownToTime {
+    int32 time_of_day = 1;
+    .rv.data.API_v1_Timer.API_v1_TimePeriod period = 2;
+  }
+
+  message API_v1_Timer_Elapsed {
+    int32 start_time = 1;
+    int32 end_time = 2;
+    bool has_end_time = 3;
+  }
+
+  enum API_v1_TimePeriod {
+    am = 0;
+    pm = 1;
+    is_24_hour = 2;
+  }
+
+  .rv.data.API_v1_Identifier id = 1;
+  bool allows_overrun = 2;
+  oneof TimerConfiguration {
+    .rv.data.API_v1_Timer.API_v1_Timer_Countdown countdown = 3;
+    .rv.data.API_v1_Timer.API_v1_Timer_CountdownToTime count_down_to_time = 4;
+    .rv.data.API_v1_Timer.API_v1_Timer_Elapsed elapsed = 5;
+  }
+}
+
+message API_v1_Timer_Request {
+  message Timers {
+  }
+
+  message CreateTimer {
+    string name = 1;
+    bool allows_overrun = 2;
+    .rv.data.API_v1_Timer.API_v1_Timer_Countdown countdown = 3;
+    .rv.data.API_v1_Timer.API_v1_Timer_CountdownToTime count_down_to_time = 4;
+    .rv.data.API_v1_Timer.API_v1_Timer_Elapsed elapsed = 5;
+  }
+
+  message CurrentTimes {
+  }
+
+  message AllTimersOperation {
+    .rv.data.API_v1_TimerOperation operation = 1;
+  }
+
+  message GetTimer {
+    string id = 1;
+  }
+
+  message PutTimer {
+    string id = 1;
+    .rv.data.API_v1_Timer timer = 2;
+  }
+
+  message DeleteTimer {
+    string id = 1;
+  }
+
+  message TimerOperation {
+    string id = 1;
+    .rv.data.API_v1_TimerOperation operation = 2;
+  }
+
+  message PutTimerOperation {
+    string id = 1;
+    .rv.data.API_v1_TimerOperation operation = 2;
+    .rv.data.API_v1_Timer timer = 3;
+  }
+
+  message TimerIncrement {
+    string id = 1;
+    double amount = 2;
+  }
+
+  message SystemTime {
+  }
+
+  message VideoCountdown {
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Timer_Request.Timers timers = 1;
+    .rv.data.API_v1_Timer_Request.CreateTimer create_timer = 2;
+    .rv.data.API_v1_Timer_Request.CurrentTimes current_times = 3;
+    .rv.data.API_v1_Timer_Request.AllTimersOperation all_timers_operation = 4;
+    .rv.data.API_v1_Timer_Request.GetTimer get_timer = 5;
+    .rv.data.API_v1_Timer_Request.PutTimer put_timer = 6;
+    .rv.data.API_v1_Timer_Request.DeleteTimer delete_timer = 7;
+    .rv.data.API_v1_Timer_Request.TimerOperation timer_operation = 8;
+    .rv.data.API_v1_Timer_Request.PutTimerOperation put_timer_operation = 9;
+    .rv.data.API_v1_Timer_Request.TimerIncrement timer_increment = 10;
+    .rv.data.API_v1_Timer_Request.SystemTime system_time = 11;
+    .rv.data.API_v1_Timer_Request.VideoCountdown video_countdown = 12;
+  }
+}
+
+message API_v1_Timer_Response {
+  message Timers {
+    repeated .rv.data.API_v1_Timer timers = 1;
+  }
+
+  message CreateTimer {
+    .rv.data.API_v1_Timer timer = 1;
+  }
+
+  message CurrentTimes {
+    repeated .rv.data.API_v1_TimerValue timers = 1;
+  }
+
+  message AllTimersOperation {
+  }
+
+  message GetTimer {
+    .rv.data.API_v1_Timer timer = 1;
+  }
+
+  message PutTimer {
+    .rv.data.API_v1_Timer timer = 1;
+  }
+
+  message DeleteTimer {
+  }
+
+  message TimerOperation {
+  }
+
+  message PutTimerOperation {
+    .rv.data.API_v1_Timer timer = 1;
+  }
+
+  message TimerIncrement {
+  }
+
+  message SystemTime {
+    uint64 time = 1;
+  }
+
+  message VideoCountdown {
+    string time = 1;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Timer_Response.Timers timers = 1;
+    .rv.data.API_v1_Timer_Response.CreateTimer create_timer = 2;
+    .rv.data.API_v1_Timer_Response.CurrentTimes current_times = 3;
+    .rv.data.API_v1_Timer_Response.AllTimersOperation all_timers_operation = 4;
+    .rv.data.API_v1_Timer_Response.GetTimer get_timer = 5;
+    .rv.data.API_v1_Timer_Response.PutTimer put_timer = 6;
+    .rv.data.API_v1_Timer_Response.DeleteTimer delete_timer = 7;
+    .rv.data.API_v1_Timer_Response.TimerOperation timer_operation = 8;
+    .rv.data.API_v1_Timer_Response.PutTimerOperation put_timer_operation = 9;
+    .rv.data.API_v1_Timer_Response.TimerIncrement timer_increment = 10;
+    .rv.data.API_v1_Timer_Response.SystemTime system_time = 11;
+    .rv.data.API_v1_Timer_Response.VideoCountdown video_countdown = 12;
+  }
+}
+
+enum API_v1_TimerState {
+  stopped = 0;
+  running = 1;
+  complete = 2;
+  overrunning = 3;
+  overran = 4;
+}
+
+enum API_v1_TimerOperation {
+  start = 0;
+  stop = 1;
+  reset = 2;
+}
+

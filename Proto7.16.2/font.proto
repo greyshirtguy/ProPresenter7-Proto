@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message Font {
+  reserved 3;
+  reserved 5;
+  reserved 6;
+  reserved 7;
+  string name = 1;
+  double size = 2;
+  bool italic = 4;
+  bool bold = 8;
+  string family = 9;
+  string face = 10;
+}
+

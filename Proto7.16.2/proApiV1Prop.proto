@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_PropData {
+  .rv.data.API_v1_Identifier id = 1;
+  bool is_active = 2;
+}
+
+message API_v1_Prop_Request {
+  message Props {
+  }
+
+  message GetProp {
+    string id = 1;
+  }
+
+  message DeleteProp {
+    string id = 1;
+  }
+
+  message TriggerProp {
+    string id = 1;
+  }
+
+  message ClearProp {
+    string id = 1;
+  }
+
+  message GetThumbnail {
+    string id = 1;
+    int32 quality = 2;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Prop_Request.Props props = 1;
+    .rv.data.API_v1_Prop_Request.GetProp get_prop = 2;
+    .rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 3;
+    .rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 4;
+    .rv.data.API_v1_Prop_Request.ClearProp clear_prop = 5;
+    .rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 6;
+  }
+}
+
+message API_v1_Prop_Response {
+  message Props {
+    repeated .rv.data.API_v1_PropData props = 1;
+  }
+
+  message GetProp {
+    .rv.data.API_v1_PropData prop = 1;
+  }
+
+  message DeleteProp {
+  }
+
+  message TriggerProp {
+  }
+
+  message ClearProp {
+  }
+
+  message GetThumbnail {
+    bytes data = 1;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Prop_Response.Props props = 1;
+    .rv.data.API_v1_Prop_Response.GetProp get_prop = 2;
+    .rv.data.API_v1_Prop_Response.DeleteProp delete_prop = 3;
+    .rv.data.API_v1_Prop_Response.TriggerProp trigger_prop = 4;
+    .rv.data.API_v1_Prop_Response.ClearProp clear_prop = 5;
+    .rv.data.API_v1_Prop_Response.GetThumbnail get_thumbnail = 6;
+  }
+}
+

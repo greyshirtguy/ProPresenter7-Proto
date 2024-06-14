@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "version.proto";
+
+message ApplicationInfo {
+  enum Platform {
+    PLATFORM_UNDEFINED = 0;
+    PLATFORM_MACOS = 1;
+    PLATFORM_WINDOWS = 2;
+  }
+
+  enum Application {
+    APPLICATION_UNDEFINED = 0;
+    APPLICATION_PROPRESENTER = 1;
+    APPLICATION_PVP = 2;
+    APPLICATION_PROVIDEOSERVER = 3;
+    APPLICATION_SCOREBOARD = 4;
+  }
+
+  .rv.data.ApplicationInfo.Platform platform = 1;
+  .rv.data.Version platform_version = 2;
+  .rv.data.ApplicationInfo.Application application = 3;
+  .rv.data.Version application_version = 4;
+}
+
