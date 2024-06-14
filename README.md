@@ -54,3 +54,7 @@ In addition to using protoc to auto-generate code for handling ProPresenter data
 
 You can find more info/example at my blog:
 https://greyshirtguy.com/blog/propresenter-7-file-format-part-2/
+
+Update:
+My original method of extracting the .protos was pretty clumsy - but I was happy that at least I found a way!  
+_Now it's much easier to use https://github.com/arkadiyt/protodump on the ProPresenter binaries!_
