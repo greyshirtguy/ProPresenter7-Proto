@@ -12,4 +12,6 @@ option swift_prefix = "RVData_";
 message PropSlide {
   .rv.data.Slide base_slide = 1;
   .rv.data.Transition transition = 2;
+  bool auto_clear_enabled = 3;
+  double auto_clear_duration = 4;
 }

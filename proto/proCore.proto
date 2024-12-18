@@ -44,6 +44,12 @@ message MediaMetadataRequestInfo {
   bool flipped_horizontally = 8;
   bool flipped_vertically = 9;
   .rv.data.AlphaType alpha_type = 10;
+  .rv.data.MediaMetadataRequestInfo.BufferFormat buffer_format = 11;
+
+  enum BufferFormat {
+    BUFFER_FORMAT_RAW = 0;
+    BUFFER_FORMAT_PNG = 1;
+  }
 }
 
 message MediaMetadataRequestResponse {
@@ -74,6 +80,7 @@ message MediaMetadataRequestResponse {
   message BitmapInfo {
     uint32 width = 1;
     uint32 height = 2;
+    uint64 size = 3;
   }
 }
 
@@ -391,7 +398,50 @@ message MacroIcons {
   }
 }
 
+message PropPauseRequest {
+  .rv.data.UUID prop_id = 1;
+
+  message Pause {
+  }
+
+  message Resume {
+  }
+
+  message Status {
+  }
+
+  oneof RequestType {
+    .rv.data.PropPauseRequest.Pause pause = 2;
+    .rv.data.PropPauseRequest.Resume resume = 3;
+    .rv.data.PropPauseRequest.Status status = 4;
+  }
+}
+
 message GenericEvent {
+}
+
+message MediaThumbnail {
+  int32 width = 1;
+  int32 height = 2;
+  bytes data = 3;
+  uint64 stride = 4;
+}
+
+message PCOData {
+  string service_type_id = 2;
+  string plan_id = 3;
+}
+
+message PCOToken {
+  repeated .rv.data.PCOToken.Cookie cookies = 1;
+  string token = 2;
+
+  message Cookie {
+    string name = 1;
+    string value = 2;
+    string domain = 3;
+    uint64 expiry = 4;
+  }
 }
 
 message SendData {
@@ -430,6 +480,13 @@ message SendData {
     .rv.data.GenericEvent debug_trigger_data_dump = 31;
     .rv.data.PlaylistDocument library_playlist_doc = 32;
     .rv.data.UUID audio_playlist_focus_uuid = 33;
+    .rv.data.UUID media_playlist_focus_uuid = 34;
+    .rv.data.UUID library_playlist_focus_uuid = 35;
+    .rv.data.UUID library_playlist_item_focus_uuid = 36;
+    .rv.data.PropPauseRequest prop_pause = 37;
+    .rv.data.MediaThumbnail media_thumbnail = 38;
+    .rv.data.PCOData pco_data = 39;
+    .rv.data.PCOToken pco_token = 40;
   }
 }
 
@@ -464,6 +521,39 @@ message CoreDataStateDump {
   .rv.data.MacrosDocument macros = 1;
 }
 
+message PropPauseResponse {
+  .rv.data.UUID prop_id = 1;
+
+  message Status {
+    bool paused = 1;
+    double time_remaining = 2;
+    double percentage_complete = 3;
+    double total_time = 4;
+  }
+
+  oneof ResponseType {
+    .rv.data.PropPauseResponse.Status status = 2;
+  }
+}
+
+message ShowMessage {
+  string message = 1;
+}
+
+message GetMediaThumbnail {
+  int32 width_hint = 3;
+  int32 height_hint = 4;
+
+  oneof MediaType {
+    .rv.data.Media media = 1;
+    .rv.data.Action action = 2;
+  }
+}
+
+message RequestPCOToken {
+  bool refresh_first = 1;
+}
+
 message SendDataResponse {
   int32 message_id = 1;
 
@@ -475,7 +565,14 @@ message SendDataResponse {
     .rv.data.HandledException handled_exception = 6;
     .rv.data.CoreDataStateDump test_state_dump = 7;
     .rv.data.UUID audio_playlist_focus_uuid = 8;
-    .rv.data.UUID audio_playlist_item_triggered_uuid = 9;
+    .rv.data.UUID media_playlist_focus_uuid = 9;
+    .rv.data.UUID library_playlist_focus_uuid = 10;
+    .rv.data.UUID library_playlist_item_focus_uuid = 11;
+    .rv.data.PropPauseResponse prop_pause = 12;
+    .rv.data.ShowMessage show_message = 13;
+    .rv.data.GenericEvent hide_message = 14;
+    .rv.data.GetMediaThumbnail get_media_thumbnail = 15;
+    .rv.data.RequestPCOToken request_pco_token = 16;
   }
 }
 
@@ -543,16 +640,20 @@ message TriggerTransferRenderState {
     .rv.data.TriggerTransferRenderState.TimelineState timeline_state = 6;
     int32 current_cue_index = 7;
     int32 current_playlist_index = 8;
+    bool is_current_position = 9;
+    bool from_timeline = 10;
   }
 
   message TimecodeState {
     .rv.data.TriggerTransferRenderState.TimecodeState.Status status = 1;
     float time = 2;
+    float fps = 3;
 
     enum Status {
       Stopped = 0;
       Playing = 1;
       Error = 2;
+      Discontinuity = 3;
     }
   }
 }

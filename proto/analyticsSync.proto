@@ -1,30 +1,23 @@
 syntax = "proto3";
 
-package rv.analytics;
+package rv.analytics.sync;
 
 
 option cc_enable_arenas = true;
-option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics";
-option swift_prefix = "Analytics_";
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Sync";
+option swift_prefix = "Analytics_Sync_";
 
-message Sync {
+message Local {
+  .rv.analytics.sync.Local.Type sync_type = 1;
+  bool include_library = 2;
+  bool include_media = 3;
+  bool include_playlists = 4;
+  bool include_themes = 5;
+  bool include_support_files = 6;
+  bool replace_files = 7;
 
-  message Local {
-    .rv.analytics.Sync.Local.SyncType sync_type = 1;
-    bool include_library = 2;
-    bool include_media = 3;
-    bool include_playlists = 4;
-    bool include_themes = 5;
-    bool include_support_files = 6;
-    bool replace_files = 7;
-
-    enum SyncType {
-      SYNC_TYPE_UP = 0;
-      SYNC_TYPE_DOWN = 1;
-    }
-  }
-
-  oneof SyncType {
-    .rv.analytics.Sync.Local local = 1;
+  enum Type {
+    UP = 0;
+    DOWN = 1;
   }
 }

@@ -251,6 +251,20 @@ message Action {
 
   message PropType {
     .rv.data.CollectionElementType identification = 3;
+
+    message PropTrigger {
+      bool auto_clear_enabled = 1;
+      bool auto_clear_follows_prop_duration = 2;
+      double auto_clear_duration = 3;
+    }
+
+    message PropClear {
+    }
+
+    oneof TriggerType {
+      .rv.data.Action.PropType.PropTrigger trigger = 4;
+      .rv.data.Action.PropType.PropClear clear = 5;
+    }
     reserved 1 to 2;
     reserved 2 to 3;
   }

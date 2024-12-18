@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package rv.data;
+
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message ResolvedFeatureFlags {
+  bool content_store_staging_enabled = 1;
+  bool props_update_enabled = 2;
+  bool macros_update_enabled = 3;
+  bool scale_and_blur_enabled = 4;
+  bool settings_update_enabled = 5;
+  bool subscription_enabled = 6;
+  bool core_data_validation_enabled = 7;
+  bool staging_api_endpoint_enabled = 8;
+  bool core_slide_rendering = 9;
+  bool pro_content_staging_enabled = 10;
+  bool core_networkapi_playlist = 11;
+  bool core_networkapi_presentation = 12;
+  bool endpoint_version_1_1_enabled = 13;
+  bool aircast_input_enabled = 14;
+}

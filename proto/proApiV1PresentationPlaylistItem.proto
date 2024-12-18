@@ -9,4 +9,5 @@ option swift_prefix = "RVData_";
 
 message API_v1_PlaylistPresentationItem {
   string presentation_uuid = 1;
+  string arrangement_name = 2;
 }

@@ -82,6 +82,7 @@ message API_v1_Message_Request {
   message TriggerMessage {
     string id = 1;
     repeated .rv.data.API_v1_Message.API_v1_MessageToken tokens = 2;
+    bool requires_confirmation = 3;
   }
 
   message ClearMessage {

@@ -12,20 +12,20 @@ message Request {
     .registration.core.Register register = 1;
     .registration.core.Unregister unregister = 2;
     .registration.core.ChangeSeatType change_seat_type = 3;
-    .registration.core.GetFreeBibles get_free_bibles = 4;
-    .registration.core.GetPurchasedBibles get_purchased_bibles = 5;
-    .registration.core.ActivateBible activate_bible = 6;
-    .registration.core.DeactivateBible deactivate_bible = 7;
-    .registration.core.DownloadBible download_bible = 8;
-    .registration.core.RegistrationData registration_data = 9;
-    .registration.core.ProductInformation product_information = 10;
-    .registration.core.GetAvailableVersion get_upgrades_available = 11;
-    .registration.core.GetAvailableVersion get_downgrade_available = 12;
-    .registration.core.DownloadNewVersion download_new_version = 13;
-    .registration.core.Refresh refresh = 14;
-    .registration.core.ActivateLink activate_link = 15;
-    .registration.core.UpdateToken update_token = 16;
-    .registration.core.OldTokenData old_token_data = 17;
+    .registration.core.GetBibles get_bibles = 4;
+    .registration.core.ActivateBible activate_bible = 5;
+    .registration.core.DeactivateBible deactivate_bible = 6;
+    .registration.core.DownloadBible download_bible = 7;
+    .registration.core.RegistrationData registration_data = 8;
+    .registration.core.ProductInformation product_information = 9;
+    .registration.core.GetAvailableVersion get_upgrades_available = 10;
+    .registration.core.GetAvailableVersion get_downgrade_available = 11;
+    .registration.core.DownloadNewVersion download_new_version = 12;
+    .registration.core.Refresh refresh = 13;
+    .registration.core.ActivateLink activate_link = 14;
+    .registration.core.UpdateToken update_token = 15;
+    .registration.core.OldTokenData old_token_data = 16;
+    .registration.core.Signout signout = 17;
   }
 }
 
@@ -33,25 +33,20 @@ message Callback {
 
   oneof callback {
     .registration.core.SetWatermark set_watermark = 1;
-    .registration.core.DeactivationComplete deactivation_complete = 2;
-    .registration.core.FreeBibles free_bibles = 3;
-    .registration.core.PurchasedBibles purchased_bibles = 4;
-    .registration.core.BibleActivationComplete bible_activation_complete = 5;
-    .registration.core.BibleDeactivationComplete bible_deactivation_complete = 6;
-    .registration.core.BibleDownloadProgress bible_download_progress = 7;
-    .registration.core.HardExit hard_exit = 8;
-    .registration.core.ReadRegistrationData read_registration_data = 9;
-    .registration.core.WriteRegistrationData write_registration_data = 10;
-    .registration.core.GetProductInformation get_product_information = 11;
-    .registration.core.Log log = 12;
-    .registration.core.UpgradesAvailable upgrades_available = 13;
-    .registration.core.DowngradeAvailable downgrade_available = 14;
-    .registration.core.DownloadProgress download_progress = 15;
-    .registration.core.Alerts alerts = 16;
-    .registration.core.ShowExpirationDialog show_expiration_dialog = 17;
-    .registration.core.ReadOldToken read_old_token = 18;
-    .registration.core.Token token = 19;
-    .registration.core.VerificationComplete verification_complete = 20;
+    .registration.core.BibleDownloadProgress bible_download_progress = 2;
+    .registration.core.HardExit hard_exit = 3;
+    .registration.core.ReadRegistrationData read_registration_data = 4;
+    .registration.core.WriteRegistrationData write_registration_data = 5;
+    .registration.core.GetProductInformation get_product_information = 6;
+    .registration.core.Log log = 7;
+    .registration.core.UpgradesAvailable upgrades_available = 8;
+    .registration.core.DowngradeAvailable downgrade_available = 9;
+    .registration.core.DownloadProgress download_progress = 10;
+    .registration.core.Alerts alerts = 11;
+    .registration.core.ShowExpirationDialog show_expiration_dialog = 12;
+    .registration.core.ReadOldToken read_old_token = 13;
+    .registration.core.VerificationComplete verification_complete = 14;
+    .registration.core.SetClientInfo set_client_info = 15;
   }
 }
 
@@ -70,15 +65,15 @@ message ActivateLink {
 message Unregister {
 }
 
+message Signout {
+}
+
 message ChangeSeatType {
   .registration.core.SeatType seat_type = 1;
   .registration.core.UpdateChannel channel = 2;
 }
 
-message GetFreeBibles {
-}
-
-message GetPurchasedBibles {
+message GetBibles {
 }
 
 message ActivateBible {
@@ -112,6 +107,7 @@ message GetAvailableVersion {
   bool include_notes = 1;
   string channel = 2;
   string format = 3;
+  bool user_initiated = 4;
 }
 
 message DownloadNewVersion {
@@ -141,45 +137,11 @@ message SetWatermark {
   bool active_seat = 2;
 }
 
-message ActivationComplete {
-  .registration.core.Status result = 1;
-  .registration.core.RegistrationInfo registration_info = 2;
-  .registration.core.Seats available_seats = 3;
-  .registration.core.Seats total_seats = 4;
-}
-
-message DeactivationComplete {
-  .registration.core.Status result = 1;
-}
-
 message ChangeSeatTypeComplete {
   .registration.core.Status result = 1;
   .registration.core.Seats available_seats = 2;
   .registration.core.Seats total_seats = 3;
   .registration.core.SeatType seat_type = 4;
-}
-
-message FreeBibles {
-  .registration.core.Status status = 1;
-  repeated .registration.core.Bible bibles = 2;
-}
-
-message PurchasedBibles {
-  .registration.core.Status status = 1;
-  repeated .registration.core.PurchasedBible bibles = 2;
-}
-
-message BibleActivationComplete {
-  .registration.core.Status status = 1;
-  string bible_id = 2;
-  string download_link = 3;
-  repeated .registration.core.PurchasedBible bibles = 4;
-}
-
-message BibleDeactivationComplete {
-  .registration.core.Status status = 1;
-  string bible_id = 2;
-  repeated .registration.core.PurchasedBible bibles = 3;
 }
 
 message BibleDownloadProgress {
@@ -189,6 +151,7 @@ message BibleDownloadProgress {
   string bible_id = 4;
   string file_name = 5;
   string download_link = 6;
+  .registration.core.ClientAlertMessage client_alert = 7;
 }
 
 message HardExit {
@@ -233,18 +196,21 @@ message UpgradesAvailable {
   string active_channel = 3;
   string release_notes = 4;
   repeated .registration.core.BuildInformation upgrades = 5;
+  .registration.core.ClientAlertMessage client_alert = 6;
 }
 
 message DowngradeAvailable {
   .registration.core.Status status = 1;
   .registration.core.BuildInformation downgrade = 2;
   string release_notes = 3;
+  .registration.core.ClientAlertMessage client_alert = 4;
 }
 
 message DownloadProgress {
   .registration.core.Status status = 1;
   bool complete = 2;
   float progress = 3;
+  .registration.core.ClientAlertMessage client_alert = 4;
 }
 
 message Alerts {
@@ -255,13 +221,6 @@ message ShowExpirationDialog {
   int32 days = 1;
 }
 
-message LicenseInfo {
-  .registration.core.RegistrationInfo registration_info = 1;
-  .registration.core.Seats available_seats = 2;
-  .registration.core.Seats total_seats = 3;
-  bool legacy = 4;
-}
-
 message VerificationComplete {
   .registration.core.Status result = 1;
   .registration.core.LicenseInfo license = 2;
@@ -270,6 +229,13 @@ message VerificationComplete {
   .registration.core.SubscriptionInfo subscription_info = 5;
   .registration.core.PopupAlertMessage alert = 6;
   .registration.core.BannerMessage banner = 7;
+  .registration.core.ClientAlertMessage client_alert = 8;
+  bool fully_launched = 9;
+}
+
+message SetClientInfo {
+  int32 client_id = 1;
+  string client_secret = 2;
 }
 
 message Seats {
@@ -299,6 +265,13 @@ message Bible {
 message PurchasedBible {
   .registration.core.Bible metadata = 1;
   .registration.core.LicensingInfo licensing_info = 2;
+}
+
+message LicenseInfo {
+  .registration.core.RegistrationInfo registration_info = 1;
+  .registration.core.Seats available_seats = 2;
+  .registration.core.Seats total_seats = 3;
+  bool legacy = 4;
 }
 
 message LicensingInfo {
@@ -370,9 +343,4 @@ message DownloadLink {
 message Bibles {
   repeated .registration.core.Bible free_bibles = 1;
   repeated .registration.core.PurchasedBible purchased_bibles = 2;
-}
-
-message FeatureFlags {
-  bool use_staging = 1;
-  bool use_subscription = 2;
 }

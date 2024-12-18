@@ -32,6 +32,15 @@ message ProApiOut {
   }
 }
 
+message AirplayConfiguration {
+  bool enable = 1;
+  string fairplay_path = 2;
+  string service_name = 3;
+  string password = 4;
+  bool password_enabled = 5;
+  string uuid = 6;
+}
+
 message ProApiNetworkConfiguration {
   bool enable_network = 1;
   uint32 port = 2;
@@ -47,6 +56,7 @@ message ProApiNetworkConfiguration {
   string web_resource_root = 12;
   uint32 tcp_stream_port = 13;
   bool tcp_stream_enable = 14;
+  .rv.data.AirplayConfiguration airplay = 15;
 }
 
 message ProLink {
@@ -529,10 +539,12 @@ message NetworkAPI {
 
       message TriggerProp {
         .rv.data.NetworkAPI.IndexOrNameIdentifier identifier = 1;
+        repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;
       }
 
       message ClearProp {
         .rv.data.NetworkAPI.IndexOrNameIdentifier identifier = 1;
+        repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;
       }
 
       oneof PropAction {

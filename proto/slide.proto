@@ -9,6 +9,7 @@ import "graphicsData.proto";
 import "timers.proto";
 import "url.proto";
 import "uuid.proto";
+import "messages.proto";
 
 option cc_enable_arenas = true;
 option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
@@ -482,6 +483,7 @@ message Slide {
         .rv.data.Slide.Element.DataLink.PlaybackMarkerIdentifier playback_marker_color = 32;
         .rv.data.Slide.Element.DataLink.TimecodeText timecode_text = 33;
         .rv.data.Slide.Element.DataLink.TimecodeStatus timecode_status = 34;
+        .rv.data.Message message_text = 35;
       }
     }
 

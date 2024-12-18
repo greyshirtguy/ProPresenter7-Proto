@@ -360,6 +360,7 @@ message Graphics {
           .rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
           .rv.data.Graphics.Text.MediaFill media_fill = 9;
           .rv.data.Graphics.BackgroundEffect background_effect = 10;
+          .rv.data.Graphics.Text.Attributes.CharacterSizeMode character_size_mode = 11;
         }
       }
 
@@ -377,6 +378,11 @@ message Graphics {
         ALIGNMENT_CENTER = 2;
         ALIGNMENT_JUSTIFIED = 3;
         ALIGNMENT_NATURAL = 4;
+      }
+
+      enum CharacterSizeMode {
+        CHARACTER_SIZE_MODE_NORMAL = 0;
+        CHARACTER_SIZE_MODE_SCALED_BY_DOCUMENT_HEIGHT = 1;
       }
 
       oneof fill {
@@ -434,6 +440,13 @@ message Media {
     string model_id = 4;
     uint32 format_index = 5;
     .rv.data.DigitalAudio.Device.Routing audio_routing = 6;
+    .rv.data.Media.VideoDevice.AirCast aircast = 7;
+
+    message AirCast {
+      string service_name = 1;
+      string password = 2;
+      bool password_enabled = 3;
+    }
 
     enum Type {
       TYPE_GENERIC = 0;
@@ -444,6 +457,7 @@ message Media {
       TYPE_SYPHON = 5;
       TYPE_NDI = 6;
       TYPE_BLUEFISH = 7;
+      TYPE_AIRCAST = 8;
     }
   }
 
