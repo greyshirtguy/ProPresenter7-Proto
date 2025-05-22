@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package rv.analytics.import;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Import";
+option swift_prefix = "Analytics_Import_";
+
+import "analyticsMultiTracks.proto";
+
+message SongSelect {
+  enum LineDelimiter {
+    UNKNOWN = 0;
+    LINE_BREAK = 1;
+    PARAGRAPH_BREAK = 2;
+  }
+
+  int32 template_slide_text_element_count = 1;
+  bool import_into_playlist = 2;
+  .rv.analytics.import.SongSelect.LineDelimiter line_delimiter = 3;
+  int32 line_delimiter_count = 4;
+  bool did_open_edit_view = 5;
+  .rv.analytics.multitracks.Import multitracks = 6;
+}
+

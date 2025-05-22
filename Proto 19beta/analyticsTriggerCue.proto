@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package rv.analytics.trigger.cue;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Trigger.Cue";
+option swift_prefix = "Analytics_Trgger_Cue_";
+
+message Slide {
+  int32 object_count = 1;
+  int32 scrolling_object_count = 2;
+  int32 background_fx_object_count = 3;
+  int32 action_count = 4;
+  bool has_text_fx = 5;
+  int32 media_text_fill_object_count = 6;
+  int32 cut_out_text_fill_object_count = 7;
+  int32 background_blur_text_fill_object_count = 8;
+  int32 background_invert_text_fill_object_count = 9;
+}
+
+message SlideFileFeedElement {
+  .rv.analytics.trigger.cue.DestinationLayer destination_layer = 1;
+}
+
+message SlideRssFeedElement {
+  enum Content {
+    CONTENT_UNKNOWN = 0;
+    TITLE = 1;
+    TITLE_AND_DESCRIPTION = 2;
+  }
+
+  .rv.analytics.trigger.cue.SlideRssFeedElement.Content content = 1;
+  bool is_delimiter_enabled = 2;
+  .rv.analytics.trigger.cue.DestinationLayer destination_layer = 3;
+}
+
+message SlideScrollingTextElement {
+  enum Direction {
+    DIRECTION_UNKNOWN = 0;
+    LEFT = 1;
+    RIGHT = 2;
+    UP = 3;
+    DOWN = 4;
+  }
+
+  enum StartPosition {
+    START_POSITION_UNKNOWN = 0;
+    AUTOMATIC = 1;
+    OFF_SCREEN = 2;
+  }
+
+  enum Speed {
+    SPEED_UNKNOWN = 0;
+    VERY_SLOW = 1;
+    SLOW = 2;
+    MEDIUM = 3;
+    FAST = 4;
+    VERY_FAST = 5;
+  }
+
+  .rv.analytics.trigger.cue.SlideScrollingTextElement.Direction direction = 1;
+  .rv.analytics.trigger.cue.SlideScrollingTextElement.StartPosition start_position = 2;
+  bool is_repeat_enabled = 3;
+  .rv.analytics.trigger.cue.SlideScrollingTextElement.Speed speed = 4;
+  .rv.analytics.trigger.cue.DestinationLayer destination_layer = 5;
+}
+
+enum DestinationLayer {
+  DESTINATION_LAYER_UNKNOWN = 0;
+  ANNOUNCEMENT = 1;
+  PRESENTATION = 2;
+  STAGE = 3;
+  PROPS = 4;
+  MESSAGES = 5;
+  MASK = 6;
+}
+

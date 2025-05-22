@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "color.proto";
+import "graphicsData.proto";
+
+message Background {
+  bool is_enabled = 3;
+  oneof Fill {
+    .rv.data.Color color = 1;
+    .rv.data.Graphics.Gradient gradient = 2;
+  }
+}
+

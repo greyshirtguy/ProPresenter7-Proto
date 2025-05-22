@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package rv.analytics.timeline;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Timeline";
+option swift_prefix = "Analytics_Timeline_";
+
+message Action {
+  enum ActionType {
+    PLAY = 0;
+    STOP = 1;
+    RESET = 2;
+  }
+
+  .rv.analytics.timeline.Action.ActionType action_type = 1;
+}
+
+message RecordCue {
+}
+
+message CueTrigger {
+  enum TriggerType {
+    SLIDE = 0;
+    MEDIA = 1;
+    AUDIO = 2;
+    ACTION = 3;
+  }
+
+  enum TimingSource {
+    INTERNAL = 0;
+    SMPTE = 1;
+  }
+
+  .rv.analytics.timeline.CueTrigger.TriggerType trigger_type = 1;
+  .rv.analytics.timeline.CueTrigger.TimingSource timing_source = 2;
+}
+

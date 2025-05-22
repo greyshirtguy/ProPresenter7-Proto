@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package rv.analytics.trigger.media;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Trigger.Media";
+option swift_prefix = "Analytics_Trigger_Media_";
+
+message Transition {
+  bool is_default = 1;
+  string name = 2;
+}
+
+message VisualMedia {
+  message Size {
+    uint32 width = 1;
+    uint32 height = 2;
+  }
+
+  enum Behavior {
+    BACKGROUND = 0;
+    FOREGROUND = 1;
+    VIDEO_INPUT = 2;
+  }
+
+  enum ScaleMode {
+    FIT = 0;
+    FILL = 1;
+    STRETCH = 2;
+    BLUR = 3;
+  }
+
+  enum FlipMode {
+    NONE = 0;
+    HORIZONTAL = 1;
+    VERTICAL = 2;
+    BOTH = 3;
+  }
+
+  enum NativeRotation {
+    STANDARD = 0;
+    _90 = 90;
+    _180 = 180;
+    _270 = 270;
+  }
+
+  .rv.analytics.trigger.media.VisualMedia.Behavior behavior = 1;
+  .rv.analytics.trigger.media.VisualMedia.ScaleMode scale_mode = 2;
+  .rv.analytics.trigger.media.VisualMedia.FlipMode flip_mode = 3;
+  .rv.analytics.trigger.media.VisualMedia.NativeRotation native_rotation = 4;
+  .rv.analytics.trigger.media.VisualMedia.Size resolution = 5;
+  uint32 enabled_effects_count = 6;
+  bool has_effect_preset = 7;
+  .rv.analytics.trigger.media.Transition transition = 8;
+}
+
+message Transport {
+  enum DurationRange {
+    UNDER_10S = 0;
+    _10S_TO_30S = 1;
+    _30S_TO_60S = 2;
+    _1M_TO_5M = 3;
+    _5M_TO_10M = 4;
+    _10M_TO_30M = 5;
+    _30M_TO_60M = 6;
+    _1H_TO_2H = 7;
+    OVER_2H = 8;
+  }
+
+  .rv.analytics.trigger.media.Transport.DurationRange source_duration_range = 1;
+  bool has_audio_ramp_in = 2;
+  bool has_audio_ramp_out = 3;
+  bool has_in_point = 4;
+  bool has_out_point = 5;
+  double play_rate = 6;
+  uint32 playback_marker_count = 7;
+}
+
+message Video {
+  enum PlaybackBehavior {
+    STOP = 0;
+    LOOP = 1;
+    LOOP_FOR_PLAY_COUNT = 2;
+    LOOP_FOR_TIME = 3;
+  }
+
+  .rv.analytics.trigger.media.VisualMedia visual_media = 7;
+  .rv.analytics.trigger.media.Video.PlaybackBehavior playback_behavior = 8;
+  .rv.analytics.trigger.media.CompletionTarget completion_target = 9;
+  bool soft_loop_enabled = 10;
+  double soft_loop_duration = 11;
+  double frame_rate = 12;
+  uint32 audio_channel_count = 13;
+  .rv.analytics.trigger.media.Transport transport = 14;
+  .rv.analytics.trigger.media.SourceType source_type = 15;
+}
+
+message Audio {
+  enum Behavior {
+    TUNE = 0;
+    SOUND = 1;
+  }
+
+  enum PlaybackBehavior {
+    STOP = 0;
+    LOOP = 1;
+    NEXT = 2;
+  }
+
+  .rv.analytics.trigger.media.Audio.Behavior behavior = 1;
+  .rv.analytics.trigger.media.Audio.PlaybackBehavior playback_behavior = 2;
+  .rv.analytics.trigger.media.Transition transition = 3;
+  uint32 audio_channel_count = 4;
+  .rv.analytics.trigger.media.Transport transport = 5;
+  .rv.analytics.trigger.media.SourceType source_type = 6;
+}
+
+message Image {
+  .rv.analytics.trigger.media.VisualMedia visual_media = 1;
+  .rv.analytics.trigger.media.CompletionTarget completion_target = 2;
+  .rv.analytics.trigger.media.SourceType source_type = 3;
+}
+
+message VideoInput {
+  .rv.analytics.trigger.media.VisualMedia visual_media = 1;
+  double frame_rate = 2;
+  uint32 audio_channel_count = 3;
+  .rv.analytics.trigger.media.SourceType source_type = 4;
+}
+
+message AirCastVideo {
+  bool password_enabled = 1;
+}
+
+message AirCastAudio {
+  bool password_enabled = 1;
+}
+
+enum CompletionTarget {
+  NONE = 0;
+  NEXT = 1;
+  RANDOM = 2;
+  CUE = 3;
+  FIRST = 4;
+}
+
+enum SourceType {
+  LOCAL = 0;
+  PROCONTENT = 1;
+}
+

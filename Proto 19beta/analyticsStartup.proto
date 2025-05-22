@@ -1,0 +1,257 @@
+syntax = "proto3";
+
+package rv.analytics.startup;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Startup";
+option swift_prefix = "Analytics_Startup_";
+
+message Looks {
+  int32 number_presets = 1;
+}
+
+message Summary {
+  int32 total_screens = 1;
+  int32 audience_screen_count = 2;
+  int32 stage_screen_count = 3;
+}
+
+message Output {
+  enum ProScreenType {
+    PRO_SCREEN_TYPE_UNKNOWN = 0;
+    SINGLE = 1;
+    MIRRORED = 2;
+    EDGE_BLEND = 3;
+    GROUPED = 4;
+  }
+
+  enum OutputType {
+    OUTPUT_TYPE_UNKNOWN = 0;
+    SDI = 1;
+    NDI = 2;
+    SYPHON = 3;
+    SYSTEM = 4;
+    PLACEHOLDER = 5;
+    DVI = 6;
+  }
+
+  enum Alignment {
+    ALIGNMENT_UNKNOWN = 0;
+    FULL = 1;
+    _2X1 = 2;
+    _3X1 = 3;
+    _2X2 = 4;
+    CUSTOM = 5;
+  }
+
+  enum AlphaKeyMode {
+    ALPHA_KEY_MODE_NONE = 0;
+    PREMULTIPLIED = 1;
+    STRAIGHT = 2;
+  }
+
+  enum AlphaDevice {
+    ALPHA_DEVICE_NONE = 0;
+    SELF = 1;
+    OTHER = 2;
+  }
+
+  .rv.analytics.startup.Output.ProScreenType proscreen_type = 1;
+  .rv.analytics.startup.Output.OutputType output_type = 2;
+  bool color_correction_enabled = 3;
+  bool corner_pin_enabled = 4;
+  .rv.analytics.startup.Output.Alignment alignment = 5;
+  int32 width = 6;
+  int32 height = 7;
+  .rv.analytics.startup.Output.AlphaKeyMode alpha_key_mode = 8;
+  .rv.analytics.startup.Output.AlphaDevice alpha_device = 9;
+}
+
+message Single {
+  .rv.analytics.startup.ScreenType screen_type = 1;
+  bool screen_color_enabled = 2;
+}
+
+message Mirrored {
+  .rv.analytics.startup.ScreenType screen_type = 1;
+  bool screen_color_enabled = 2;
+  int32 count = 3;
+}
+
+message EdgeBlend {
+  .rv.analytics.startup.ScreenType screen_type = 1;
+  bool screen_color_enabled = 2;
+  int32 count = 3;
+}
+
+message Grouped {
+  .rv.analytics.startup.ScreenType screen_type = 1;
+  bool screen_color_enabled = 2;
+  int32 columns = 3;
+  int32 rows = 4;
+}
+
+message Preferences {
+  enum CopyrightStyle {
+    COPYRIGHT_STYLE_UNKNOWN = 0;
+    FIRST = 1;
+    LAST = 2;
+    FIRST_AND_LAST = 3;
+    ALL_SLIDES = 4;
+  }
+
+  enum RenderMode {
+    RENDER_MODE_UNKNOWN = 0;
+    OPENGL = 1;
+    METAL = 2;
+    DIRECTX = 3;
+  }
+
+  enum UpdateChannel {
+    UPDATE_CHANNEL_UNKNOWN = 0;
+    RELEASE = 1;
+    BETA = 2;
+  }
+
+  bool house_of_worship = 1;
+  bool has_custom_logo = 2;
+  bool copyright_enabled = 3;
+  .rv.analytics.startup.Preferences.CopyrightStyle copyright_style = 4;
+  bool copyright_has_license = 5;
+  .rv.analytics.startup.Preferences.RenderMode render_mode = 6;
+  bool suppress_auto_start = 7;
+  bool manage_media_automatically = 8;
+  bool search_paths_relink = 9;
+  .rv.analytics.startup.Preferences.UpdateChannel update_channel = 10;
+}
+
+message Screens {
+  bool show_screens_launch = 1;
+  bool show_performance_on_screen = 2;
+  bool ignore_background_colors = 3;
+  bool show_keynote_ppt_screens = 4;
+}
+
+message SongSelect {
+  bool logged_in = 1;
+}
+
+message Content {
+  int32 library_count = 1;
+  int32 library_playlist_count = 2;
+  int32 library_playlist_folder_count = 3;
+  int32 library_playlist_max_depth = 4;
+  int32 media_bin_total_playlist_count = 5;
+  int32 media_bin_playlist_folder_count = 6;
+  int32 media_bin_playlist_max_depth = 7;
+  int32 media_bin_normal_playlist_count = 8;
+  int32 media_bin_smart_playlist_count = 9;
+  int32 media_bin_video_input_count = 10;
+  int32 audio_bin_playlist_count = 11;
+  int32 audio_bin_playlist_folder_count = 12;
+  int32 audio_bin_playlist_max_depth = 13;
+  int32 timer_count = 14;
+  int32 messages_count = 15;
+  int32 props_count = 16;
+  int32 props_auto_clear_count = 17;
+  int32 prop_collections_count = 18;
+  int32 prop_collections_single_prop_enabled_count = 19;
+  int32 stage_layout_count = 20;
+  int32 macros_count = 21;
+  int32 macros_collections_count = 22;
+  int32 macros_custom_icons = 23;
+  bool ubiquitous_show_directory = 24;
+}
+
+message Themes {
+  int32 theme_count = 1;
+  int32 theme_folder_count = 2;
+  int32 theme_folder_max_depth = 3;
+  int32 theme_slides_count = 4;
+}
+
+message Macro {
+  int32 trigger_on_startup_count = 1;
+}
+
+message ClearGroup {
+  int32 clear_group_count = 1;
+  int32 hidden_clear_group_count = 2;
+  int32 default_icon_count = 3;
+  int32 custom_icon_count = 4;
+  int32 icon_tint_count = 5;
+}
+
+message KeyMapping {
+  int32 total_mapped = 1;
+  int32 clear_groups = 2;
+  int32 groups = 3;
+  int32 macros = 4;
+  int32 props = 5;
+  int32 menus = 6;
+}
+
+message NetworkLink {
+  bool enabled = 1;
+  uint32 member_count = 2;
+}
+
+message Capture {
+  int32 presets_count = 1;
+  int32 disk_presets_count = 2;
+  int32 rtmp_presets_count = 3;
+  int32 resi_presets_count = 4;
+}
+
+message Versioning {
+  string highest_version = 1;
+}
+
+message DiskUsage {
+  uint64 bytes_of_show_files = 1;
+  uint64 bytes_of_media_asset_files = 2;
+  uint64 number_of_media_asset_files = 3;
+  uint64 bytes_of_unmanaged_media_asset_files = 4;
+}
+
+message Interface {
+  enum SplitViewState {
+    SPLIT_VIEW_STATE_UNKNOWN = 0;
+    SPLIT_VIEW_STATE_COLLAPSED = 1;
+    SPLIT_VIEW_STATE_EXPANDED = 2;
+  }
+
+  enum PresentationViewStyle {
+    PRESENTATION_VIEW_STYLE_UNKNOWN = 0;
+    PRESENTATION_VIEW_STYLE_GRID = 1;
+    PRESENTATION_VIEW_STYLE_EASY = 2;
+    PRESENTATION_VIEW_STYLE_TABLE = 3;
+  }
+
+  enum MediaBinViewStyle {
+    MEDIA_BIN_VIEW_STYLE_UNKNOWN = 0;
+    MEDIA_BIN_VIEW_STYLE_GRID = 1;
+    MEDIA_BIN_VIEW_STYLE_TABLE = 2;
+  }
+
+  .rv.analytics.startup.Interface.SplitViewState library_outline = 1;
+  .rv.analytics.startup.Interface.SplitViewState media_outline = 2;
+  .rv.analytics.startup.Interface.SplitViewState audio_outline = 3;
+  bool continuous_playlist = 4;
+  .rv.analytics.startup.Interface.SplitViewState media_bin = 5;
+  .rv.analytics.startup.Interface.PresentationViewStyle presentation_view_style = 6;
+  int32 presentation_grid_column_count = 7;
+  .rv.analytics.startup.Interface.MediaBinViewStyle media_bin_view_style = 8;
+  int32 media_bin_grid_column_count = 9;
+  int32 media_bin_table_column_count = 10;
+  string presentation_transition = 11;
+  string media_transition = 12;
+  bool audio_shuffle = 13;
+}
+
+enum ScreenType {
+  SCREEN_TYPE_UNKNOWN = 0;
+  AUDIENCE = 1;
+  STAGE = 2;
+}
+

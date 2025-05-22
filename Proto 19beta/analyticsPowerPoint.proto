@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package rv.analytics.powerpoint;
+
+option cc_enable_arenas = true;
+option swift_prefix = "Analytics_PowerPoint_";
+
+message ImportPowerPoint {
+  .rv.analytics.powerpoint.ImportType type = 1;
+  .rv.analytics.powerpoint.ImportFormat format = 2;
+}
+
+enum ImportType {
+  SLIDES_AS_IMAGES = 0;
+  TEXT_ONLY = 1;
+  TEXT_AND_IMAGES = 2;
+}
+
+enum ImportFormat {
+  UNKOWN = 0;
+  PPT = 1;
+  PPTX = 2;
+}
+

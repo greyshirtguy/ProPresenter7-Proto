@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package rv.analytics.playbackmarker;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.PlaybackMarker";
+option swift_prefix = "Analytics_PlaybackMarker_";
+
+message CreateMarker {
+  enum Location {
+    INSPECTOR = 0;
+    SIDEBAR = 1;
+    UNKNOWN = 2;
+  }
+
+  .rv.analytics.playbackmarker.CreateMarker.Location location = 1;
+}
+

@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Preroll_Request {
+  message PrerollCue {
+    int32 index = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollPlaylistItem {
+    repeated .rv.data.API_v1_Identifier path = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollMediaItem {
+    repeated .rv.data.API_v1_Identifier path = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollAudioItem {
+    repeated .rv.data.API_v1_Identifier path = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollVideoInput {
+    string id = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollLibraryItem {
+    repeated .rv.data.API_v1_Identifier path = 1;
+    uint64 preroll_id = 2;
+  }
+
+  message PrerollNext {
+    uint64 preroll_id = 1;
+  }
+
+  message PrerollPrevious {
+    uint64 preroll_id = 1;
+  }
+
+  message ActivatePrerollItem {
+    uint64 id = 1;
+    uint64 time = 2;
+  }
+
+  message CancelPrerollItem {
+    uint64 id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Preroll_Request.PrerollCue preroll_cue = 1;
+    .rv.data.API_v1_Preroll_Request.PrerollPlaylistItem preroll_playlist_item = 2;
+    .rv.data.API_v1_Preroll_Request.PrerollMediaItem preroll_media_item = 3;
+    .rv.data.API_v1_Preroll_Request.PrerollAudioItem preroll_audio_item = 4;
+    .rv.data.API_v1_Preroll_Request.PrerollVideoInput preroll_video_input = 5;
+    .rv.data.API_v1_Preroll_Request.PrerollLibraryItem preroll_library_item = 6;
+    .rv.data.API_v1_Preroll_Request.PrerollNext preroll_next = 7;
+    .rv.data.API_v1_Preroll_Request.PrerollPrevious preroll_previous = 8;
+    .rv.data.API_v1_Preroll_Request.ActivatePrerollItem activate_preroll_item = 9;
+    .rv.data.API_v1_Preroll_Request.CancelPrerollItem cancel_preroll_item = 10;
+  }
+}
+
+message API_v1_Preroll_Response {
+  message PrerollReady {
+    uint64 id = 1;
+    uint64 latency = 2;
+    uint64 time = 3;
+  }
+
+  message ActivatePrerollItem {
+    bool success = 1;
+  }
+
+  message CancelPrerollItem {
+    bool success = 1;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Preroll_Response.PrerollReady preroll_ready = 1;
+    .rv.data.API_v1_Preroll_Response.ActivatePrerollItem activate_preroll_item = 3;
+    .rv.data.API_v1_Preroll_Response.CancelPrerollItem cancel_preroll_item = 4;
+  }
+}
+

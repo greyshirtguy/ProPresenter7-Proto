@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "action.proto";
+import "applicationInfo.proto";
+import "color.proto";
+import "customOptions.proto";
+import "uuid.proto";
+
+message MacrosDocument {
+  message Macro {
+    enum ImageType {
+      ImageTypeDefault = 0;
+      ImageTypeOne = 1;
+      ImageTypeTwo = 2;
+      ImageTypeThree = 3;
+      ImageTypeFour = 4;
+      ImageTypeFive = 5;
+      ImageTypeSix = 6;
+      ImageTypeSeven = 7;
+      ImageTypeEight = 8;
+      ImageTypeNine = 9;
+      ImageTypeZero = 10;
+      ImageTypeArrow = 11;
+      ImageTypeAudio = 12;
+      ImageTypeBell = 13;
+      ImageTypeBulb = 14;
+      ImageTypeCloud = 15;
+      ImageTypeCupcake = 16;
+      ImageTypeExclamation = 17;
+      ImageTypeFlask = 18;
+      ImageTypeFlower = 19;
+      ImageTypeGlasses = 20;
+      ImageTypeHashtag = 21;
+      ImageTypeHat = 22;
+      ImageTypeHeart = 23;
+      ImageTypeMegaphone = 24;
+      ImageTypeMessage = 25;
+      ImageTypePaperclip = 26;
+      ImageTypePlay = 27;
+      ImageTypeSlide = 28;
+      ImageTypeStar = 29;
+      ImageTypeSun = 30;
+      ImageTypeSunglasses = 31;
+      ImageTypeTarget = 32;
+      ImageTypeTimer = 33;
+      ImageTypeVideoInput = 34;
+      ImageTypeXClear = 35;
+      ImageTypeLetterA = 36;
+      ImageTypeLetterB = 37;
+      ImageTypeLetterC = 38;
+      ImageTypeLetterD = 39;
+      ImageTypeLetterE = 40;
+      ImageTypeLetterF = 41;
+      ImageTypeLetterG = 42;
+      ImageTypeLetterH = 43;
+      ImageTypeLetterI = 44;
+      ImageTypeLetterJ = 45;
+      ImageTypeLetterK = 46;
+      ImageTypeLetterL = 47;
+      ImageTypeLetterM = 48;
+      ImageTypeLetterN = 49;
+      ImageTypeLetterO = 50;
+      ImageTypeLetterP = 51;
+      ImageTypeLetterQ = 52;
+      ImageTypeLetterR = 53;
+      ImageTypeLetterS = 54;
+      ImageTypeLetterT = 55;
+      ImageTypeLetterU = 56;
+      ImageTypeLetterV = 57;
+      ImageTypeLetterW = 58;
+      ImageTypeLetterX = 59;
+      ImageTypeLetterY = 60;
+      ImageTypeLetterZ = 61;
+      ImageTypeCustom = 62;
+    }
+
+    .rv.data.UUID uuid = 1;
+    string name = 2;
+    .rv.data.Color color = 3;
+    repeated .rv.data.Action actions = 4;
+    bool trigger_on_startup = 5;
+    .rv.data.MacrosDocument.Macro.ImageType image_type = 6;
+    bytes image_data = 7;
+  }
+
+  message MacroCollection {
+    message Item {
+      oneof ItemType {
+        .rv.data.UUID macro_id = 1;
+      }
+    }
+
+    .rv.data.UUID uuid = 1;
+    string name = 2;
+    repeated .rv.data.MacrosDocument.MacroCollection.Item items = 3;
+    repeated .rv.data.MacrosDocument.Macro macros = 4;
+  }
+
+  .rv.data.ApplicationInfo application_info = 1;
+  repeated .rv.data.MacrosDocument.Macro macros = 2;
+  repeated .rv.data.MacrosDocument.MacroCollection macro_collections = 3;
+}
+

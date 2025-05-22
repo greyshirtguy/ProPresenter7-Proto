@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message API_v1_Miscellaneous_Request {
+  message FindMyMouse {
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Miscellaneous_Request.FindMyMouse find_my_mouse = 1;
+  }
+}
+
+message API_v1_Miscellaneous_Response {
+  message FindMyMouse {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Miscellaneous_Response.FindMyMouse find_my_mouse = 1;
+  }
+}
+

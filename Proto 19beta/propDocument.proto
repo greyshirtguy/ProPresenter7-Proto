@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "applicationInfo.proto";
+import "cue.proto";
+import "customOptions.proto";
+import "effects.proto";
+import "uuid.proto";
+
+message PropDocument {
+  message PropCollection {
+    message Item {
+      oneof ItemType {
+        .rv.data.UUID prop_cue_uuid = 1;
+      }
+    }
+
+    .rv.data.UUID uuid = 1;
+    string name = 2;
+    repeated .rv.data.PropDocument.PropCollection.Item items = 3;
+    bool single_prop_enabled = 4;
+    repeated .rv.data.Cue cues = 5;
+  }
+
+  .rv.data.ApplicationInfo application_info = 1;
+  repeated .rv.data.Cue cues = 2;
+  .rv.data.Transition transition = 3;
+  repeated .rv.data.PropDocument.PropCollection prop_collections = 4;
+}
+

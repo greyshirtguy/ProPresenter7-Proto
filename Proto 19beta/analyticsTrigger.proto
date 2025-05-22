@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package rv.analytics.trigger;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Trigger";
+option swift_prefix = "Analytics_Trigger_";
+
+message ActionCaptureStart {
+  enum PresetType {
+    UNKNOWN = 0;
+    ACTIVE_SETTINGS = 1;
+    CAPTURE_PRESET = 2;
+  }
+
+  .rv.analytics.trigger.ActionCaptureStart.PresetType preset_type = 1;
+}
+
+message ActionCaptureStop {
+  bool confirm_before_stopping = 1;
+}
+
+message ActionClear {
+  enum Type {
+    UNKNOWN = 0;
+    AUDIO = 1;
+    MESSAGES = 2;
+    PROPS = 3;
+    ANNOUNCEMENTS = 4;
+    SLIDE = 5;
+    MEDIA = 6;
+    VIDEO_INPUT = 7;
+    CLEAR_TO_LOGO = 8;
+    CLEAR_GROUP = 9;
+  }
+
+  .rv.analytics.trigger.ActionClear.Type type = 1;
+}
+
+message ActionClearGroup {
+  bool layer_audio = 1;
+  bool layer_messages = 2;
+  bool layer_props = 3;
+  bool layer_announcement = 4;
+  bool layer_slide = 5;
+  bool layer_media = 6;
+  bool layer_video_input = 7;
+}
+
+message ActionCommunications {
+}
+
+message ActionLook {
+  enum Setting {
+    NONE = 0;
+    SOME = 1;
+    ALL = 2;
+  }
+
+  int32 total_screen_count = 1;
+  .rv.analytics.trigger.ActionLook.Setting mask = 2;
+  .rv.analytics.trigger.ActionLook.Setting messages = 3;
+  .rv.analytics.trigger.ActionLook.Setting props = 4;
+  .rv.analytics.trigger.ActionLook.Setting announcements = 5;
+  .rv.analytics.trigger.ActionLook.Setting presentation_theme = 6;
+  .rv.analytics.trigger.ActionLook.Setting slide = 7;
+  .rv.analytics.trigger.ActionLook.Setting media = 8;
+  .rv.analytics.trigger.ActionLook.Setting video_input = 9;
+}
+
+message ActionMacro {
+  int32 action_count = 1;
+  int32 cue_action_count = 2;
+  int32 total_action_count = 3;
+}
+
+message ActionMessage {
+  int32 token_count = 1;
+  int32 text_token_count = 2;
+  int32 timer_token_count = 3;
+  int32 clock_token_count = 4;
+  int32 showing_count = 5;
+}
+
+message ActionProp {
+  enum Type {
+    TYPE_UNKNOWN = 0;
+    TRIGGER = 1;
+    CLEAR = 2;
+    TRIGGER_FROM_PROP_BIN = 3;
+  }
+
+  enum AutoClear {
+    UNKNOWN = 0;
+    DEFAULT_DISABLED = 1;
+    DEFAULT_ENABLED = 2;
+    DISABLED = 3;
+    ENABLED = 4;
+    DISABLED_OVERRIDE = 5;
+    ENABLED_OVERRIDE = 6;
+    CLEAR_ACTION = 7;
+  }
+
+  string transition = 1;
+  .rv.analytics.trigger.ActionProp.Type type = 2;
+  .rv.analytics.trigger.ActionProp.AutoClear auto_clear = 3;
+}
+
+message ActionSlideDestination {
+  enum ChangeSlideDestination {
+    UNKNOWN = 0;
+    NO_CHANGE = 1;
+    STAGE_ONLY = 2;
+    STAGE_AUDIENCE = 3;
+  }
+
+  .rv.analytics.trigger.ActionSlideDestination.ChangeSlideDestination change_slide_destination = 1;
+}
+
+message ActionStage {
+  int32 layouts = 1;
+  int32 total_stage_screens = 2;
+}
+
+message ActionTimer {
+  enum Type {
+    UNKNOWN = 0;
+    START_SET_CONFIGURATION = 1;
+    START = 2;
+    STOP = 3;
+    RESET = 4;
+    STOP_SET_CONFIGURATION = 5;
+    INCREMENT = 6;
+  }
+
+  .rv.analytics.trigger.ActionTimer.Type type = 1;
+}
+
+message TestPattern {
+  enum Pattern {
+    AUDIO_VIDEO_SYNC = 0;
+    BLEND_GRID = 1;
+    COLOR_BARS = 2;
+    CUSTOM_COLORS = 3;
+    FOCUS = 4;
+    GRAY_SCALE = 5;
+    LINES = 6;
+    LOGO_BOUNCE = 7;
+    RADAR = 8;
+    TEXT = 9;
+  }
+
+  enum Logo {
+    NONE = 0;
+    PROPRESENTER = 1;
+    CUSTOM = 2;
+  }
+
+  .rv.analytics.trigger.TestPattern.Pattern pattern = 1;
+  .rv.analytics.trigger.TestPattern.Logo logo = 2;
+}
+

@@ -1,0 +1,330 @@
+syntax = "proto3";
+
+package rv.analytics.trackedevents;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.TrackedEvents";
+option swift_prefix = "Analytics_TrackedEvents_";
+
+message GenericEvent {
+}
+
+message ApplicationLaunch {
+  enum Channel {
+    BETA = 0;
+    RELEASE = 1;
+  }
+
+  enum Platform {
+    WINDOWS = 0;
+    MACOS = 1;
+  }
+
+  string hardware_id = 1;
+  .rv.analytics.trackedevents.ApplicationLaunch.Channel channel = 2;
+  .rv.analytics.trackedevents.ApplicationLaunch.Platform platform = 3;
+  string app_version = 4;
+  string os_version = 5;
+  string build_number = 6;
+  string location = 7;
+  string language = 8;
+  string hardware_model = 9;
+  uint64 physical_memory = 10;
+  string video_controller = 11;
+  uint64 video_controller_ram = 12;
+  string blackmagic_desktop_version = 13;
+}
+
+message VideoInputTriggered {
+  enum AudioSource {
+    NONE = 0;
+    SELF = 1;
+    OTHER = 2;
+  }
+
+  .rv.analytics.trackedevents.VideoInputTriggered.AudioSource audio_source = 1;
+}
+
+message VideoInputCustomMap {
+  bool value = 1;
+}
+
+message VideoInputStartUp {
+  uint32 input_count = 1;
+}
+
+message VideoInputThumbnailUpdate {
+  enum UpdateType {
+    CAPTURE = 0;
+    DISK = 1;
+    RESET = 2;
+  }
+
+  .rv.analytics.trackedevents.VideoInputThumbnailUpdate.UpdateType type = 1;
+}
+
+message AudioInputAutoOnChange {
+  uint32 input_count = 1;
+}
+
+message AudioSettingsSdiNdiActive {
+  bool value = 1;
+}
+
+message AudioSettingsCustomMap {
+  bool value = 1;
+}
+
+message AudioInputModeSelection {
+  enum ModeType {
+    ON = 0;
+    OFF = 1;
+    AUTOOFF = 2;
+    AUTOON = 3;
+  }
+
+  .rv.analytics.trackedevents.AudioInputModeSelection.ModeType mode_type = 1;
+}
+
+message AudioInputAutoOnStartup {
+  uint32 input_count = 1;
+}
+
+message AudioSettingsSdiNdiState {
+  uint32 bus_count = 1;
+}
+
+message AudioInputStartUp {
+  uint32 total_input_count = 1;
+  uint32 on_input_count = 2;
+  uint32 off_input_count = 3;
+  uint32 auto_on_input_count = 4;
+  uint32 auto_off_input_count = 5;
+}
+
+message CueTriggered {
+  double trigger_delay = 1;
+}
+
+message InputAudioMonitoring {
+  enum InputType {
+    AUDIO = 0;
+    VIDEO = 1;
+  }
+
+  .rv.analytics.trackedevents.InputAudioMonitoring.InputType type = 1;
+}
+
+message ResiStartUp {
+}
+
+message ResiLoginChange {
+  enum LoginState {
+    LOGGEDIN = 0;
+    LOGGEDOUT = 1;
+  }
+
+  .rv.analytics.trackedevents.ResiLoginChange.LoginState state = 1;
+}
+
+message RemoteStreamStart {
+  enum StartResult {
+    SUCCESS = 0;
+    FAILED = 1;
+    USERCANCELED = 2;
+  }
+
+  .rv.analytics.trackedevents.RemoteStreamStart.StartResult result = 1;
+}
+
+message RemoteStreamStop {
+  bool success = 1;
+}
+
+message StartCaptureDisk {
+  .rv.analytics.trackedevents.Codec codec = 1;
+  uint32 resolution_width = 2;
+  uint32 resolution_height = 3;
+  .rv.analytics.trackedevents.FrameRate frame_rate = 4;
+  bool stream_started = 5;
+  uint32 video_bitrate = 6;
+}
+
+message StartCaptureRtmp {
+  .rv.analytics.trackedevents.Codec codec = 1;
+  uint32 resolution_width = 2;
+  uint32 resolution_height = 3;
+  .rv.analytics.trackedevents.FrameRate frame_rate = 4;
+  bool stream_started = 5;
+  uint32 video_bitrate = 6;
+}
+
+message StartCaptureResi {
+  .rv.analytics.trackedevents.Codec codec = 1;
+  uint32 resolution_width = 2;
+  uint32 resolution_height = 3;
+  .rv.analytics.trackedevents.FrameRate frame_rate = 4;
+  bool stream_started = 5;
+  uint32 video_bitrate = 6;
+}
+
+message StopCapture {
+  double duration = 1;
+  int32 dropped_frames = 2;
+  double percent_dropped_frames = 3;
+}
+
+message Print {
+  enum PrintMode {
+    THUMBNAIL = 0;
+    OUTLINE = 1;
+  }
+
+  uint32 document_count = 1;
+  .rv.analytics.trackedevents.Print.PrintMode mode = 2;
+  bool include_metadata = 3;
+  bool include_presentation_notes = 4;
+  bool include_currentDate = 5;
+  bool include_slide_labels = 6;
+  bool include_slide_notes = 7;
+  bool include_disabled_slides = 8;
+  uint32 number_columns = 9;
+  string print_to_device = 10;
+}
+
+message Device {
+  string protocol = 1;
+  string device_name = 2;
+  string device_protocol = 3;
+}
+
+message Downgrade {
+  enum FromVersionType {
+    FROM_VERSION_TYPE_UNKNOWN = 0;
+    FROM_VERSION_TYPE_BETA = 1;
+    FROM_VERSION_TYPE_RELEASE = 2;
+  }
+
+  .rv.analytics.trackedevents.Downgrade.FromVersionType from_version_type = 1;
+}
+
+message CCLIReport {
+  enum Action {
+    REPORT_WINDOW_OPENED = 0;
+    REPORT_CLEARED = 1;
+    REPORT_EXPORTED = 2;
+  }
+
+  .rv.analytics.trackedevents.CCLIReport.Action action = 1;
+}
+
+message TransitionWindow {
+  uint32 duration_seconds = 1;
+}
+
+message EditorObjectAdded {
+  enum FromInsertionSource {
+    EDITOR_TOOLBAR = 0;
+    EDITOR_MAIN_MENU = 1;
+    EDITOR_HOTKEY = 2;
+    EDITOR_COPY_PASTE = 3;
+  }
+
+  enum InsertedType {
+    EDITOR_TEXT = 0;
+    EDITOR_SHAPE = 1;
+    EDITOR_CUSTOM_SHAPE = 2;
+    EDITOR_MEDIA = 3;
+    EDITOR_VIDEO_INPUT = 4;
+    EDITOR_WEB = 5;
+    EDITOR_CURRENT_SLIDE = 6;
+    EDITOR_NEXT_SLIDE = 7;
+    EDITOR_SCREEN_PREVIEW = 8;
+    EDITOR_TIMER = 9;
+    EDITOR_SYSTEM_CLOCK = 10;
+    EDITOR_VIDEO_COUNTDOWN = 11;
+    EDITOR_AUDIO_COUNTDOWN = 12;
+    EDITOR_PLAYBACK_MARKER = 13;
+    EDITOR_CHORD_CHART = 14;
+    EDITOR_STAGE_MESSAGE = 15;
+    EDITOR_PLANNING_CENTER_LIVE = 16;
+    EDITOR_TIMECODE = 17;
+    EDITOR_GROUP = 18;
+    EDITOR_LABEL = 19;
+    EDITOR_CAPTURE_STATUS = 20;
+  }
+
+  .rv.analytics.trackedevents.EditorObjectAdded.FromInsertionSource from_insertion_source = 1;
+  .rv.analytics.trackedevents.EditorObjectAdded.InsertedType inserted_type = 2;
+}
+
+message DataIdDuplicated {
+  enum DataType {
+    DATA_TYPE_PRESENTATION = 0;
+    DATA_TYPE_MEDIA = 1;
+  }
+
+  .rv.analytics.trackedevents.DataIdDuplicated.DataType Type = 1;
+  int32 number_duplicates = 2;
+}
+
+message ForceQuit {
+  enum Reason {
+    UNKNOWN = 0;
+    HOSTS_FILE = 1;
+    SYSTEM_TIME_SKEW = 2;
+    INVALID_WATERMARK = 3;
+    PIRATED_SOFTWARE = 4;
+    METAL_UNAVAILABLE = 5;
+    UBIQUITY_DOWNLOAD_ABORTED = 6;
+    CORE_RUST_CONTROLLER_FAILURE = 7;
+  }
+
+  .rv.analytics.trackedevents.ForceQuit.Reason reason = 1;
+}
+
+message MediaCleanupSize {
+  uint64 bytes_of_media_files_cleaned_up = 1;
+}
+
+message NetworkApp {
+  enum AppID {
+    UNKNOWN = 0;
+    PROREMOTE = 1;
+    PROSTAGE = 2;
+  }
+
+  .rv.analytics.trackedevents.NetworkApp.AppID app_id = 1;
+  string device_id = 2;
+}
+
+enum Codec {
+  H264 = 0;
+  H264SOFTWARE = 1;
+  H265 = 2;
+  H265SOFTWARE = 3;
+  PRORES422PROXY = 4;
+  PRORES422LT = 5;
+  PRORES422 = 6;
+  PRORES422HQ = 7;
+  PRORES4444 = 8;
+  PRORES4444XQ = 9;
+  HAP = 10;
+  HAPALPHA = 11;
+  NOTCH = 12;
+  AUTOMATIC = 13;
+  HAPQ = 14;
+  HAPQALPHA = 15;
+}
+
+enum FrameRate {
+  UNSPECIFIED = 0;
+  _24FPS = 1;
+  _25FPS = 2;
+  _2997FPS = 3;
+  _30FPS = 4;
+  _50FPS = 5;
+  _5994FPS = 6;
+  _60FPS = 7;
+}
+

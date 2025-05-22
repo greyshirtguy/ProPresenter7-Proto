@@ -1,0 +1,223 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "google/protobuf/wrappers.proto";
+import "proApiV1Color.proto";
+import "proApiV1ContentType.proto";
+import "proApiV1Identifier.proto";
+import "proApiV1Size.proto";
+import "proApiV1TimelineOperation.proto";
+import "uuid.proto";
+
+message API_v1_SlideIndex {
+  uint32 index = 1;
+  .rv.data.API_v1_Identifier presentation_id = 2;
+}
+
+message API_v1_Presentation {
+  message SlideGroup {
+    message Slide {
+      bool enabled = 1;
+      string notes = 2;
+      string text = 3;
+      string label = 5;
+      .rv.data.API_v1_Size size = 6;
+    }
+
+    string name = 1;
+    .rv.data.API_v1_Color color = 2;
+    repeated .rv.data.API_v1_Presentation.SlideGroup.Slide slides = 3;
+  }
+
+  enum Destination {
+    presentation = 0;
+    announcements = 1;
+  }
+
+  .rv.data.API_v1_Identifier id = 1;
+  repeated .rv.data.API_v1_Presentation.SlideGroup groups = 2;
+  bool has_timeline = 3;
+  string presentation_path = 4;
+  .rv.data.API_v1_Presentation.Destination destination = 5;
+}
+
+message API_v1_Presentation_Request {
+  message Active {
+  }
+
+  message SlideIndex {
+  }
+
+  message ChordChart {
+    int32 quality = 1;
+  }
+
+  message ChordChartUpdates {
+  }
+
+  message Presentation {
+    .rv.data.UUID uuid = 1;
+  }
+
+  message DeletePresentation {
+    .rv.data.UUID uuid = 1;
+  }
+
+  message TimelineOperation {
+    .rv.data.UUID uuid = 1;
+    .rv.data.API_v1_TimelineOperation operation = 2;
+  }
+
+  message ActivePresentationTimelineOperation {
+    .rv.data.API_v1_TimelineOperation operation = 1;
+  }
+
+  message FocusedPresentationTimelineOperation {
+    .rv.data.API_v1_TimelineOperation operation = 1;
+  }
+
+  message ActivePresentationTimelineStatus {
+  }
+
+  message FocusedPresentationTimelineStatus {
+  }
+
+  message Thumbnail {
+    .rv.data.UUID uuid = 1;
+    uint32 cue_index = 2;
+    int32 quality = 3;
+    .rv.data.API_v1_ContentType content_type = 4;
+  }
+
+  message EmptyMessage {
+  }
+
+  message FocusMessage {
+    oneof Presentation {
+      .rv.data.API_v1_Presentation_Request.EmptyMessage next = 1;
+      .rv.data.API_v1_Presentation_Request.EmptyMessage previous = 2;
+      .rv.data.API_v1_Presentation_Request.EmptyMessage active = 3;
+      string uuid = 4;
+    }
+  }
+
+  message TriggerMessage {
+    oneof Presentation {
+      .rv.data.API_v1_Presentation_Request.EmptyMessage focused = 1;
+      .rv.data.API_v1_Presentation_Request.EmptyMessage active = 2;
+      .google.protobuf.StringValue uuid = 3;
+    }
+    oneof Cue {
+      .rv.data.API_v1_Presentation_Request.EmptyMessage first = 4;
+      .rv.data.API_v1_Presentation_Request.EmptyMessage next = 5;
+      .rv.data.API_v1_Presentation_Request.EmptyMessage previous = 6;
+      .google.protobuf.UInt32Value index = 7;
+      .google.protobuf.StringValue group = 8;
+    }
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Presentation_Request.Active active = 1;
+    .rv.data.API_v1_Presentation_Request.EmptyMessage focused = 2;
+    .rv.data.API_v1_Presentation_Request.SlideIndex slide_index = 3;
+    .rv.data.API_v1_Presentation_Request.ChordChart chord_chart = 4;
+    .rv.data.API_v1_Presentation_Request.ChordChartUpdates chord_chart_updates = 5;
+    .rv.data.API_v1_Presentation_Request.Presentation presentation = 6;
+    .rv.data.API_v1_Presentation_Request.DeletePresentation delete_presentation = 7;
+    .rv.data.API_v1_Presentation_Request.TimelineOperation timeline_operation = 8;
+    .rv.data.API_v1_Presentation_Request.ActivePresentationTimelineOperation active_presentation_timeline_operation = 9;
+    .rv.data.API_v1_Presentation_Request.FocusedPresentationTimelineOperation focused_presentation_timeline_operation = 10;
+    .rv.data.API_v1_Presentation_Request.ActivePresentationTimelineStatus active_presentation_timeline_status = 11;
+    .rv.data.API_v1_Presentation_Request.FocusedPresentationTimelineStatus focused_presentation_timeline_status = 12;
+    .rv.data.API_v1_Presentation_Request.Thumbnail thumbnail = 13;
+    .rv.data.API_v1_Presentation_Request.FocusMessage focus = 14;
+    .rv.data.API_v1_Presentation_Request.TriggerMessage trigger = 15;
+  }
+}
+
+message API_v1_Presentation_Response {
+  message Active {
+    .rv.data.API_v1_Presentation presentation = 1;
+  }
+
+  message SlideIndex {
+    .rv.data.API_v1_SlideIndex presentation_index = 1;
+  }
+
+  message ChordChart {
+    bytes chord_chart = 1;
+  }
+
+  message ChordChartUpdates {
+  }
+
+  message Presentation {
+    .rv.data.API_v1_Presentation presentation = 1;
+  }
+
+  message DeletePresentation {
+  }
+
+  message TriggerPresentation {
+  }
+
+  message TriggerCue {
+  }
+
+  message TimelineOperation {
+  }
+
+  message ActivePresentationTimelineOperation {
+  }
+
+  message FocusedPresentationTimelineOperation {
+  }
+
+  message ActivePresentationTimelineStatus {
+    bool is_running = 1;
+    double current_time = 2;
+  }
+
+  message FocusedPresentationTimelineStatus {
+    bool is_running = 1;
+    double current_time = 2;
+  }
+
+  message Thumbnail {
+    bytes data = 1;
+    .rv.data.API_v1_ContentType content_type = 2;
+  }
+
+  message Focused {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message EmptyMessage {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Presentation_Response.Active active = 1;
+    .rv.data.API_v1_Presentation_Response.SlideIndex slide_index = 2;
+    .rv.data.API_v1_Presentation_Response.ChordChart chord_chart = 3;
+    .rv.data.API_v1_Presentation_Response.ChordChartUpdates chord_chart_update = 4;
+    .rv.data.API_v1_Presentation_Response.Presentation presentation = 5;
+    .rv.data.API_v1_Presentation_Response.DeletePresentation delete_presentation = 6;
+    .rv.data.API_v1_Presentation_Response.TriggerPresentation trigger_presentation = 7;
+    .rv.data.API_v1_Presentation_Response.TriggerCue trigger_cue = 8;
+    .rv.data.API_v1_Presentation_Response.TimelineOperation timeline_operation = 9;
+    .rv.data.API_v1_Presentation_Response.ActivePresentationTimelineOperation active_presentation_timeline_operation = 10;
+    .rv.data.API_v1_Presentation_Response.FocusedPresentationTimelineOperation focused_presentation_timeline_operation = 11;
+    .rv.data.API_v1_Presentation_Response.ActivePresentationTimelineStatus active_presentation_timeline_status = 12;
+    .rv.data.API_v1_Presentation_Response.FocusedPresentationTimelineStatus focused_presentation_timeline_status = 13;
+    .rv.data.API_v1_Presentation_Response.Thumbnail thumbnail = 14;
+    .rv.data.API_v1_Presentation_Response.Focused focused = 15;
+    .rv.data.API_v1_Presentation_Response.EmptyMessage focus = 16;
+    .rv.data.API_v1_Presentation_Response.EmptyMessage trigger = 17;
+  }
+}
+
