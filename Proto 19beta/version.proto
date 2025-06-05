@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message Version {
+  uint32 major_version = 1;
+  uint32 minor_version = 2;
+  uint32 patch_version = 3;
+  string build = 4;
+}
+

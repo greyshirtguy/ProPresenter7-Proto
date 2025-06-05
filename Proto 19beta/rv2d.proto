@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "action.proto";
+import "color.proto";
+import "cue.proto";
+import "graphicsData.proto";
+import "musicKeyScale.proto";
+import "proCore.proto";
+import "slide.proto";
+
+message IdentificationOverlay {
+  message Output {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
+    string name = 5;
+    double frame_rate = 6;
+  }
+
+  string screen_name = 3;
+  repeated .rv.data.IdentificationOverlay.Output outputs = 1;
+}
+
+message LayerIdentificationOverlay {
+  enum Layer {
+    LAYER_VIDEO_INPUT = 0;
+    LAYER_MEDIA = 1;
+    LAYER_PRESENTATION = 2;
+    LAYER_ANNOUNCEMENTS = 3;
+    LAYER_PROPS = 4;
+    LAYER_MESSAGES = 5;
+  }
+
+  .rv.data.LayerIdentificationOverlay.Layer layer = 1;
+  string layer_name = 2;
+}
+
+message RenderLayer {
+  message Composite {
+  }
+
+  message Scrolling {
+    int32 segment_size = 1;
+  }
+
+  .rv.data.Graphics.Rect bounds = 9;
+  .rv.data.Graphics.Element.FlipMode flip_mode = 10;
+  double rotation = 11;
+  int32 build_index = 12;
+  bool build_out = 13;
+  int32 build_out_index = 14;
+  oneof LayerType {
+    .rv.data.RenderLayer.Composite composite = 1;
+    .rv.data.Media media = 2;
+    .rv.data.Graphics.Text.CutOutFill cut_out = 3;
+    .rv.data.Graphics.BackgroundEffect background_effect = 4;
+    .rv.data.Slide.Element.DataLink.OutputScreen output_screen = 5;
+    .rv.data.RenderLayer.Scrolling scrolling = 6;
+    .rv.data.Slide.Element.DataLink.SlideImage slide_image = 7;
+    .rv.data.Slide.Element.DataLink.Zone zone = 8;
+  }
+}
+
+message SlideElement {
+  .rv.data.Slide.Element element = 1;
+  int32 build_index = 2;
+  .rv.data.MusicKeyScale base_key = 3;
+  .rv.data.MusicKeyScale target_key = 4;
+  repeated .rv.data.WebFillTokenAndCookies.Cookie cookies = 5;
+}
+
+message SlidePreview {
+  .rv.data.Cue cue = 1;
+  .rv.data.Slide.Element element = 2;
+  .rv.data.Color background = 3;
+}
+
+message MediaPreview {
+  .rv.data.Action action = 1;
+  .rv.data.Media media = 2;
+}
+

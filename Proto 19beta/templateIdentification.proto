@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "customOptions.proto";
+import "uuid.proto";
+
+message TemplateIdentification {
+  .rv.data.UUID uuid = 1;
+  string name = 2;
+  .rv.data.UUID slide_uuid = 3;
+  string slide_name = 4;
+  uint32 slide_index = 5;
+}
+
