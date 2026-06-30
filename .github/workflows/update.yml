@@ -1,0 +1,81 @@
+name: Update ProPresenter Protobufs
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Check ProPresenter version
+        id: version
+        run: |
+          AVAILABLE=$(brew info --cask propresenter --json=v2 | jq -r '.casks[0].version')
+          echo "available=$AVAILABLE" >> "$GITHUB_OUTPUT"
+
+          STORED="none"
+          if [ -f autogen-proto/version.txt ]; then
+            STORED=$(cat autogen-proto/version.txt | tr -d '[:space:]')
+          fi
+          echo "stored=$STORED" >> "$GITHUB_OUTPUT"
+
+          if [ "$AVAILABLE" = "$STORED" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Version $AVAILABLE is current, nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Version changed: $STORED -> $AVAILABLE"
+          fi
+
+      - name: Install protodump
+        if: steps.version.outputs.changed == 'true'
+        run: brew install bevanjkay/formulae/protodump
+
+      - name: Install ProPresenter
+        if: steps.version.outputs.changed == 'true'
+        run: brew install --cask propresenter
+
+      - name: Generate protobufs
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          rm -rf autogen-proto-tmp
+          mkdir -p autogen-proto-tmp
+          find /Applications/ProPresenter.app -type f -perm +111 -print | while read -r f; do
+            protodump -file "$f" -output autogen-proto-tmp 2>/dev/null || true
+          done
+          if [ -z "$(ls -A autogen-proto-tmp)" ]; then
+            echo "No protobufs generated — aborting to avoid deleting existing output."
+            rm -rf autogen-proto-tmp
+            exit 1
+          fi
+          rm -rf autogen-proto
+          mv autogen-proto-tmp autogen-proto
+
+      - name: Push to master
+        if: steps.version.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.available }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          echo "${VERSION}" > autogen-proto/version.txt
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Update protobufs for ProPresenter ${VERSION}"
+          git push origin master
