@@ -2,6 +2,13 @@
 
 This is a set of ***unoffical and unsupported*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are encoded as Google Protocol Buffers.
 
+
+## Latest Version
+The "autogen-proto" will contain the latest .proto's from the most current version of ProPresenter.
+This is checked daily and automatically updated whenever a new version of ProPresenter is released (and updated in homebrew).
+_Huge thanks "my Aussie online mate" Bevan Kay for the workflow setup._
+
+
 ## Background
 One of the things I really loved about ProPresenter 5 and 6 was how easy it was to read and understand the documents and configuration files - both of which are XML. I loved being able to make scripts and programs that could help improve and automate our workflow by working directly with Pro6 documents and also perform my own troubleshooting.
 
