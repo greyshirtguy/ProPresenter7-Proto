@@ -3,7 +3,6 @@ syntax = "proto3";
 package rv.data;
 
 import "effects.proto";
-import "action.proto";
 import "graphicsData.proto";
 import "input.proto";
 import "recording.proto";
