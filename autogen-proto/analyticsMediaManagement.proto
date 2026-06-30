@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package rv.analytics.mediamanagement;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.MediaManagement";
+option swift_prefix = "Analytics_MediaManagement_";
+
+message InstallationComplete {
+  message Success {
+  }
+
+  message Failure {
+    string error = 1;
+  }
+
+  oneof state {
+    .rv.analytics.mediamanagement.InstallationComplete.Success success = 1;
+    .rv.analytics.mediamanagement.InstallationComplete.Failure failure = 2;
+  }
+}
+
+message BootstrappingComplete {
+  message Success {
+  }
+
+  message Failure {
+    string error = 1;
+  }
+
+  oneof state {
+    .rv.analytics.mediamanagement.BootstrappingComplete.Success success = 1;
+    .rv.analytics.mediamanagement.BootstrappingComplete.Failure failure = 2;
+  }
+}
+
+message MessageFailure {
+  string error = 1;
+}
+
+message UnexpectedlyNotRunning {
+}
+
+message ConnectionChanged {
+  enum State {
+    STATE_CONNECTED = 0;
+    STATE_DISCONNECTED = 1;
+  }
+
+  .rv.analytics.mediamanagement.ConnectionChanged.State state = 1;
+}
+
+message AddedMediaReference {
+  int32 width = 1;
+  int32 height = 2;
+}
+
+message NotResponding {
+}
+

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package workspace.remote;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Workspace.Remote";
+option swift_prefix = "RVData_Service_Workspace_Remote_";
+
+import "document.entities.proto";
+
+message Metadata {
+  string uuid = 1;
+  string pro_version = 2;
+  string name = 3;
+  uint64 size = 10;
+  uint64 created = 11;
+  uint64 updated = 12;
+}
+
+message Workspace {
+  .workspace.remote.Metadata metadata = 1;
+  .document.DocumentSet documents = 2;
+}
+

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "effects.proto";
+import "graphicsData.proto";
+import "alphaType.proto";
+
+message MediaMetadataRequestInfo {
+  enum BufferFormat {
+    BUFFER_FORMAT_RAW = 0;
+    BUFFER_FORMAT_PNG = 1;
+    BUFFER_FORMAT_NONE = 2;
+  }
+
+  string file_path = 1;
+  float time = 2;
+  uint32 width = 3;
+  uint32 height = 4;
+  repeated .rv.data.Effect effects = 5;
+  .rv.data.Graphics.EdgeInsets crop_insets = 6;
+  .rv.data.Media.DrawingProperties.NativeRotationType native_rotation = 7;
+  bool flipped_horizontally = 8;
+  bool flipped_vertically = 9;
+  .rv.data.AlphaType alpha_type = 10;
+  .rv.data.MediaMetadataRequestInfo.BufferFormat buffer_format = 11;
+}
+
+message MediaMetadataRequestResponse {
+  message Metadata {
+    enum ContentType {
+      CONTENT_TYPE_UNKNOWN = 0;
+      CONTENT_TYPE_AUDIO = 1;
+      CONTENT_TYPE_IMAGE = 2;
+      CONTENT_TYPE_VIDEO = 3;
+    }
+
+    uint32 width = 1;
+    uint32 height = 2;
+    float fps = 3;
+    float duration = 4;
+    uint32 number_audio_channels = 5;
+    string codec = 6;
+    string artist = 7;
+    string title = 8;
+    float rotation = 9;
+    .rv.data.MediaMetadataRequestResponse.Metadata.ContentType content_type = 10;
+    bool has_alpha_channel = 11;
+  }
+
+  message BitmapInfo {
+    uint32 width = 1;
+    uint32 height = 2;
+    uint64 size = 3;
+  }
+
+  .rv.data.MediaMetadataRequestResponse.Metadata metadata = 1;
+  .rv.data.MediaMetadataRequestResponse.BitmapInfo generated_bitmap_info = 2;
+}
+

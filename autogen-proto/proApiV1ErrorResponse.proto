@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message API_v1_Error_Response {
+  enum API_v1_Error_Type {
+    NOT_FOUND = 0;
+    BAD_REQUEST = 1;
+    INTERNAL_ERROR = 2;
+    UNAUTHORIZED = 3;
+  }
+
+  .rv.data.API_v1_Error_Response.API_v1_Error_Type error = 1;
+}
+

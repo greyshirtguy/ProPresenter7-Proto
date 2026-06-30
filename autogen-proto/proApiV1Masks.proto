@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Masks_Request {
+  message Masks {
+  }
+
+  message GetMask {
+    string id = 1;
+  }
+
+  message GetThumbnail {
+    string id = 1;
+    int32 quality = 2;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Masks_Request.Masks masks = 1;
+    .rv.data.API_v1_Masks_Request.GetMask get_mask = 2;
+    .rv.data.API_v1_Masks_Request.GetThumbnail get_thumbnail = 3;
+  }
+}
+
+message API_v1_Masks_Response {
+  message Masks {
+    repeated .rv.data.API_v1_Identifier masks = 1;
+  }
+
+  message GetMask {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message GetThumbnail {
+    bytes data = 1;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Masks_Response.Masks masks = 1;
+    .rv.data.API_v1_Masks_Response.GetMask get_mask = 2;
+    .rv.data.API_v1_Masks_Response.GetThumbnail get_thumbnail = 3;
+  }
+}
+

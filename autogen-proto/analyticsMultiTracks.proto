@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package rv.analytics.multitracks;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.MultiTracks";
+option swift_prefix = "Analytics_MultiTracks_";
+
+message Startup {
+  .rv.analytics.multitracks.Status chart_pro = 1;
+  .rv.analytics.multitracks.Status propresenter_addon = 2;
+}
+
+message Import {
+  .rv.analytics.multitracks.Status chart_pro = 1;
+  .rv.analytics.multitracks.Status propresenter_addon = 2;
+  bool charts_automation = 3;
+  int32 lines = 4;
+}
+
+enum Status {
+  DISABLED = 0;
+  CANCELLED = 1;
+  ACTIVE = 2;
+}
+

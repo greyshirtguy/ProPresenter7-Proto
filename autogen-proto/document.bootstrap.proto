@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package document;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Document";
+option swift_prefix = "RVData_Service_Document_";
+
+message CreationOption {
+}
+

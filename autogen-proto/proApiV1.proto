@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Announcement.proto";
+import "proApiV1Audio.proto";
+import "proApiV1Capture.proto";
+import "proApiV1Clear.proto";
+import "proApiV1ErrorResponse.proto";
+import "proApiV1Groups.proto";
+import "proApiV1Link.proto";
+import "proApiV1Library.proto";
+import "proApiV1Looks.proto";
+import "proApiV1Macro.proto";
+import "proApiV1Masks.proto";
+import "proApiV1Media.proto";
+import "proApiV1Message.proto";
+import "proApiV1Miscellaneous.proto";
+import "proApiV1Playlist.proto";
+import "proApiV1Preroll.proto";
+import "proApiV1Presentation.proto";
+import "proApiV1Prop.proto";
+import "proApiV1Stage.proto";
+import "proApiV1Status.proto";
+import "proApiV1Theme.proto";
+import "proApiV1Timer.proto";
+import "proApiV1Transport.proto";
+import "proApiV1Trigger.proto";
+import "proApiV1VideoInputs.proto";
+
+message NetworkAPI_v1 {
+  message Action {
+    oneof Request {
+      .rv.data.API_v1_Audio_Request audio_request = 1;
+      .rv.data.API_v1_Capture_Request capture_request = 2;
+      .rv.data.API_v1_Clear_Request clearing_request = 3;
+      .rv.data.API_v1_Groups_Request groups_request = 4;
+      .rv.data.API_v1_Link_Request link_request = 5;
+      .rv.data.API_v1_Library_Request library_request = 6;
+      .rv.data.API_v1_Looks_Request looks_request = 7;
+      .rv.data.API_v1_Macro_Request macro_request = 8;
+      .rv.data.API_v1_Masks_Request masks_request = 9;
+      .rv.data.API_v1_Media_Request media_request = 10;
+      .rv.data.API_v1_Message_Request message_request = 11;
+      .rv.data.API_v1_Miscellaneous_Request miscellaneous_request = 12;
+      .rv.data.API_v1_Playlist_Request playlist_request = 13;
+      .rv.data.API_v1_Preroll_Request preroll_request = 14;
+      .rv.data.API_v1_Presentation_Request presentation_request = 15;
+      .rv.data.API_v1_Prop_Request prop_request = 16;
+      .rv.data.API_v1_Stage_Request stage_request = 17;
+      .rv.data.API_v1_Status_Request status_request = 18;
+      .rv.data.API_v1_Theme_Request theme_request = 19;
+      .rv.data.API_v1_Timer_Request timer_request = 20;
+      .rv.data.API_v1_Transport_Request transport_request = 21;
+      .rv.data.API_v1_Trigger_Request trigger_request = 22;
+      .rv.data.API_v1_Video_Inputs_Request video_inputs_request = 23;
+      .rv.data.API_v1_Announcement_Request announcement_request = 24;
+    }
+    oneof Response {
+      .rv.data.API_v1_Audio_Response audio_response = 101;
+      .rv.data.API_v1_Capture_Response capture_response = 102;
+      .rv.data.API_v1_Clear_Response clearing_response = 103;
+      .rv.data.API_v1_Groups_Response groups_response = 104;
+      .rv.data.API_v1_Link_Response link_response = 105;
+      .rv.data.API_v1_Library_Response library_response = 106;
+      .rv.data.API_v1_Looks_Response looks_response = 107;
+      .rv.data.API_v1_Macro_Response macro_response = 108;
+      .rv.data.API_v1_Masks_Response masks_response = 109;
+      .rv.data.API_v1_Media_Response media_response = 110;
+      .rv.data.API_v1_Message_Response message_response = 111;
+      .rv.data.API_v1_Miscellaneous_Response miscellaneous_response = 112;
+      .rv.data.API_v1_Playlist_Response playlist_response = 113;
+      .rv.data.API_v1_Preroll_Response preroll_response = 114;
+      .rv.data.API_v1_Presentation_Response presentation_response = 115;
+      .rv.data.API_v1_Prop_Response prop_response = 116;
+      .rv.data.API_v1_Stage_Response stage_response = 117;
+      .rv.data.API_v1_Status_Response status_response = 118;
+      .rv.data.API_v1_Theme_Response theme_response = 119;
+      .rv.data.API_v1_Timer_Response timer_response = 120;
+      .rv.data.API_v1_Transport_Response transport_response = 121;
+      .rv.data.API_v1_Trigger_Response trigger_response = 122;
+      .rv.data.API_v1_Video_Inputs_Response video_inputs_response = 123;
+      .rv.data.API_v1_Announcement_Response announcement_response = 124;
+      .rv.data.API_v1_Error_Response error_response = 200;
+    }
+    oneof StreamingUpdateIdentifier {
+      string update_identifier = 201;
+    }
+  }
+
+  oneof Command {
+    .rv.data.NetworkAPI_v1.Action action = 1;
+  }
+}
+

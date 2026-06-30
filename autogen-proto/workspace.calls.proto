@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package workspace.call;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Workspace.Call";
+option swift_prefix = "RVData_Service_Workspace_Call_";
+
+import "workspace.entities.local.proto";
+import "workspace.entities.remote.proto";
+
+message Error {
+  enum Code {
+    UNKNOWN = 0;
+  }
+
+  .workspace.call.Error.Code code = 1;
+  string description = 2;
+}
+
+message OpenLocal {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .workspace.call.OpenLocal.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+  .workspace.local.Workspace workspace = 1;
+}
+
+message OpenRemote {
+  message Result {
+    message Ok {
+      .workspace.remote.Workspace workspace = 1;
+    }
+
+    oneof result {
+      .workspace.call.OpenRemote.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  string path = 2;
+}
+
+message Publish {
+  message Result {
+    message Ok {
+      string uuid = 1;
+    }
+
+    oneof result {
+      .workspace.call.Publish.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+}
+
+message ConvertToLocal {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .workspace.call.ConvertToLocal.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+}
+
+message Rename {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .workspace.call.Rename.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+  string name = 2;
+  optional string uuid = 1;
+}
+
+message PauseSync {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .workspace.call.PauseSync.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+  uint64 until_time_utc = 1;
+}
+
+message ResumeSync {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .workspace.call.ResumeSync.Result.Ok ok = 1;
+      .workspace.call.Error error = 2;
+    }
+  }
+
+}
+

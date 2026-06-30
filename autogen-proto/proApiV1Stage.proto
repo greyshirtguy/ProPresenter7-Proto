@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_StageLayoutMap {
+  message Entry {
+    .rv.data.API_v1_Identifier screen = 1;
+    .rv.data.API_v1_Identifier layout = 2;
+  }
+
+  repeated .rv.data.API_v1_StageLayoutMap.Entry entries = 1;
+}
+
+message API_v1_Stage_Request {
+  message GetLayoutMap {
+  }
+
+  message SetLayoutMap {
+    .rv.data.API_v1_StageLayoutMap map = 1;
+  }
+
+  message GetMessage {
+  }
+
+  message PutMessage {
+    string message = 1;
+  }
+
+  message DeleteMessage {
+  }
+
+  message GetScreens {
+  }
+
+  message GetScreenLayout {
+    string id = 1;
+  }
+
+  message SetScreenLayout {
+    string id = 1;
+    string layout = 2;
+  }
+
+  message GetLayouts {
+  }
+
+  message DeleteLayout {
+    string id = 1;
+  }
+
+  message GetLayoutThumbnail {
+    string id = 1;
+    int32 quality = 2;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Stage_Request.GetLayoutMap get_layout_map = 1;
+    .rv.data.API_v1_Stage_Request.SetLayoutMap set_layout_map = 2;
+    .rv.data.API_v1_Stage_Request.GetMessage get_message = 3;
+    .rv.data.API_v1_Stage_Request.PutMessage put_message = 4;
+    .rv.data.API_v1_Stage_Request.DeleteMessage delete_message = 5;
+    .rv.data.API_v1_Stage_Request.GetScreens get_screens = 6;
+    .rv.data.API_v1_Stage_Request.GetScreenLayout get_screen_layout = 7;
+    .rv.data.API_v1_Stage_Request.SetScreenLayout set_screen_layout = 8;
+    .rv.data.API_v1_Stage_Request.GetLayouts get_layouts = 9;
+    .rv.data.API_v1_Stage_Request.DeleteLayout delete_layout = 10;
+    .rv.data.API_v1_Stage_Request.GetLayoutThumbnail get_layout_thumbnail = 11;
+  }
+}
+
+message API_v1_Stage_Response {
+  message GetLayoutMap {
+    .rv.data.API_v1_StageLayoutMap map = 1;
+  }
+
+  message SetLayoutMap {
+  }
+
+  message GetMessage {
+    string message = 1;
+  }
+
+  message PutMessage {
+  }
+
+  message DeleteMessage {
+  }
+
+  message GetScreens {
+    repeated .rv.data.API_v1_Identifier screens = 1;
+  }
+
+  message GetScreenLayout {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message SetScreenLayout {
+  }
+
+  message GetLayouts {
+    message Layout {
+      .rv.data.API_v1_Identifier id = 1;
+    }
+
+    repeated .rv.data.API_v1_Stage_Response.GetLayouts.Layout layouts = 1;
+  }
+
+  message DeleteLayout {
+  }
+
+  message GetLayoutThumbnail {
+    bytes data = 1;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Stage_Response.GetLayoutMap get_layout_map = 1;
+    .rv.data.API_v1_Stage_Response.SetLayoutMap set_layout_map = 2;
+    .rv.data.API_v1_Stage_Response.GetMessage get_message = 3;
+    .rv.data.API_v1_Stage_Response.PutMessage put_message = 4;
+    .rv.data.API_v1_Stage_Response.DeleteMessage delete_message = 5;
+    .rv.data.API_v1_Stage_Response.GetScreens get_screens = 6;
+    .rv.data.API_v1_Stage_Response.GetScreenLayout get_screen_layout = 7;
+    .rv.data.API_v1_Stage_Response.SetScreenLayout set_screen_layout = 8;
+    .rv.data.API_v1_Stage_Response.GetLayouts get_layouts = 9;
+    .rv.data.API_v1_Stage_Response.DeleteLayout delete_layout = 10;
+    .rv.data.API_v1_Stage_Response.GetLayoutThumbnail get_layout_thumbnail = 11;
+  }
+}
+

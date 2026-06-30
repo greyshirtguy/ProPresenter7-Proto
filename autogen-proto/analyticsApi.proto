@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package rv.analytics.api;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.API";
+option swift_prefix = "Analytics_API_";
+
+message MessageReceived {
+}
+

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package application;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Application";
+option swift_prefix = "RVData_Application_";
+
+message Error {
+  .application.ServiceID service = 1;
+  int32 code = 2;
+  string description = 3;
+}
+
+message ResultEnvelope {
+  message Ok {
+  }
+
+  oneof result {
+    .application.ResultEnvelope.Ok ok = 1;
+    .application.Error error = 2;
+  }
+}
+
+enum ServiceID {
+  APPLICATION = 0;
+  MEDIA = 1;
+  FEATURE_FLAGS = 2;
+  REGISTRATION = 3;
+  DOCUMENT = 4;
+  WORKSPACE = 5;
+}
+
+enum ErrorCode {
+  RUNTIME = 0;
+  CALL = 1;
+  PARAMS = 2;
+  DATA = 3;
+  PANIC = 4;
+  JOIN = 5;
+  HID = 6;
+  REMOTE = 7;
+  DEPENDENCY = 8;
+  MEDIA_VERSION = 9;
+}
+

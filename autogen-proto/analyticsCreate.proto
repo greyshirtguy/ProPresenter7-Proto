@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package rv.analytics.create;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Create";
+option swift_prefix = "Analytics_Create_";
+
+message Library {
+  enum Source {
+    UNKNOWN = 0;
+    APPLICATION_MENU = 1;
+    LIBRARY_OUTLINE_ADD_BUTTON = 2;
+  }
+
+  .rv.analytics.create.Library.Source source = 1;
+}
+
+message Playlist {
+  enum Source {
+    SOURCE_UNKNOWN = 0;
+    APPLICATION_MENU = 1;
+    LIBRARY_OUTLINE_ADD_BUTTON = 2;
+  }
+
+  enum Type {
+    TYPE_UNKNOWN = 0;
+    PRESENTATION = 1;
+    PLANNING_CENTER = 2;
+    FOLDER = 3;
+    TEMPLATE_PLAYLIST = 4;
+  }
+
+  .rv.analytics.create.Playlist.Source source = 1;
+  .rv.analytics.create.Playlist.Type type = 2;
+}
+
+message Presentation {
+  enum Source {
+    UNKNOWN = 0;
+    APPLICATION_MENU = 1;
+    LIBRARY_OUTLINE_ADD_BUTTON = 2;
+    DETAIL_ADD_BUTTON = 3;
+    UNLINKED_HEADER = 4;
+  }
+
+  .rv.analytics.create.Presentation.Source source = 1;
+}
+
+message TemplatePlaylist {
+  int32 total_item_count = 1;
+  int32 header_count = 2;
+  int32 placeholder_count = 3;
+  int32 presentation_count = 4;
+  int32 media_count = 5;
+}
+

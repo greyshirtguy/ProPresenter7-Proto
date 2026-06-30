@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Library_Request {
+  message Libraries {
+  }
+
+  message Library {
+    string id = 1;
+  }
+
+  message Trigger {
+    string library_id = 1;
+    string presentation_id = 2;
+    uint32 index = 3;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Library_Request.Libraries libraries = 1;
+    .rv.data.API_v1_Library_Request.Library library = 2;
+    .rv.data.API_v1_Library_Request.Trigger trigger = 3;
+  }
+}
+
+message API_v1_Library_Response {
+  message Libraries {
+    repeated .rv.data.API_v1_Identifier libraries = 1;
+  }
+
+  message Library {
+    enum UpdateType {
+      all = 0;
+      add = 1;
+      remove = 2;
+    }
+
+    .rv.data.API_v1_Library_Response.Library.UpdateType update_type = 1;
+    repeated .rv.data.API_v1_Identifier items = 2;
+  }
+
+  message Trigger {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Library_Response.Libraries libraries = 1;
+    .rv.data.API_v1_Library_Response.Library library = 2;
+    .rv.data.API_v1_Library_Response.Trigger triggger = 3;
+  }
+}
+

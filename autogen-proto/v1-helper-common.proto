@@ -1,0 +1,249 @@
+syntax = "proto3";
+
+package helper.common.v1;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.MediaManagement.v1";
+option swift_prefix = "RVData_MediaManagement_v1_";
+
+import "effects.proto";
+import "alphaType.proto";
+
+message ProductInformation {
+  string product_name = 1;
+  string major_version = 2;
+  string minor_version = 3;
+  string patch_version = 4;
+  string build_number = 5;
+  int64 build_date = 6;
+}
+
+message Version {
+  int32 major = 1;
+  int32 minor = 2;
+  int32 patch = 3;
+}
+
+message CreationOption {
+  string show_directory = 1;
+  oneof Socket {
+    string name = 2;
+  }
+  oneof timeout {
+    uint32 seconds = 3;
+  }
+}
+
+message MediaReferenceInfo {
+  message MediaInfo {
+    enum ContentType {
+      CONTENT_TYPE_UNKNOWN = 0;
+      CONTENT_TYPE_AUDIO = 1;
+      CONTENT_TYPE_IMAGE = 2;
+      CONTENT_TYPE_VIDEO = 3;
+    }
+
+    enum ColorFormat {
+      SDR = 0;
+      HDR_REC2100_HLG = 1;
+      HDR_REC2100_PQ = 2;
+    }
+
+    string url = 1;
+    uint32 width = 2;
+    uint32 height = 3;
+    float fps = 4;
+    float duration = 5;
+    uint32 num_audio_channels = 6;
+    string codec = 7;
+    string artist = 8;
+    string title = 9;
+    int32 rotation = 10;
+    .helper.common.v1.MediaReferenceInfo.MediaInfo.ContentType content_type = 11;
+    bool has_alpha_channel = 12;
+    bool supports_hw_decode = 13;
+    .helper.common.v1.MediaReferenceInfo.MediaInfo.ColorFormat color_format = 14;
+  }
+
+  message ThumbnailInfo {
+    string url = 1;
+  }
+
+  .helper.common.v1.MediaReferenceInfo.MediaInfo media_info = 1;
+  .helper.common.v1.MediaReferenceInfo.ThumbnailInfo thumbnail_info = 2;
+}
+
+message RequestError {
+  enum ErrorCode {
+    UNKNOWN = 0;
+    CANT_CREATE_MEDIA_FOLDER = 201;
+    CANT_CREATE_META_FOLDER = 202;
+    CANT_CREATE_THUMBNAILS_FOLDER = 203;
+    CANT_DELETE_ACTIVE_WORKSPACE = 204;
+    SERVICE_INTERNAL_ERROR = 300;
+    SERVICE_HANDSHAKE_ERROR = 301;
+    SERVICE_VERSION_MISMATCH = 302;
+    SERVICE_CANT_SEND_REQUEST = 303;
+    SERVICE_MISSING_RESPONSE = 304;
+    BAD_REQUEST = 400;
+    INVALID_UUID = 401;
+    INVALID_REQUEST = 402;
+    NOT_FOUND = 404;
+    CONFLICT = 409;
+    INTERNAL_ERROR = 500;
+    NOT_IMPLEMENTED = 501;
+    GENERATOR_ERROR = 502;
+  }
+
+  .helper.common.v1.RequestError.ErrorCode code = 1;
+  string description = 2;
+}
+
+message MediaReference {
+  message Progress {
+  }
+
+  message Deleted {
+  }
+
+  message Error {
+    enum ErrorCode {
+      INTERNAL_ERROR = 0;
+      SNAPSHOT_FAILED_ERROR = 1;
+    }
+
+    .helper.common.v1.MediaReference.Error.ErrorCode code = 1;
+    string description = 2;
+  }
+
+  string uuid = 1;
+  oneof state {
+    .helper.common.v1.MediaReferenceInfo success = 2;
+    .helper.common.v1.MediaReference.Error error = 3;
+    .helper.common.v1.MediaReference.Progress progress = 4;
+    .helper.common.v1.MediaReference.Deleted deleted = 5;
+  }
+}
+
+message GenerationStatus {
+  message Idle {
+  }
+
+  message Processing {
+    uint32 count = 1;
+    uint32 total = 2;
+  }
+
+  message Paused {
+    uint64 until_time_utc = 1;
+  }
+
+  oneof status {
+    .helper.common.v1.GenerationStatus.Idle idle = 1;
+    .helper.common.v1.GenerationStatus.Processing processing = 2;
+    .helper.common.v1.GenerationStatus.Paused paused = 3;
+  }
+}
+
+message ChangeShowDirectory {
+  string path = 1;
+}
+
+message Workspace {
+  string path = 1;
+}
+
+message UpdateWorkspaces {
+  repeated .helper.common.v1.Workspace workspaces = 1;
+}
+
+message PauseGeneration {
+  uint64 until_time_utc = 1;
+}
+
+message ResumeGeneration {
+}
+
+message AddMediaReference {
+  string uuid = 1;
+  string url = 2;
+  .helper.common.v1.Priority priority = 3;
+  .helper.common.v1.Transformation transformation = 4;
+}
+
+message DuplicateMediaReference {
+  string source_uuid = 1;
+  string dest_uuid = 2;
+  .helper.common.v1.Priority priority = 3;
+}
+
+message Transformation {
+  repeated .rv.data.Effect effects = 1;
+  float position = 2;
+  int32 rotation = 3;
+  uint32 width = 4;
+  uint32 height = 5;
+  float insets_top = 6;
+  float insets_left = 7;
+  float insets_right = 8;
+  float insets_bottom = 9;
+  bool flip_horizontally = 10;
+  bool flip_vertically = 11;
+  .rv.data.AlphaType alpha_type = 12;
+  bool use_default_native_rotation = 13;
+}
+
+message ApplyTransformation {
+  string uuid = 1;
+  .helper.common.v1.Transformation transformation = 2;
+  .helper.common.v1.Priority priority = 3;
+}
+
+message RemoveMediaReferences {
+  repeated string uuid = 1;
+  bool purge_asset = 2;
+}
+
+message TriggerMediaReference {
+  repeated string uuid = 1;
+}
+
+message Ping {
+  int32 id = 1;
+}
+
+message AddMediaReferenceResponse {
+}
+
+message DuplicateMediaReferenceResponse {
+}
+
+message ApplyTransformationResponse {
+}
+
+message RemoveMediaReferenceResponse {
+}
+
+message TriggerMediaReferenceResponse {
+}
+
+message UpdateWorkspacesResponse {
+}
+
+message PauseGenerationResponse {
+}
+
+message ResumeGenerationResponse {
+}
+
+message UpdatePrefsResponse {
+}
+
+message Pong {
+  int32 id = 1;
+}
+
+enum Priority {
+  Background = 0;
+  UserInitiated = 1;
+}
+

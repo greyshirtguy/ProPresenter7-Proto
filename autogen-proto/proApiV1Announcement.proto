@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Presentation.proto";
+import "proApiV1TimelineOperation.proto";
+
+message API_v1_Announcement_Request {
+  message ActiveTimelineOperation {
+    .rv.data.API_v1_TimelineOperation operation = 1;
+  }
+
+  message ActiveTimelineStatus {
+  }
+
+  message Active {
+  }
+
+  message AnnouncementIndex {
+  }
+
+  message ActiveFocus {
+  }
+
+  message ActiveTrigger {
+  }
+
+  message ActiveNextTrigger {
+  }
+
+  message ActivePreviousTrigger {
+  }
+
+  message ActiveIndexTrigger {
+    uint32 index = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Announcement_Request.ActiveTimelineOperation active_timeline_operation = 1;
+    .rv.data.API_v1_Announcement_Request.ActiveTimelineStatus active_timeline_status = 2;
+    .rv.data.API_v1_Announcement_Request.Active active = 3;
+    .rv.data.API_v1_Announcement_Request.AnnouncementIndex slide_index = 4;
+    .rv.data.API_v1_Announcement_Request.ActiveFocus active_focus = 5;
+    .rv.data.API_v1_Announcement_Request.ActiveTrigger active_trigger = 6;
+    .rv.data.API_v1_Announcement_Request.ActiveNextTrigger active_next_trigger = 7;
+    .rv.data.API_v1_Announcement_Request.ActivePreviousTrigger active_previous_trigger = 8;
+    .rv.data.API_v1_Announcement_Request.ActiveIndexTrigger active_index_trigger = 9;
+  }
+}
+
+message API_v1_Announcement_Response {
+  message ActiveTimelineOperation {
+  }
+
+  message ActiveTimelineStatus {
+    bool is_running = 1;
+    double current_time = 2;
+  }
+
+  message Active {
+    .rv.data.API_v1_Presentation announcement = 1;
+  }
+
+  message SlideIndex {
+    .rv.data.API_v1_SlideIndex announcement_index = 1;
+  }
+
+  message ActiveFocus {
+  }
+
+  message ActiveTrigger {
+  }
+
+  message ActiveNextTrigger {
+  }
+
+  message ActivePreviousTrigger {
+  }
+
+  message ActiveIndexTrigger {
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Announcement_Response.ActiveTimelineOperation active_timeline_operation = 1;
+    .rv.data.API_v1_Announcement_Response.ActiveTimelineStatus active_timeline_status = 2;
+    .rv.data.API_v1_Announcement_Response.Active active = 3;
+    .rv.data.API_v1_Announcement_Response.SlideIndex slide_index = 4;
+    .rv.data.API_v1_Announcement_Response.ActiveFocus active_focus = 5;
+    .rv.data.API_v1_Announcement_Response.ActiveTrigger active_trigger = 6;
+    .rv.data.API_v1_Announcement_Response.ActiveNextTrigger active_next_trigger = 7;
+    .rv.data.API_v1_Announcement_Response.ActivePreviousTrigger active_previous_trigger = 8;
+    .rv.data.API_v1_Announcement_Response.ActiveIndexTrigger active_index_trigger = 9;
+  }
+}
+

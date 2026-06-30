@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package document;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Document";
+option swift_prefix = "RVData_Service_Document_";
+
+message Ready {
+  bytes data = 1;
+}
+
+message Remote {
+}
+
+message Local {
+  uint64 timestamp = 1;
+}
+
+message Intrinsic {
+  enum Kind {
+    Calendar = 0;
+    CCLI = 1;
+    ClearGroups = 2;
+    Groups = 3;
+    KeyMappings = 4;
+    Labels = 5;
+    Macros = 6;
+    Messages = 7;
+    Props = 8;
+    Stage = 9;
+    Timers = 10;
+    Workspace = 11;
+    LibraryData = 12;
+    PlaylistAudio = 13;
+    PlaylistLibrary = 14;
+    PlaylistMedia = 15;
+    PlaylistTemplates = 16;
+  }
+
+  string uuid = 1;
+  .document.Intrinsic.Kind kind = 2;
+  bytes body = 3;
+}
+
+message Document {
+  enum Kind {
+    PRESENTATION = 0;
+    THEME = 1;
+  }
+
+  string uuid = 1;
+  string path = 2;
+  oneof body {
+    .document.Ready ready = 10;
+    .document.Local local = 11;
+    .document.Remote remote = 12;
+  }
+}
+
+message DocumentSet {
+  repeated .document.Intrinsic intrinsics = 1;
+  repeated .document.Document presentations = 2;
+  repeated .document.Document themes = 3;
+}
+

@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1LayerType.proto";
+
+message API_v1_Transport_Request {
+  message Play {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  message Pause {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  message SkipBackward {
+    .rv.data.API_v1_LayerType layer = 1;
+    double seconds = 2;
+  }
+
+  message SkipForward {
+    .rv.data.API_v1_LayerType layer = 1;
+    double seconds = 2;
+  }
+
+  message GoToEnd {
+    .rv.data.API_v1_LayerType layer = 1;
+    double seconds = 2;
+  }
+
+  message GetTime {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  message PutTime {
+    .rv.data.API_v1_LayerType layer = 1;
+    double seconds = 2;
+  }
+
+  message GetAutoAdvance {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  message DeleteAutoAdvance {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  message GetCurrentMedia {
+    .rv.data.API_v1_LayerType layer = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Transport_Request.Play play = 1;
+    .rv.data.API_v1_Transport_Request.Pause pause = 2;
+    .rv.data.API_v1_Transport_Request.SkipBackward skip_backward = 3;
+    .rv.data.API_v1_Transport_Request.SkipForward skip_forward = 4;
+    .rv.data.API_v1_Transport_Request.GoToEnd go_to_end = 5;
+    .rv.data.API_v1_Transport_Request.GetTime get_time = 6;
+    .rv.data.API_v1_Transport_Request.PutTime put_time = 7;
+    .rv.data.API_v1_Transport_Request.GetAutoAdvance get_auto_advance = 8;
+    .rv.data.API_v1_Transport_Request.DeleteAutoAdvance delete_auto_advance = 9;
+    .rv.data.API_v1_Transport_Request.GetCurrentMedia get_current_media = 10;
+  }
+}
+
+message API_v1_Transport_Response {
+  message Play {
+  }
+
+  message Pause {
+  }
+
+  message SkipBackward {
+  }
+
+  message SkipForward {
+  }
+
+  message GoToEnd {
+  }
+
+  message GetTime {
+    double seconds = 1;
+  }
+
+  message PutTime {
+  }
+
+  message GetAutoAdvance {
+    bool auto_advance = 1;
+  }
+
+  message DeleteAutoAdvance {
+  }
+
+  message GetCurrentMedia {
+    bool is_playing = 1;
+    string uuid = 2;
+    string name = 3;
+    string artist = 4;
+    bool audio_only = 5;
+    double duration = 6;
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Transport_Response.Play play = 1;
+    .rv.data.API_v1_Transport_Response.Pause pause = 2;
+    .rv.data.API_v1_Transport_Response.SkipBackward skip_backward = 3;
+    .rv.data.API_v1_Transport_Response.SkipForward skip_forward = 4;
+    .rv.data.API_v1_Transport_Response.GoToEnd go_to_end = 5;
+    .rv.data.API_v1_Transport_Response.GetTime get_time = 6;
+    .rv.data.API_v1_Transport_Response.PutTime put_time = 7;
+    .rv.data.API_v1_Transport_Response.GetAutoAdvance get_auto_advance = 8;
+    .rv.data.API_v1_Transport_Response.DeleteAutoAdvance delete_auto_advance = 9;
+    .rv.data.API_v1_Transport_Response.GetCurrentMedia get_current_media = 10;
+  }
+}
+

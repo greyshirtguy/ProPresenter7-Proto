@@ -1,0 +1,210 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "customOptions.proto";
+import "intRange.proto";
+import "uuid.proto";
+
+message CommunicationDevice {
+  message SerialHardware {
+    enum Speed {
+      SPEED_1200 = 0;
+      SPEED_1800 = 1;
+      SPEED_2400 = 2;
+      SPEED_4800 = 3;
+      SPEED_7200 = 4;
+      SPEED_9600 = 5;
+      SPEED_14400 = 7;
+      SPEED_19200 = 8;
+      SPEED_28800 = 9;
+      SPEED_38400 = 10;
+      SPEED_57600 = 11;
+      SPEED_62500 = 12;
+      SPEED_76800 = 13;
+      SPEED_115200 = 14;
+      SPEED_230400 = 15;
+    }
+
+    enum DataBits {
+      DATA_BITS_5 = 0;
+      DATA_BITS_6 = 1;
+      DATA_BITS_7 = 2;
+      DATA_BITS_8 = 3;
+    }
+
+    enum Parity {
+      PARITY_NONE = 0;
+      PARITY_ODD = 1;
+      PARITY_EVEN = 2;
+    }
+
+    enum StopBits {
+      STOP_BITS_1 = 0;
+      STOP_BITS_2 = 1;
+    }
+
+    enum HFCI {
+      HFCI_NONE = 0;
+      HFCI_RTS = 1;
+      HFCI_DTR = 2;
+    }
+
+    enum HFCO {
+      HFCO_NONE = 0;
+      HFCO_CTS = 1;
+      HFCO_DSR = 2;
+      HFCO_CAR = 3;
+    }
+
+    string interface_id = 1;
+    string name = 2;
+    .rv.data.CommunicationDevice.SerialHardware.Speed speed = 3;
+    .rv.data.CommunicationDevice.SerialHardware.DataBits data_bits = 4;
+    .rv.data.CommunicationDevice.SerialHardware.Parity parity = 5;
+    .rv.data.CommunicationDevice.SerialHardware.StopBits stop_bits = 6;
+    .rv.data.CommunicationDevice.SerialHardware.HFCI hfci = 7;
+    .rv.data.CommunicationDevice.SerialHardware.HFCO hfco = 8;
+  }
+
+  message TCPHardware {
+    enum Mode {
+      MODE_CONNECT_TO = 0;
+      MODE_ACCEPT_ON = 1;
+    }
+
+    string interface_id = 1;
+    string name = 2;
+    string address = 3;
+    uint32 port = 4;
+    .rv.data.CommunicationDevice.TCPHardware.Mode mode = 5;
+  }
+
+  message UDPHardware {
+    enum Mode {
+      MODE_CONNECT = 0;
+      MODE_LISTEN = 1;
+      MODE_MULTICAST_LISTEN = 2;
+      MODE_BROADCAST = 3;
+    }
+
+    string interface_id = 1;
+    string name = 2;
+    string address = 3;
+    uint32 port = 4;
+    .rv.data.CommunicationDevice.UDPHardware.Mode mode = 5;
+  }
+
+  message ArtnetHardware {
+  }
+
+  message MIDIHardware {
+  }
+
+  enum DeviceType {
+    DEVICE_TYPE_DMX = 0;
+    DEVICE_TYPE_MIDI = 1;
+    DEVICE_TYPE_AMP = 2;
+    DEVICE_TYPE_CITP = 3;
+    DEVICE_TYPE_GLOBAL_CACHE = 4;
+    DEVICE_TYPE_GVG100 = 5;
+    DEVICE_TYPE_ROSSTALK = 6;
+    DEVICE_TYPE_SONY_BVS = 7;
+    DEVICE_TYPE_SONY_BVW = 8;
+    DEVICE_TYPE_VDCP = 9;
+    DEVICE_TYPE_ALL_AMERICAN_8000 = 10;
+    DEVICE_TYPE_ALL_AMERICAN_9000 = 11;
+    DEVICE_TYPE_DAKTRONICS = 12;
+    DEVICE_TYPE_DAKTRONICS_TV = 13;
+    DEVICE_TYPE_ELECTRO_MECH = 14;
+    DEVICE_TYPE_EVERSAN = 15;
+    DEVICE_TYPE_FAIR_PLAY_MP70 = 16;
+    DEVICE_TYPE_HARRIS = 17;
+    DEVICE_TYPE_JUGS = 18;
+    DEVICE_TYPE_OES = 19;
+    DEVICE_TYPE_SCOREBIRD = 20;
+    DEVICE_TYPE_SCOREBOT = 21;
+    DEVICE_TYPE_STALKER = 22;
+    DEVICE_TYPE_STAT_CREW = 23;
+  }
+
+  enum Behavior {
+    BEHAVIOR_CONTROLLER = 0;
+    BEHAVIOR_DEVICE = 1;
+  }
+
+  .rv.data.UUID id = 1;
+  string name = 2;
+  .rv.data.CommunicationDevice.DeviceType device_type = 3;
+  .rv.data.CommunicationDevice.Behavior behavior = 4;
+  bool connected = 5;
+  bool auto_reconnect = 6;
+  repeated .rv.data.CommunicationDeviceOption options = 12;
+  oneof HardwareType {
+    .rv.data.CommunicationDevice.SerialHardware serial = 7;
+    .rv.data.CommunicationDevice.TCPHardware tcp_network = 8;
+    .rv.data.CommunicationDevice.UDPHardware udp_network = 9;
+    .rv.data.CommunicationDevice.ArtnetHardware artnet = 10;
+    .rv.data.CommunicationDevice.MIDIHardware midi = 11;
+  }
+}
+
+message CommunicationDeviceCloud {
+  .rv.data.UUID id = 1;
+  string name = 2;
+  .rv.data.CommunicationDevice.DeviceType device_type = 3;
+  .rv.data.CommunicationDevice.Behavior behavior = 4;
+}
+
+message CommunicationDeviceLocal {
+  .rv.data.UUID id = 1;
+  bool connected = 2;
+  bool auto_reconnect = 3;
+  string bundle_name = 4;
+  string bundle_identifier = 5;
+  repeated .rv.data.CommunicationDeviceOption options = 11;
+  oneof HardwareType {
+    .rv.data.CommunicationDevice.SerialHardware serial = 6;
+    .rv.data.CommunicationDevice.TCPHardware tcp_network = 7;
+    .rv.data.CommunicationDevice.UDPHardware udp_network = 8;
+    .rv.data.CommunicationDevice.ArtnetHardware artnet = 9;
+    .rv.data.CommunicationDevice.MIDIHardware midi = 10;
+  }
+}
+
+message ProPresenterCommunications {
+  repeated .rv.data.CommunicationDeviceCloud devices = 1;
+}
+
+message ProPresenterLocalCommunications {
+  repeated .rv.data.CommunicationDeviceLocal devices = 1;
+}
+
+message CommunicationCommand {
+  message Parameters {
+    string name = 1;
+    .rv.data.IntRange replacement_range = 2;
+    repeated string possible_values = 3;
+    string value = 4;
+  }
+
+  string name = 1;
+  string description = 2;
+  string format = 3;
+  repeated .rv.data.CommunicationCommand.Parameters parameters = 4;
+}
+
+message CommunicationDeviceOption {
+  message OESProMode {
+    bool enable = 1;
+  }
+
+  oneof OptionType {
+    .rv.data.CommunicationDeviceOption.OESProMode oes_pro_mode = 1;
+  }
+}
+

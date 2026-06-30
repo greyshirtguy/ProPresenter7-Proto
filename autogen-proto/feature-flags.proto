@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package feature_flags;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.FeatureFlags";
+option swift_prefix = "RVData_FeatureFlags_";
+
+message CreationOption {
+}
+
+message Flag {
+  string name = 1;
+  bool enabled = 2;
+}
+
+message AllFlags {
+  repeated .feature_flags.Flag flags = 1;
+}
+
+message Notification {
+  message UnsubscribeComplete {
+  }
+
+  oneof notification {
+    .feature_flags.AllFlags all_flags = 1;
+    .feature_flags.Notification.UnsubscribeComplete unsubscribe_complete = 2;
+  }
+}
+

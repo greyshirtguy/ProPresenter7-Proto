@@ -1,0 +1,291 @@
+syntax = "proto3";
+
+package textdoc;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.TextDoc";
+option swift_prefix = "RVData_TextDoc_";
+
+message Document {
+  message Color {
+    double red = 1;
+    double green = 2;
+    double blue = 3;
+    double alpha = 4;
+  }
+
+  message DocumentSettings {
+    message Margins {
+      double left = 1;
+      double top = 2;
+      double right = 3;
+      double bottom = 4;
+    }
+
+    message Shadow {
+      bool enabled = 1;
+      double blur_radius = 2;
+      double opacity = 3;
+      .textdoc.Document.Color color = 4;
+      double angle = 5;
+      double offset = 6;
+    }
+
+    enum DocumentAlignment {
+      DocumentAlignment_Top = 0;
+      DocumentAlignment_Middle = 1;
+      DocumentAlignment_Bottom = 2;
+    }
+
+    enum TextTransform {
+      TextTransform_None = 0;
+      TextTransform_RemoveLineReturns = 1;
+      TextTransform_ReplaceLineReturns = 2;
+      TextTransform_SingleWordPerLine = 3;
+      TextTransform_SingleCharacterPerLine = 4;
+    }
+
+    enum ScaleMode {
+      ScaleMode_None = 0;
+      ScaleMode_AdjustContainerHeight = 1;
+      ScaleMode_Up = 2;
+      ScaleMode_Down = 3;
+      ScaleMode_UpOrDown = 4;
+    }
+
+    .textdoc.Document.DocumentSettings.DocumentAlignment alignment = 1;
+    .textdoc.Document.DocumentSettings.TextTransform transform = 2;
+    string delimiter = 3;
+    .textdoc.Document.DocumentSettings.ScaleMode scale_mode = 4;
+    double layout_width = 5;
+    .textdoc.Document.DocumentSettings.Margins margins = 6;
+    .textdoc.Document.DocumentSettings.Shadow shadow = 7;
+    bool has_explicit_margins = 8;
+  }
+
+  message LevelSettings {
+    enum FollowType {
+      FollowType_Nothing = 0;
+      FollowType_Space = 1;
+      FollowType_Tab = 2;
+    }
+
+    enum NumberingScheme {
+      NumberingScheme_Arabic = 0;
+      NumberingScheme_ArabicWithLeadingZero = 1;
+      NumberingScheme_OrdinalNumber = 2;
+      NumberingScheme_UppercaseRomanNumeral = 3;
+      NumberingScheme_LowercaseRomanNumeral = 4;
+      NumberingScheme_UppercaseLetter = 5;
+      NumberingScheme_LowercaseLetter = 6;
+      NumberingScheme_LowercaseRussianAlphabet = 7;
+      NumberingScheme_UppercaseRussianAlphabet = 8;
+      NumberingScheme_LowercaseGreekNumerals = 9;
+      NumberingScheme_UppercaseGreekNumerals = 10;
+    }
+
+    enum BulletType {
+      BulletType_Dash = 0;
+      BulletType_HyphenDash = 1;
+      BulletType_SmallCircle = 2;
+      BulletType_Circle = 3;
+      BulletType_SmallOpenCircle = 4;
+      BulletType_OpenCircle = 5;
+      BulletType_SmallSquare = 6;
+      BulletType_Square = 7;
+      BulletType_SmallOpenSquare = 8;
+      BulletType_OpenSquare = 9;
+      BulletType_Checkmark = 10;
+      BulletType_HeavyCheckmark = 11;
+      BulletType_Diamond = 12;
+      BulletType_OpenDiamond = 13;
+    }
+
+    .textdoc.Document.LevelSettings.FollowType follow_type = 1;
+    .textdoc.Document.LevelSettings.NumberingScheme numbering_scheme = 2;
+    .textdoc.Document.LevelSettings.BulletType bullet_type = 3;
+    bool is_bullet = 4;
+    string prefix = 5;
+    string suffix = 6;
+    string numbering_format = 7;
+    int32 start_number = 8;
+    int32 level_index = 9;
+  }
+
+  message ListSettings {
+    repeated .textdoc.Document.LevelSettings level_settings = 1;
+  }
+
+  message TableSettings {
+  }
+
+  message TabStop {
+    double position = 1;
+    .textdoc.Document.TabStopType type = 2;
+  }
+
+  message ParagraphSettings {
+    .textdoc.Document.ParagraphAlignment alignment = 1;
+    .textdoc.Document.LineSpacingMode spacing_mode = 2;
+    double line_spacing = 3;
+    double additional_line_spacing = 4;
+    double before_paragraph = 5;
+    double after_paragraph = 6;
+    double left_indent = 7;
+    double right_indent = 8;
+    .textdoc.Document.RightIndentMode right_indent_mode = 9;
+    double first_line_indent = 10;
+    int32 list_index = 11;
+    int32 level_index = 12;
+    .textdoc.Document.Color bullet_color = 13;
+    double bullet_scale = 14;
+    repeated .textdoc.Document.TabStop tab_stops = 15;
+    string list_override_text = 16;
+    double default_tab_stop = 17;
+  }
+
+  message FontInfo {
+    string system_family_name = 1;
+    string system_face_name = 2;
+    string display_family_name = 3;
+    string display_face_name = 4;
+    string full_name = 5;
+    string postscript_name = 6;
+    repeated string alternate_postscript_names = 7;
+    uint32 weight = 8;
+    uint32 width = 9;
+    bool is_italic = 10;
+    uint32 variant_index = 11;
+    repeated string other_properties = 12;
+  }
+
+  message SolidFill {
+    .textdoc.Document.Color color = 1;
+  }
+
+  message GradientFill {
+    double angle = 1;
+    bool stretch_to_document_bounds = 2;
+    repeated .textdoc.Document.Color colors = 3;
+  }
+
+  message CutOutFill {
+  }
+
+  message Media {
+  }
+
+  message MediaFill {
+    string uuid = 1;
+    bool stretch_to_document_bounds = 2;
+    .textdoc.Document.Media media = 3;
+  }
+
+  message BackgroundBlurFill {
+    double blur = 1;
+    double saturation = 2;
+  }
+
+  message BackgroundInvertFill {
+  }
+
+  message RunSettings {
+    message TextFill {
+      oneof fill {
+        .textdoc.Document.SolidFill solid_fill = 1;
+        .textdoc.Document.GradientFill gradient_fill = 2;
+        .textdoc.Document.CutOutFill cut_out_fill = 3;
+        .textdoc.Document.MediaFill media_fill = 4;
+        .textdoc.Document.BackgroundBlurFill background_blur_fill = 5;
+        .textdoc.Document.BackgroundInvertFill background_invert_fill = 6;
+      }
+    }
+
+    message Stroke {
+      double thickness = 1;
+      .textdoc.Document.Color color = 2;
+    }
+
+    enum CharacterSizeMode {
+      CharacterSizeMode_Normal = 0;
+      CharacterSizeMode_ScaledByDocumentHeight = 1;
+      CharacterSizeMode_ScaledByDocumentWidth = 2;
+    }
+
+    enum CapitalizationType {
+      CapitalizationType_None = 0;
+      CapitalizationType_AllCaps = 1;
+      CapitalizationType_LowerCase = 2;
+      CapitalizationType_SmallCaps = 3;
+      CapitalizationType_TitleCase = 4;
+      CapitalizationType_StartCase = 5;
+    }
+
+    .textdoc.Document.FontInfo font = 1;
+    double character_size = 2;
+    .textdoc.Document.RunSettings.CharacterSizeMode character_size_mode = 3;
+    double character_spacing = 4;
+    int32 script_level = 5;
+    .textdoc.Document.RunSettings.TextFill text_fill = 6;
+    .textdoc.Document.Color highlight_color = 7;
+    .textdoc.Document.RunSettings.Stroke stroke = 8;
+    bool underline = 9;
+    .textdoc.Document.Color underline_color = 10;
+    bool strike_through = 11;
+    .textdoc.Document.RunSettings.CapitalizationType capitalization_type = 12;
+    bool tabular_numbers = 13;
+    bool preserve_fill_color = 14;
+    bool kerning = 15;
+    bool ligatures = 16;
+    double font_scale_factor = 17;
+  }
+
+  message Run {
+    .textdoc.Document.RunSettings run_settings = 1;
+    string text = 2;
+  }
+
+  message Paragraph {
+    .textdoc.Document.ParagraphSettings paragraph_settings = 1;
+    repeated .textdoc.Document.Run runs = 2;
+    .textdoc.Document.RunSettings default_run_settings = 3;
+  }
+
+  message DocumentAttributes {
+    .textdoc.Document.ParagraphSettings paragraph_settings = 1;
+    .textdoc.Document.RunSettings run_settings = 2;
+  }
+
+  enum ParagraphAlignment {
+    ParagraphAlignment_Left = 0;
+    ParagraphAlignment_Center = 1;
+    ParagraphAlignment_Right = 2;
+    ParagraphAlignment_Justified = 3;
+  }
+
+  enum LineSpacingMode {
+    LineSpacingMode_Absolute = 0;
+    LineSpacingMode_Relative = 1;
+    LineSpacingMode_Multiple = 2;
+  }
+
+  enum RightIndentMode {
+    RightIndentMode_FromRight = 0;
+    RightIndentMode_FromLeft = 1;
+  }
+
+  enum TabStopType {
+    TabStopType_Left = 0;
+    TabStopType_Right = 1;
+    TabStopType_Center = 2;
+    TabStopType_Decimal = 3;
+  }
+
+  .textdoc.Document.DocumentSettings document_settings = 1;
+  .textdoc.Document.DocumentAttributes document_attributes = 2;
+  repeated .textdoc.Document.ListSettings list_settings = 3;
+  .textdoc.Document.TableSettings table_settings = 4;
+  repeated .textdoc.Document.Paragraph paragraphs = 5;
+  double width = 6;
+  double height = 7;
+}
+

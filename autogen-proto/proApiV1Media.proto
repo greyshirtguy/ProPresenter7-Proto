@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "google/protobuf/wrappers.proto";
+import "proApiV1Identifier.proto";
+import "proApiV1MediaPlaylistItem.proto";
+import "proApiV1Playlist.proto";
+import "uuid.proto";
+
+message API_v1_Media_Request {
+  message Playlists {
+  }
+
+  message GetPlaylist {
+    string id = 1;
+    uint32 start = 4;
+  }
+
+  message GetPlaylistUpdates {
+    string id = 1;
+  }
+
+  message GetThumbnail {
+    .rv.data.UUID uuid = 1;
+    int32 quality = 2;
+  }
+
+  message EmptyMessage {
+  }
+
+  message FocusMessage {
+    oneof Playlist {
+      .rv.data.API_v1_Media_Request.EmptyMessage next = 1;
+      .rv.data.API_v1_Media_Request.EmptyMessage previous = 2;
+      .rv.data.API_v1_Media_Request.EmptyMessage active = 3;
+      .google.protobuf.StringValue id = 4;
+    }
+  }
+
+  message TriggerMessage {
+    oneof Playlist {
+      .rv.data.API_v1_Media_Request.EmptyMessage focused = 1;
+      .rv.data.API_v1_Media_Request.EmptyMessage active = 2;
+      .google.protobuf.StringValue playlist_id = 3;
+    }
+    oneof Item {
+      .rv.data.API_v1_Media_Request.EmptyMessage start = 4;
+      .rv.data.API_v1_Media_Request.EmptyMessage next = 5;
+      .rv.data.API_v1_Media_Request.EmptyMessage previous = 6;
+      .google.protobuf.StringValue media_id = 7;
+    }
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Media_Request.Playlists playlists = 1;
+    .rv.data.API_v1_Media_Request.GetPlaylist get_playlist = 2;
+    .rv.data.API_v1_Media_Request.GetPlaylistUpdates get_playlist_updates = 3;
+    .rv.data.API_v1_Media_Request.GetThumbnail get_thumbnail = 4;
+    .rv.data.API_v1_Media_Request.EmptyMessage playlist_focused = 5;
+    .rv.data.API_v1_Media_Request.EmptyMessage playlist_active = 6;
+    .rv.data.API_v1_Media_Request.FocusMessage focus = 7;
+    .rv.data.API_v1_Media_Request.TriggerMessage trigger = 8;
+  }
+}
+
+message API_v1_Media_Response {
+  message Playlists {
+    repeated .rv.data.API_v1_Playlist playlists = 1;
+  }
+
+  message GetPlaylist {
+    .rv.data.API_v1_Identifier id = 1;
+    repeated .rv.data.API_v1_MediaPlaylistItem items = 2;
+  }
+
+  message GetPlaylistUpdates {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message GetThumbnail {
+    .rv.data.UUID uuid = 1;
+    bytes thumbnail_data = 2;
+  }
+
+  message GetFocusedPlaylist {
+    .rv.data.API_v1_Identifier id = 1;
+  }
+
+  message GetActivePlaylist {
+    .rv.data.API_v1_Identifier playlist = 1;
+    .rv.data.API_v1_Identifier item = 2;
+  }
+
+  message EmptyMessage {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Media_Response.Playlists playlists = 1;
+    .rv.data.API_v1_Media_Response.GetPlaylist get_playlist = 2;
+    .rv.data.API_v1_Media_Response.GetPlaylistUpdates get_playlist_updates = 3;
+    .rv.data.API_v1_Media_Response.GetThumbnail get_thumbnail = 4;
+    .rv.data.API_v1_Media_Response.GetFocusedPlaylist playlist_focused = 5;
+    .rv.data.API_v1_Media_Response.GetActivePlaylist playlist_active = 6;
+    .rv.data.API_v1_Media_Response.EmptyMessage focus = 7;
+    .rv.data.API_v1_Media_Response.EmptyMessage trigger = 8;
+  }
+}
+

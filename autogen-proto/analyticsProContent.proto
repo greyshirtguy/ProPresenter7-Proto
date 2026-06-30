@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package rv.analytics.procontent;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.ProContent";
+option swift_prefix = "Analytics_ProContent_";
+
+message MediaBinView {
+}
+
+message Download {
+}
+
+message DownloadRetry {
+}
+

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+message DMXProfiles {
+  message DMXProfile {
+    message Profile {
+      .rv.data.DMXProfiles.DMXProfile.ProfileType profileType = 1;
+      oneof startingChannel_oneof {
+        uint32 startingChannel = 2;
+      }
+    }
+
+    message ChannelMapping {
+      uint32 channelIndex = 1;
+      .rv.data.DMXProfiles.DMXProfile.CommandType command = 2;
+    }
+
+    message Fixture {
+      .rv.data.DMXProfiles.DMXProfile.FixtureType fixtureType = 1;
+      oneof layerIndex_oneof {
+        uint32 layerIndex = 2;
+      }
+    }
+
+    enum ProfileType {
+      BASIC = 0;
+      ADVANCED = 1;
+      CUSTOM = 2;
+    }
+
+    enum FixtureType {
+      WORKSPACE = 0;
+      LAYER = 1;
+    }
+
+    enum CommandType {
+      OPACITY = 0;
+      BLEND_MODE = 1;
+      SELECT_CUE = 2;
+      CONTROL_TYPE = 3;
+      CONTROL_VALUE = 4;
+      TRANSITION_DURATION = 5;
+      SELECT_PLAYLIST = 6;
+      TARGETED_LAYER = 7;
+    }
+
+    .rv.data.DMXProfiles.DMXProfile.Profile profile = 1;
+    .rv.data.DMXProfiles.DMXProfile.Fixture fixture = 2;
+    bool isEnabled = 3;
+    repeated .rv.data.DMXProfiles.DMXProfile.ChannelMapping customMappings = 4;
+  }
+
+  .rv.data.DMXProfiles.DMXProfile workspaceProfile = 1;
+  repeated .rv.data.DMXProfiles.DMXProfile layerProfiles = 2;
+}
+

@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package document.call;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Document.Call";
+option swift_prefix = "RVData_Service_Document_Call_";
+
+import "document.entities.proto";
+
+message Error {
+  enum Code {
+    UNKNOWN = 0;
+  }
+
+  .document.call.Error.Code code = 1;
+  string description = 2;
+}
+
+message Patch {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .document.call.Patch.Result.Ok ok = 1;
+      .document.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  bytes patch = 2;
+}
+
+message Load {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .document.call.Load.Result.Ok ok = 1;
+      .document.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  bytes blob = 2;
+}
+
+message Add {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .document.call.Add.Result.Ok ok = 1;
+      .document.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  .document.Document.Kind kind = 2;
+  string path = 3;
+  bytes data = 11;
+}
+
+message Remove {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .document.call.Remove.Result.Ok ok = 1;
+      .document.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  .document.Document.Kind kind = 2;
+}
+
+message Relocate {
+  message Result {
+    message Ok {
+    }
+
+    oneof result {
+      .document.call.Relocate.Result.Ok ok = 1;
+      .document.call.Error error = 2;
+    }
+  }
+
+  string uuid = 1;
+  .document.Document.Kind kind = 2;
+  string path = 3;
+}
+

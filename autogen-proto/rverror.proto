@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package rverror;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.RVError";
+option swift_prefix = "RVData_RVError_";
+
+message ReportedError {
+  enum Severity {
+    HANDLED = 0;
+    FATAL = 1;
+  }
+
+  string description = 1;
+  string type = 2;
+  string file = 3;
+  uint32 line = 4;
+  .rverror.ReportedError.Severity severity = 5;
+}
+

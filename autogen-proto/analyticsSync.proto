@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package rv.analytics.sync;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Sync";
+option swift_prefix = "Analytics_Sync_";
+
+message Local {
+  enum Type {
+    UP = 0;
+    DOWN = 1;
+  }
+
+  .rv.analytics.sync.Local.Type sync_type = 1;
+  bool include_library = 2;
+  bool include_media = 3;
+  bool include_playlists = 4;
+  bool include_themes = 5;
+  bool include_support_files = 6;
+  bool replace_files = 7;
+}
+
+message WebSocketConnectionFailed {
+  .rv.analytics.sync.WebSocketFailureReason reason = 1;
+  string url = 2;
+  string error_description = 3;
+}
+
+enum WebSocketFailureReason {
+  UNKNOWN = 0;
+  AUTHENTICATION = 1;
+  TIMEOUT = 2;
+  NO_INTERNET = 3;
+  SERVER_ERROR = 4;
+}
+

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pptimport;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.PPTImport";
+option swift_prefix = "RVData_PPTImport_";
+
+message PPTImportParams {
+  string pptx_path = 1;
+  string result_folder_path = 2;
+  uint32 slide_width = 3;
+  uint32 slide_height = 4;
+  bool ignore_backgrounds = 5;
+}
+

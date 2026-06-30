@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Look {
+  .rv.data.API_v1_Identifier id = 1;
+  repeated .rv.data.API_v1_Screen screens = 2;
+}
+
+message API_v1_Screen {
+  bool video_input = 1;
+  bool media = 2;
+  bool slide = 3;
+  bool announcements = 4;
+  bool props = 5;
+  bool messages = 6;
+  string presentation = 7;
+  string mask = 8;
+}
+
+message API_v1_Looks_Request {
+  message Looks {
+  }
+
+  message CreateLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message GetCurrentLook {
+  }
+
+  message PutCurrentLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message GetLook {
+    string id = 1;
+  }
+
+  message PutLook {
+    string id = 1;
+    .rv.data.API_v1_Look look = 2;
+  }
+
+  message DeleteLook {
+    string id = 1;
+  }
+
+  message TriggerLook {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Looks_Request.Looks looks = 1;
+    .rv.data.API_v1_Looks_Request.CreateLook create_look = 2;
+    .rv.data.API_v1_Looks_Request.GetCurrentLook get_current_look = 3;
+    .rv.data.API_v1_Looks_Request.PutCurrentLook put_current_look = 4;
+    .rv.data.API_v1_Looks_Request.GetLook get_look = 5;
+    .rv.data.API_v1_Looks_Request.PutLook put_look = 6;
+    .rv.data.API_v1_Looks_Request.DeleteLook delete_look = 7;
+    .rv.data.API_v1_Looks_Request.TriggerLook trigger_look = 8;
+  }
+}
+
+message API_v1_Looks_Response {
+  message Looks {
+    repeated .rv.data.API_v1_Look looks = 1;
+  }
+
+  message CreateLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message GetCurrentLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message PutCurrentLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message GetLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message PutLook {
+    .rv.data.API_v1_Look look = 1;
+  }
+
+  message DeleteLook {
+  }
+
+  message TriggerLook {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Looks_Response.Looks looks = 1;
+    .rv.data.API_v1_Looks_Response.CreateLook create_look = 2;
+    .rv.data.API_v1_Looks_Response.GetCurrentLook get_current_look = 3;
+    .rv.data.API_v1_Looks_Response.PutCurrentLook put_current_look = 4;
+    .rv.data.API_v1_Looks_Response.GetLook get_look = 5;
+    .rv.data.API_v1_Looks_Response.PutLook put_look = 6;
+    .rv.data.API_v1_Looks_Response.DeleteLook delete_look = 7;
+    .rv.data.API_v1_Looks_Response.TriggerLook trigger_look = 8;
+  }
+}
+

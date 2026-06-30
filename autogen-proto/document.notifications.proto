@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package document;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Document";
+option swift_prefix = "RVData_Service_Document_";
+
+import "document.entities.proto";
+
+message Notification {
+  message UnsubscribeComplete {
+  }
+
+  message Patch {
+    string uuid = 1;
+    bytes blob = 2;
+  }
+
+  message Required {
+    string uuid = 1;
+  }
+
+  message Available {
+    string uuid = 1;
+    bytes blob = 2;
+  }
+
+  message Added {
+    string uuid = 1;
+    .document.Document.Kind kind = 2;
+    string path = 3;
+  }
+
+  message Moved {
+    string uuid = 1;
+    .document.Document.Kind kind = 2;
+    string path = 3;
+  }
+
+  message Removed {
+    string uuid = 1;
+    .document.Document.Kind kind = 2;
+    string path = 3;
+  }
+
+  oneof notification {
+    .document.Notification.UnsubscribeComplete unsubscribe = 1;
+    .document.Notification.Patch patch = 2;
+    .document.Notification.Required required = 3;
+    .document.Notification.Available available = 4;
+    .document.Notification.Added added = 5;
+    .document.Notification.Moved moved = 6;
+    .document.Notification.Removed removed = 7;
+  }
+}
+

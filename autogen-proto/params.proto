@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package application;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Application";
+option swift_prefix = "RVData_Application_";
+
+import "v1-helper-common.proto";
+import "v2-helper-common.proto";
+import "feature-flags.proto";
+import "document.bootstrap.proto";
+import "workspace.bootstrap.proto";
+
+message ProductInformation {
+  string product_name = 1;
+  string major_version = 2;
+  string minor_version = 3;
+  string patch_version = 4;
+  string build_number = 5;
+  int64 build_date = 6;
+}
+
+message ApplicationParams {
+  .application.ProductInformation product_info = 1;
+  repeated string enabled_features = 2;
+  optional uint64 peer_id = 3;
+}
+
+message ApplicationStartParams {
+  reserved 5;
+  .application.ApplicationParams application = 1;
+  .helper.common.v1.CreationOption media_v1 = 2;
+  .helper.common.v2.CreationOption media = 3;
+  .feature_flags.CreationOption feature_flags = 4;
+  .application.RegistrationCreationOption registration = 6;
+  .document.CreationOption document = 7;
+  .workspace.CreationOption workspace = 8;
+}
+
+message RegistrationCreationOption {
+}
+
+message Shutdown {
+  oneof result {
+    string ok = 1;
+    string error = 2;
+  }
+}
+

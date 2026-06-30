@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package workspace;
+
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Service.Workspace";
+option swift_prefix = "RVData_Service_Workspace_";
+
+import "workspace.entities.remote.proto";
+
+message Notification {
+  message UnsubscribeComplete {
+  }
+
+  message Workspaces {
+    message WorkspaceList {
+      repeated .workspace.remote.Metadata workspaces = 1;
+    }
+
+    message Uninitialized {
+    }
+
+    message Error {
+    }
+
+    oneof state {
+      .workspace.Notification.Workspaces.WorkspaceList initialized = 1;
+      .workspace.Notification.Workspaces.Uninitialized uninitialized = 2;
+      .workspace.Notification.Workspaces.Error error = 3;
+    }
+  }
+
+  message Collaborators {
+    repeated string online = 1;
+  }
+
+  message Syncing {
+    message Paused {
+      uint64 until_time_utc = 1;
+      uint64 at_time_utc = 2;
+    }
+
+    optional .workspace.Notification.Syncing.Paused paused = 1;
+  }
+
+  oneof notification {
+    .workspace.Notification.UnsubscribeComplete unsubscribe = 1;
+    .workspace.Notification.Workspaces workspaces = 2;
+    .workspace.Notification.Collaborators collaborators = 3;
+    .workspace.Notification.Syncing syncing = 4;
+  }
+}
+

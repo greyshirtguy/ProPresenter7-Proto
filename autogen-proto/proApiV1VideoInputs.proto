@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Video_Inputs_Request {
+  message GetAll {
+  }
+
+  message Trigger {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Video_Inputs_Request.GetAll get_all = 1;
+    .rv.data.API_v1_Video_Inputs_Request.Trigger trigger = 2;
+  }
+}
+
+message API_v1_Video_Inputs_Response {
+  message GetAll {
+    repeated .rv.data.API_v1_Identifier inputs = 1;
+  }
+
+  message Trigger {
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Video_Inputs_Response.GetAll get_all = 1;
+    .rv.data.API_v1_Video_Inputs_Response.Trigger trigger = 2;
+  }
+}
+

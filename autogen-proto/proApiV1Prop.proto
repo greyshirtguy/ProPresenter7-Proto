@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "proApiV1Identifier.proto";
+
+message API_v1_Transition {
+  string uuid = 1;
+  string name = 2;
+  double duration = 3;
+}
+
+message API_v1_PropData {
+  .rv.data.API_v1_Identifier id = 1;
+  bool is_active = 2;
+  bool auto_clear_enabled = 3;
+  double auto_clear_duration = 4;
+  .rv.data.API_v1_Transition transition = 5;
+}
+
+message API_v1_PropCollection {
+  .rv.data.API_v1_Identifier id = 1;
+  repeated .rv.data.API_v1_PropData props = 2;
+  bool single_prop_enabled = 3;
+}
+
+message API_v1_Prop_Request {
+  message Props {
+  }
+
+  message GetProp {
+    string id = 1;
+  }
+
+  message PutProp {
+    message AutoClearChange {
+      bool auto_clear_enabled = 1;
+      double auto_clear_duration = 2;
+    }
+
+    string id = 1;
+    string name_change = 2;
+    .rv.data.API_v1_Prop_Request.PutProp.AutoClearChange auto_clear_change = 3;
+  }
+
+  message DeleteProp {
+    string id = 1;
+  }
+
+  message TriggerProp {
+    string id = 1;
+  }
+
+  message ClearProp {
+    string id = 1;
+  }
+
+  message PauseProp {
+    string id = 1;
+  }
+
+  message ResumeProp {
+    string id = 1;
+  }
+
+  message GetThumbnail {
+    string id = 1;
+    int32 quality = 2;
+  }
+
+  message GetPropCollections {
+  }
+
+  message GetPropCollection {
+    string id = 1;
+  }
+
+  message PostPropCollections {
+    string name = 1;
+  }
+
+  message PutPropCollection {
+    string id = 1;
+    .rv.data.API_v1_PropCollection changes = 2;
+  }
+
+  message DeletePropCollection {
+    string id = 1;
+  }
+
+  oneof Request {
+    .rv.data.API_v1_Prop_Request.Props props = 1;
+    .rv.data.API_v1_Prop_Request.GetProp get_prop = 2;
+    .rv.data.API_v1_Prop_Request.PutProp put_prop = 3;
+    .rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 4;
+    .rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 5;
+    .rv.data.API_v1_Prop_Request.ClearProp clear_prop = 6;
+    .rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 7;
+    .rv.data.API_v1_Prop_Request.GetPropCollections get_prop_collections = 8;
+    .rv.data.API_v1_Prop_Request.GetPropCollection get_prop_collection = 9;
+    .rv.data.API_v1_Prop_Request.PostPropCollections post_prop_collections = 10;
+    .rv.data.API_v1_Prop_Request.PutPropCollection put_prop_collection = 11;
+    .rv.data.API_v1_Prop_Request.DeletePropCollection delete_prop_collection = 12;
+    .rv.data.API_v1_Prop_Request.PauseProp pause_prop = 13;
+    .rv.data.API_v1_Prop_Request.ResumeProp resume_prop = 14;
+  }
+}
+
+message API_v1_Prop_Response {
+  message Props {
+    repeated .rv.data.API_v1_PropData props = 1;
+  }
+
+  message GetProp {
+    .rv.data.API_v1_PropData prop = 1;
+  }
+
+  message PutProp {
+    .rv.data.API_v1_PropData prop = 1;
+  }
+
+  message DeleteProp {
+  }
+
+  message TriggerProp {
+  }
+
+  message ClearProp {
+  }
+
+  message PauseProp {
+  }
+
+  message ResumeProp {
+  }
+
+  message GetThumbnail {
+    bytes data = 1;
+  }
+
+  message GetPropCollections {
+    message Collections {
+      repeated .rv.data.API_v1_PropCollection collections = 1;
+    }
+
+    .rv.data.API_v1_Prop_Response.GetPropCollections.Collections prop_collections = 1;
+  }
+
+  message GetPropCollection {
+    .rv.data.API_v1_PropCollection prop_collection = 1;
+  }
+
+  message PostPropCollections {
+    .rv.data.API_v1_PropCollection prop_collection = 1;
+  }
+
+  message PutPropCollection {
+    .rv.data.API_v1_PropCollection prop_collection = 1;
+  }
+
+  message DeletePropCollection {
+  }
+
+  oneof Response {
+    .rv.data.API_v1_Prop_Response.Props props = 1;
+    .rv.data.API_v1_Prop_Response.GetProp get_prop = 2;
+    .rv.data.API_v1_Prop_Response.PutProp put_prop = 3;
+    .rv.data.API_v1_Prop_Response.DeleteProp delete_prop = 4;
+    .rv.data.API_v1_Prop_Response.TriggerProp trigger_prop = 5;
+    .rv.data.API_v1_Prop_Response.ClearProp clear_prop = 6;
+    .rv.data.API_v1_Prop_Response.GetThumbnail get_thumbnail = 7;
+    .rv.data.API_v1_Prop_Response.GetPropCollections get_prop_collections = 8;
+    .rv.data.API_v1_Prop_Response.GetPropCollection get_prop_collection = 9;
+    .rv.data.API_v1_Prop_Response.PostPropCollections post_prop_collections = 10;
+    .rv.data.API_v1_Prop_Response.PutPropCollection put_prop_collection = 11;
+    .rv.data.API_v1_Prop_Response.DeletePropCollection delete_prop_collection = 12;
+    .rv.data.API_v1_Prop_Response.PauseProp pause_prop = 13;
+    .rv.data.API_v1_Prop_Response.ResumeProp resume_prop = 14;
+  }
+}
+

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+enum AlphaType {
+  ALPHA_TYPE_UNKNOWN = 0;
+  ALPHA_TYPE_STRAIGHT = 1;
+  ALPHA_TYPE_PREMULTIPLIED = 2;
+}
+

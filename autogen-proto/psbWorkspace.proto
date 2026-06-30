@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "advertisementGroup.proto";
+import "digitalAudio.proto";
+import "input.proto";
+import "proscreen.proto";
+import "recording.proto";
+import "zone.proto";
+
+message ProScoreboardWorkspace {
+  repeated .rv.data.ProPresenterScreen pro_screens = 1;
+  repeated .rv.data.VideoInput videoInputs = 2;
+  .rv.data.Recording.SettingsDocument record_settings = 3;
+  .rv.data.DigitalAudio.Setup digital_audio_setup = 4;
+  repeated .rv.data.AudioInput audio_inputs = 5;
+  double audio_input_transition_time = 6;
+  repeated .rv.data.Zone zones = 7;
+  repeated .rv.data.AdvertisementGroup advertisements = 8;
+}
+

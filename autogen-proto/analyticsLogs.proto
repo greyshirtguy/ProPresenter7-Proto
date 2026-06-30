@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package rv.analytics.logs;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData.Analytics.Logs";
+option swift_prefix = "Analytics_Logs_";
+
+message LogError {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+}
+
+message LogWorkspacesPublished {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  repeated string workspace_identifiers = 2;
+}
+
+message LogCollaboratorsPublished {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  repeated string collaborator_names = 2;
+}
+
+message LogDocumentUploaded {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+}
+
+message LogDocumentDownloaded {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+}
+
+message LogDiffPushed {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+  .rv.analytics.logs.DiffMetadata diff_metadata = 4;
+  string from_version_vector = 5;
+}
+
+message LogDiffReceived {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 4;
+  string version_vector = 5;
+  .rv.analytics.logs.DiffApplicationResult import_result = 6;
+  .rv.analytics.logs.DiffMetadata diff_metadata = 7;
+}
+
+message LogConvertToCloud {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string workspace_identifier = 2;
+  string workspace_name = 3;
+}
+
+message LogOpenedWorkspace {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string workspace_identifier = 2;
+  string workspace_name = 3;
+  bool is_local = 4;
+}
+
+message LogConvertToLocal {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string workspace_identifier = 2;
+  string workspace_name = 3;
+}
+
+message LogSyncingChange {
+  .rv.analytics.logs.PauseState paused = 1;
+  bool online = 2;
+}
+
+message PauseState {
+  uint64 until_time_utc = 1;
+  uint64 paused_at_utc = 2;
+}
+
+message LogDocumentStored {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+  string version_vector = 4;
+}
+
+message LogDocumentCreated {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+}
+
+message LogDocumentRequested {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+}
+
+message LogDocumentUpdated {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string previous_document_name = 3;
+  string updated_document_name = 4;
+}
+
+message LogDocumentDeleted {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+}
+
+message LogDocumentConflict {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  string document_identifier = 2;
+  string document_name = 3;
+  .rv.analytics.logs.Field field = 4;
+  .rv.analytics.logs.ConflictType conflict_type = 5;
+}
+
+message LogWorkspaceResynchronized {
+  .rv.analytics.logs.LogMetadata metadata = 1;
+  .rv.analytics.logs.ResyncCause cause = 2;
+}
+
+message DiffMetadata {
+  uint32 change_num = 1;
+  string partial_start_vv = 2;
+  string partial_end_vv = 3;
+}
+
+message LogMetadata {
+  string peer_id = 1;
+  string log_message = 2;
+  string workspace_identifier = 3;
+  .rv.analytics.logs.LogSource log_source = 4;
+}
+
+enum Field {
+  ID = 0;
+  NAME = 1;
+  PATH = 2;
+}
+
+enum ConflictType {
+  DUPLICATE_ID = 0;
+  DUPLICATE_NAME = 1;
+  DUPLICATE_PATH = 2;
+  DOCUMENT_NOT_FOUND = 3;
+  DOCUMENT_ALREADY_DELETED = 4;
+  CONCURRENT_MODIFICATION = 5;
+}
+
+enum ResyncCause {
+  WORKSPACE = 0;
+  SYNC = 1;
+}
+
+enum DiffApplicationResult {
+  SUCCESS = 0;
+  FAILURE = 1;
+  AWAITING_OTHER_CHANGES = 2;
+}
+
+enum LogSource {
+  CLIENT = 0;
+  CORE = 1;
+}
+
