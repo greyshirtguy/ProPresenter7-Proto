@@ -1,5 +1,7 @@
 # ProPresenter7-Proto
 
+What to write code that can read and write ProPresenter 7 data and configuration files?
+
 This is a set of ***unoffical and unsupported*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are encoded as Google Protocol Buffers.
 
 
