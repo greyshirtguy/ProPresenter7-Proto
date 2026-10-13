@@ -1,9 +1,9 @@
 # ProPresenter7-Proto
 
-What to write code that can read and write ProPresenter 7 data and configuration files?
+Do you want to write code that can read and write ProPresenter 7 data and configuration files?
 
 This is a set of ***unoffical and unsupported*** .proto files that define the messages (data structures) used in the ProPresenter 7 files that are encoded as Google Protocol Buffers.
-
+Use them to (with protoc) to easily generate the code you need to handle all ProPresenter file reads/writes.
 
 ## Latest Version
 The "autogen-proto" will contain the latest .proto's from the most current version of ProPresenter.
