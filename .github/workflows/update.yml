@@ -20,7 +20,7 @@ jobs:
       - name: Check ProPresenter version
         id: version
         run: |
-          AVAILABLE=$(brew info --cask propresenter --json=v2 | jq -r '.casks[0].version')
+          AVAILABLE=$(curl -fsSL https://formulae.brew.sh/api/cask/propresenter.json | jq -r .version)
           echo "available=$AVAILABLE" >> "$GITHUB_OUTPUT"
 
           STORED="none"
